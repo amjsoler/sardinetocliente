@@ -1,5 +1,5 @@
-import { useUserStore } from '@/stores/user';
-import { useValidationStore } from '@/stores/validation';
+import { useUserStore } from '@/stores/user'
+import { useValidationStore } from '@/stores/validation'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -11,7 +11,7 @@ const router = createRouter({
       component: () => import('@/views/authentication/LoginUser.vue'),
       meta: {
         requiresGuest: true
-      },
+      }
     },
     {
       path: '/register',
@@ -19,7 +19,7 @@ const router = createRouter({
       component: () => import('@/views/authentication/RegisterUser.vue'),
       meta: {
         requiresGuest: true
-      },
+      }
     },
     {
       path: '/account-recovery',
@@ -32,15 +32,15 @@ const router = createRouter({
       component: () => import('@/views/gym/MyGyms.vue'),
       meta: {
         requiresAuth: true
-      },
+      }
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  const validationStore = useValidationStore();
+  const validationStore = useValidationStore()
   console.log(validationStore.message)
-  //Vacío el global state de validaciones
+  //Vacï¿½o el global state de validaciones
   //store.dispatch("vaciarValidacionesAction");
 
   //Cierro modales que puedan quedar abiertos
@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
     store.dispatch("almacenarFirebaseTokenAction", to.query.firebasetoken);
   }*/
 
-  //Comprobamos si la ruta de destino precisa autenticación
+  //Comprobamos si la ruta de destino precisa autenticaciï¿½n
   /* if (to.matched.some((record) => record.meta.requiresAuth)) {
     //const userStore = useUserStore();
 
@@ -62,44 +62,44 @@ router.beforeEach((to, from, next) => {
     //Primero sincronizo tokens
     sincronizarTokens();
 
-    //Si el token de store y el token de localstorage están establecidos continuo la redirección
+    //Si el token de store y el token de localstorage estï¿½n establecidos continuo la redirecciï¿½n
     if (store.state.tokenAuth && window.localStorage.getItem("tokenAuth") &&
         store.state.tokenAuth === window.localStorage.getItem("tokenAuth")) {
       console.log("router/index.js: Tenemos token en state y storage por tanto dejo continuar");
       next();
     } else {
-      console.log("router/index.js: No había token, redirijo al login");
-      //Si ninguna de las dos fuentes tiene el token, redirijo al inicio de sesión
+      console.log("router/index.js: No habï¿½a token, redirijo al login");
+      //Si ninguna de las dos fuentes tiene el token, redirijo al inicio de sesiï¿½n
       next({name: "IniciarSesion"});
     }
   } else {
     //Compruebo si la ruta precisa acceder como invitado
     if (to.matched.some((record) => record.meta.requiresGuest)) {
       console.log("router/index.js: Redirect con requiresGuest...");
-      //Si ninguna de las dos fuentes tiene el token, estoy como invitado, así que prosigo
+      //Si ninguna de las dos fuentes tiene el token, estoy como invitado, asï¿½ que prosigo
       if (!store.state.tokenAuth && !window.localStorage.getItem("tokenAuth")) {
-        console.log("router/index.js: No hay toquen en ningún sitio, dejo continuar porque es invitado.");
+        console.log("router/index.js: No hay toquen en ningï¿½n sitio, dejo continuar porque es invitado.");
         next();
       } else {
         sincronizarTokens();
-        console.log("router/index.js: He encontrado algún token, redirijo al perfil");
+        console.log("router/index.js: He encontrado algï¿½n token, redirijo al perfil");
         //Si no, redirijo a la cuenta de usuario
         next({name: "MisDecimos"});
       }
     } else {
       sincronizarTokens();
-      console.log("router/index.js: La ruta destino no tiene ningún guard, dejo continuar");
+      console.log("router/index.js: La ruta destino no tiene ningï¿½n guard, dejo continuar");
       next();
     }
   } */
-  next();
-});
+  next()
+})
 
 /*
 function sincronizarTokens(){
   if (store.state.tokenAuth && window.localStorage.getItem("tokenAuth")) {
     if (store.state.tokenAuth !== window.localStorage.getItem("tokenAuth")) {
-      //Si hay token en las dos fuentes pero son distintos, significa que se han desincronizado por alguna razón, los borro y redirijo a login
+      //Si hay token en las dos fuentes pero son distintos, significa que se han desincronizado por alguna razï¿½n, los borro y redirijo a login
       store.dispatch("cerrarSesionAction");
     }
   }else{

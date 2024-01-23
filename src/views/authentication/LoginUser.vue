@@ -1,11 +1,7 @@
-<template>
-    Login user
-
-</template>
+<template>Login user</template>
 
 <script>
 export default {
-    name: "LoginUser",
-
+  name: 'LoginUser'
 }
 </script>

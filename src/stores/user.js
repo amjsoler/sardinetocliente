@@ -7,7 +7,7 @@ export const useUserStore = defineStore('user', {
 
   actions: {
     registrarUsuarioOk(payload) {
-      this.user = payload;
+      this.user = payload
     }
   }
 })
