@@ -3,10 +3,10 @@
 
   <ul class="mt-28 fixed bottom-0">
     <li>
-      <router-link :to='{name: "login"}'>Login de usuario</router-link>
+      <router-link :to='{name: "LoginUser"}'>Login de usuario</router-link>
     </li>
     <li>
-      <router-link :to='{name: "register"}'>Registro de usuario</router-link>
+      <router-link :to='{name: "RegisterUser"}'>Registro de usuario</router-link>
     </li>
   </ul>
   

@@ -1,3 +1,5 @@
+import { useUserStore } from '@/stores/user';
+import { useValidationStore } from '@/stores/validation';
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -5,18 +7,39 @@ const router = createRouter({
   routes: [
     {
       path: '/login',
-      name: 'login',
-      component: () => import('../views/authentication/LoginUser.vue'),
+      name: 'LoginUser',
+      component: () => import('@/views/authentication/LoginUser.vue'),
+      meta: {
+        requiresGuest: true
+      },
     },
     {
       path: '/register',
-      name: 'register',
-      component: () => import('../views/authentication/RegisterUser.vue')
+      name: 'RegisterUser',
+      component: () => import('@/views/authentication/RegisterUser.vue'),
+      meta: {
+        requiresGuest: true
+      },
+    },
+    {
+      path: '/account-recovery',
+      name: 'AccountRecovery',
+      component: () => import('@/views/authentication/AccountRecovery.vue')
+    },
+    {
+      path: '/my-gyms',
+      name: 'MyGyms',
+      component: () => import('@/views/gym/MyGyms.vue'),
+      meta: {
+        requiresAuth: true
+      },
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
+  const validationStore = useValidationStore();
+  console.log(validationStore.message)
   //Vacío el global state de validaciones
   //store.dispatch("vaciarValidacionesAction");
 
@@ -26,17 +49,15 @@ router.beforeEach((to, from, next) => {
   //Veo si recibo el firebasetoken y lo almaceno
   /*if(to.query.firebasetoken && (!store.state.firebasetoken || store.state.firebasetoken != to.query.firebasetoken)){
     store.dispatch("almacenarFirebaseTokenAction", to.query.firebasetoken);
-  }
+  }*/
 
   //Comprobamos si la ruta de destino precisa autenticación
-  meta: {
-        requiresAuth: true
-      },
-      meta: {
-        requiresGuest: true
-      },
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    console.log("router/index.js: Redirect con requiresAuth...");
+  /* if (to.matched.some((record) => record.meta.requiresAuth)) {
+    //const userStore = useUserStore();
+
+    //console.log("HOLI"  + userStore.user.id);
+
+    console.log("router/index.js: requiresAuth detected. Checking...");
 
     //Primero sincronizo tokens
     sincronizarTokens();
@@ -70,7 +91,7 @@ router.beforeEach((to, from, next) => {
       console.log("router/index.js: La ruta destino no tiene ningún guard, dejo continuar");
       next();
     }
-  }*/
+  } */
   next();
 });
 
