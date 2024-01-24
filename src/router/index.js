@@ -1,5 +1,6 @@
 import { useValidationStore } from '@/stores/validation'
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,10 +42,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const validationStore = useValidationStore()
-  console.log(validationStore.message)
-  //Vac�o el global state de validaciones
-  //store.dispatch("vaciarValidacionesAction");
+  //Vacío el store de validaciones
+  const validationStore = useValidationStore();
+  validationStore.$state.value = {}
 
   //Cierro modales que puedan quedar abiertos
   //globalHelpers.cerrarTodosLosModalesAbiertos();
@@ -54,66 +54,36 @@ router.beforeEach((to, from, next) => {
     store.dispatch("almacenarFirebaseTokenAction", to.query.firebasetoken);
   }*/
 
-  //Comprobamos si la ruta de destino precisa autenticaci�n
-  /* if (to.matched.some((record) => record.meta.requiresAuth)) {
-    //const userStore = useUserStore();
+  //Comprobamos si la ruta de destino precisa autenticación
+   if (to.matched.some((record) => record.meta.requiresAuth)) {
+     console.log("router/index.js: requiresAuth detected. Checking...");
+    const userStore = useUserStore()
 
-    //console.log("HOLI"  + userStore.user.id);
+    //Compruebo si hay token en el user, si lo hay dejo seguir, si no, redirijo al login
+     console.log(userStore.user.access_token)
+     if(userStore.user && userStore.user.access_token){
+       next()
+     }else{
+       next({name: "LoginUser"});
+     }
+  }
 
-    console.log("router/index.js: requiresAuth detected. Checking...");
+  else if (to.matched.some((record) => record.meta.requiresGuest)) {
+    console.log("router/index.js: Redirect con requiresGuest...");
 
-    //Primero sincronizo tokens
-    sincronizarTokens();
-
-    //Si el token de store y el token de localstorage est�n establecidos continuo la redirecci�n
-    if (store.state.tokenAuth && window.localStorage.getItem("tokenAuth") &&
-        store.state.tokenAuth === window.localStorage.getItem("tokenAuth")) {
-      console.log("router/index.js: Tenemos token en state y storage por tanto dejo continuar");
-      next();
-    } else {
-      console.log("router/index.js: No hab�a token, redirijo al login");
-      //Si ninguna de las dos fuentes tiene el token, redirijo al inicio de sesi�n
-      next({name: "IniciarSesion"});
-    }
-  } else {
-    //Compruebo si la ruta precisa acceder como invitado
-    if (to.matched.some((record) => record.meta.requiresGuest)) {
-      console.log("router/index.js: Redirect con requiresGuest...");
-      //Si ninguna de las dos fuentes tiene el token, estoy como invitado, as� que prosigo
-      if (!store.state.tokenAuth && !window.localStorage.getItem("tokenAuth")) {
-        console.log("router/index.js: No hay toquen en ning�n sitio, dejo continuar porque es invitado.");
-        next();
-      } else {
-        sincronizarTokens();
-        console.log("router/index.js: He encontrado alg�n token, redirijo al perfil");
-        //Si no, redirijo a la cuenta de usuario
-        next({name: "MisDecimos"});
-      }
-    } else {
-      sincronizarTokens();
-      console.log("router/index.js: La ruta destino no tiene ning�n guard, dejo continuar");
-      next();
-    }
-  } */
-  next()
-})
-
-/*
-function sincronizarTokens(){
-  if (store.state.tokenAuth && window.localStorage.getItem("tokenAuth")) {
-    if (store.state.tokenAuth !== window.localStorage.getItem("tokenAuth")) {
-      //Si hay token en las dos fuentes pero son distintos, significa que se han desincronizado por alguna raz�n, los borro y redirijo a login
-      store.dispatch("cerrarSesionAction");
-    }
-  }else{
-    if(store.state.tokenAuth){
-      store.dispatch("almacenarTokenSesionAction", store.state.tokenAuth);
+    const userStore = useUserStore()
+console.log(userStore.user)
+    if(!userStore.user || !userStore.user.access_token){
+      console.log("Entro al if")
+      next()
     }else{
-      if (window.localStorage.getItem("tokenAuth")) {
-        store.dispatch("almacenarTokenSesionAction", window.localStorage.getItem("tokenAuth"));
-      }
+      next({name: "MyGyms"})
     }
   }
-}*/
+
+  else{
+    next()
+   }
+})
 
 export default router

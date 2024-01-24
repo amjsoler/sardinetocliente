@@ -75,7 +75,6 @@ axios.interceptors.response.use(
     return response
   },
   (error) => {
-    console.log("REJECT")
     /* if(error.response.status === 401){
         console.log("main.js: Response error captured: 401. Eliminando token de storage y state y redirigiendo a login");
         store.dispatch("cerrarSesionAction");

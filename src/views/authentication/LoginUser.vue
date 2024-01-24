@@ -78,9 +78,6 @@ export default {
       user:"user"
     })
   },
-mounted() {
-    useUserStore().$patch({invent:12, access_token:"penedetoro"})
-},
   methods: {
     iniciarSesion(){
       axios.post(import.meta.env.VITE_SERVICE_BASE_URL+'iniciar-sesion', this.nuevoUsuario)
