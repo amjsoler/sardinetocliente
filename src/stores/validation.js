@@ -6,10 +6,5 @@ export const useValidationStore = defineStore('validation', {
       message: '',
       errors: []
     }
-  },
-  getters: {
-    getMessage() {
-      return this.message
-    }
   }
 })

@@ -72,11 +72,10 @@ axios.interceptors.response.use(
       validationStore.message = ""
     }
 
-    // TODO store.dispatch("procesandoAction", false);
-
     return response
   },
   (error) => {
+    console.log("REJECT")
     /* if(error.response.status === 401){
         console.log("main.js: Response error captured: 401. Eliminando token de storage y state y redirigiendo a login");
         store.dispatch("cerrarSesionAction");
@@ -106,12 +105,6 @@ axios.interceptors.response.use(
         validationStore.message = error.response.data.message
         validationStore.errors = error.response.data.errors
       }
-    }
-    else if(error.response.status === 462)
-    {
-      console.log('main.js: Response error captured: 462')
-      validationStore.message = i18n.t("LoginUser.form.incorrectpassword")
-      validationStore.errors = { password: [i18n.t("LoginUser.form.incorrectpassword") ] }
     }
     /* else if(error.response.status === 460){
         console.log("main.js: Response error captured: 460. Cuenta no verificada, redirijo a la vista de verificaci�n");

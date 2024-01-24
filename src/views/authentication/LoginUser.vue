@@ -45,6 +45,7 @@
 import axios from "axios"
 import { useValidationStore } from '@/stores/validation'
 import { useUserStore } from '@/stores/user'
+import {mapWritableState} from 'pinia'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
 import SmallError from '@/components/forms/SmallError.vue'
 import ContainerVAlignWithBrandHead from '@/components/containers/ContainerVAlignWithBrandHead.vue'
@@ -53,7 +54,7 @@ import FormGroup from '@/components/forms/FormGroup.vue'
 import PasswordInput from '@/components/forms/inputs/PasswordInput.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
 import LinkStandard from '@/components/general/LinkStandard.vue'
-import { mapState } from 'pinia'
+import router from '@/router/index.js'
 
 export default {
   name: 'LoginUser',
@@ -69,28 +70,33 @@ export default {
   },
 
   computed: {
-    ...mapState(useValidationStore, {
+    ...mapWritableState(useValidationStore, {
       message:"message",
       errors:"errors"
     }),
-    ...mapState(useUserStore, {
+    ...mapWritableState(useUserStore, {
       user:"user"
     })
   },
-
+mounted() {
+    useUserStore().$patch({invent:12, access_token:"penedetoro"})
+},
   methods: {
     iniciarSesion(){
-      //TODO: Manejar el error 462, la contraseña no es correcta
-
       axios.post(import.meta.env.VITE_SERVICE_BASE_URL+'iniciar-sesion', this.nuevoUsuario)
       .then((response) => {
-        const userStore = useUserStore()
-        userStore.$patch(response.data)
+        //Actualizo los datos de usuario
+        useUserStore().$patch(response.data)
 
-        //TODO redirigir a la vista principal de mis gimnasios
+        router.push({name: "MyGyms"})
       })
+        .catch((error) => {
+          if(error.response.status === 462){
+              this.message = this.$t("LoginUser.form.incorrectpassword")
+              this.errors = {password: [this.$t("LoginUser.form.incorrectpassword")]}
+          }
+        })
     }
   }
-
 }
 </script>

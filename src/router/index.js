@@ -25,6 +25,10 @@ const router = createRouter({
       name: 'AccountRecovery',
       component: () => import('@/views/authentication/AccountRecovery.vue')
     },
+
+    ///
+    //GYms
+    ///
     {
       path: '/my-gyms',
       name: 'MyGyms',
