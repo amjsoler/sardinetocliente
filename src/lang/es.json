@@ -1,0 +1,15 @@
+{
+  "APP_TITLE": "Sardineto",
+
+  "LoginUser": {
+    "title": "Inicia sesión",
+    "form": {
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "btnsubmit": "Iniciar sesión",
+      "noaccount": "¿No tienes cuenta?",
+      "registerlink": "Regístrate",
+      "passrememberlink": "¿No recuerdas la contraseña?"
+    }
+  }
+}

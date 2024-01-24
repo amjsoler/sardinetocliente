@@ -3,14 +3,28 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import axios from 'axios'
+import { createI18n } from 'vue-i18n'
 
 import { useValidationStore } from './stores/validation'
 
 import App from './App.vue'
 import router from './router'
-
 const app = createApp(App)
 
+import filees from './lang/es.json';
+import fileen from './lang/en.json';
+
+const messages = {
+  en: fileen,
+  es: filees
+}
+const i18n = createI18n({
+  locale: 'es', // set locale
+  fallbackLocale: 'es', // set fallback locale
+  messages, // set locale messages
+})
+
+app.use(i18n);
 app.use(createPinia())
 app.use(router)
 
