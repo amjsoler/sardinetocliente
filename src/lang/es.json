@@ -9,7 +9,8 @@
       "btnsubmit": "Iniciar sesión",
       "noaccount": "¿No tienes cuenta?",
       "registerlink": "Regístrate",
-      "passrememberlink": "¿No recuerdas la contraseña?"
+      "passrememberlink": "¿No recuerdas la contraseña?",
+      "incorrectpassword": "La contraseña no es correcta"
     }
   }
 }

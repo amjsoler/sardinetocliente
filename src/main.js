@@ -3,7 +3,6 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import axios from 'axios'
-import { createI18n } from 'vue-i18n'
 
 import { useValidationStore } from './stores/validation'
 
@@ -13,6 +12,7 @@ const app = createApp(App)
 
 import filees from './lang/es.json';
 import fileen from './lang/en.json';
+import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: fileen,
@@ -65,10 +65,11 @@ Si recibo un c�digo 460, significa que la cuenta del usuario no est� verific
 axios.interceptors.response.use(
   (response) => {
     if (response.status === 200) {
-      //Si recibo 200, borro el array de errores y mensaje para que no afecte a las p�ginas
-      console.log('main.js: Response captured: 200. Borrando el global state error y message...')
+      //Si recibo 200, borro el array de errores y mensaje para que no afecte a las páginas
+      console.log('main.js: Response captured: 200')
 
-      //TODO store.dispatch("vaciarValidacionesAction");
+      validationStore.errors = []
+      validationStore.message = ""
     }
 
     // TODO store.dispatch("procesandoAction", false);
@@ -95,7 +96,7 @@ axios.interceptors.response.use(
     }
  */
     if (error.response.status === 422) {
-      console.log('main.js: Response error captured: 422. Set de state errors y message')
+      console.log('main.js: Response error captured: 422')
       if (
         error.response &&
         error.response.data &&
@@ -105,6 +106,12 @@ axios.interceptors.response.use(
         validationStore.message = error.response.data.message
         validationStore.errors = error.response.data.errors
       }
+    }
+    else if(error.response.status === 462)
+    {
+      console.log('main.js: Response error captured: 462')
+      validationStore.message = i18n.t("LoginUser.form.incorrectpassword")
+      validationStore.errors = { password: [i18n.t("LoginUser.form.incorrectpassword") ] }
     }
     /* else if(error.response.status === 460){
         console.log("main.js: Response error captured: 460. Cuenta no verificada, redirijo a la vista de verificaci�n");

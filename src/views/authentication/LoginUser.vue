@@ -80,19 +80,14 @@ export default {
 
   methods: {
     iniciarSesion(){
-      //TODO: Variable de entorno para la url
-      //TODO: Vaciar validación cuando sea 200 ok
-      //TODO: Almacenar/actualizar el usuario en el store
-      //TODO: Almacenar el user en el localstorage
+      //TODO: Manejar el error 462, la contraseña no es correcta
 
-      axios.post("http://192.167.1.107:8765/api/iniciar-sesion", this.nuevoUsuario)
+      axios.post(import.meta.env.VITE_SERVICE_BASE_URL+'iniciar-sesion', this.nuevoUsuario)
       .then((response) => {
         const userStore = useUserStore()
         userStore.$patch(response.data)
 
-      })
-      .catch((error) => {
-        console.log(error)
+        //TODO redirigir a la vista principal de mis gimnasios
       })
     }
   }

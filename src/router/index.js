@@ -1,4 +1,3 @@
-import { useUserStore } from '@/stores/user'
 import { useValidationStore } from '@/stores/validation'
 import { createRouter, createWebHistory } from 'vue-router'
 
