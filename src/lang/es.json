@@ -1,6 +1,9 @@
 {
   "APP_TITLE": "Sardineto",
 
+  "alerts": {
+    "registerok": "Tu cuenta se ha creado correctamente. Por favor, omprueba tu correo y verifica la cuenta"
+  },
   "LoginUser": {
     "title": "Inicia sesión",
     "form": {
@@ -12,5 +15,30 @@
       "passrememberlink": "¿No recuerdas la contraseña?",
       "incorrectpassword": "La contraseña no es correcta"
     }
+  },
+  "RegisterUser": {
+    "title": "Regístrate",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "password_confirmation": "Repite la contraseña",
+      "buttonSubmit": "Crea tu cuenta"
+    }
+  },
+  "accountVerify": {
+    "title": "Verifica tu cuenta",
+    "accountVerifyMsg": "Tu cuenta todavía no está verificada",
+    "accountVerifyMsg2": "Revisa tu buzón de correo electrónico",
+    "resendEmailMsg": "¿No encuentras el correo?",
+    "resendEmailBtn": "Reenviar correo",
+    "verifyMailSent": "Correo enviado. Revisa tu bandeja de entrada"
+  },
+  "accountRecovery": {
+    "title": "Recupera tu cuenta",
+    "accountRecoverMsg": "Te enviaremos un correo electrónico para que puedas restablecer la contraseña de tu cuenta",
+    "emailLabel": "Correo electrónico",
+    "sendMailBtnSubmit": "Enviar correo",
+    "emailSent": "Correo enviado. Sigue los pasos que encontrarás en él"
   }
 }

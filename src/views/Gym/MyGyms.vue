@@ -14,8 +14,9 @@ export default {
     })
   },
   mounted() {
-    console.log("Entrando  a mygyms")
-    console.log(this.user.access_token)
+    //TODO Peticionar gimnasios del usuario
+    //TODO Botón para añadir nuevo gimnasio
+    //TODO
   }
 }
 </script>

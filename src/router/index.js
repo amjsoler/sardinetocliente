@@ -2,13 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useValidationStore } from '@/stores/validation.js'
 import { useUserStore } from '@/stores/user.js'
 
+import AccountVerify from '@/views/authentication/AccountVerify.vue'
+import AccountRecovery from '@/views/authentication/AccountRecovery.vue'
+import RegisterUser from '@/views/authentication/RegisterUser.vue'
+import LoginUser from '@/views/authentication/LoginUser.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/login',
       name: 'LoginUser',
-      component: () => import('@/views/authentication/LoginUser.vue'),
+      component: LoginUser,
       meta: {
         requiresGuest: true
       }
@@ -16,7 +21,7 @@ const router = createRouter({
     {
       path: '/register',
       name: 'RegisterUser',
-      component: () => import('@/views/authentication/RegisterUser.vue'),
+      component: RegisterUser,
       meta: {
         requiresGuest: true
       }
@@ -24,7 +29,15 @@ const router = createRouter({
     {
       path: '/account-recovery',
       name: 'AccountRecovery',
-      component: () => import('@/views/authentication/AccountRecovery.vue')
+      component: AccountRecovery
+    },
+    {
+      path: '/account-verify',
+      name: 'AccountVerify',
+      component: AccountVerify,
+      meta: {
+        requiresAuth: true
+      }
     },
 
     ///

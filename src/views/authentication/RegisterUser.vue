@@ -1,79 +1,75 @@
 <template>
-  <section>
-    <h3>Registro de usuario</h3>
+  <container-v-align-with-brand-head>
+    <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+      {{$t("RegisterUser.title")}}
+    </h1>
+    <form class="space-y-5 md:space-y-6">
+      <form-group>
+        <span-label>{{$t("RegisterUser.form.name")}}</span-label>
+        <email-input v-model="newUser.name" />
+        <small-error v-if="errors.name">
+          {{ errors.name[0] }}
+        </small-error>
+      </form-group>
 
-    <form class="max-w-sm mx-auto">
-      <div class="mb-5">
-        <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Nombre</label
-        >
-        <input
-          type="nombre"
-          id="nombre"
-          v-model="newUser.name"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-        <small v-show="validationStore.errors.name" class="text-red-700">asfdasdf</small>
-      </div>
-      <div class="mb-5">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Correo electrónico</label
-        >
-        <input
-          type="email"
-          id="email"
-          v-model="newUser.email"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Contraseña</label
-        >
-        <input
-          type="password"
-          id="password"
-          v-model="newUser.password"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label for="passwordr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Repite la contraseña</label
-        >
-        <input
-          type="password"
-          id="passwordr"
-          v-model="newUser.password_confirmation"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <button
-        type="submit"
-        @click.prevent="registrarUsuario"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Submit
-      </button>
+      <form-group>
+        <span-label>{{$t("RegisterUser.form.email")}}</span-label>
+        <email-input v-model="newUser.email" />
+        <small-error v-if="errors.email">
+          {{ errors.email[0] }}
+        </small-error>
+      </form-group>
+
+      <form-group>
+        <span-label>{{$t("RegisterUser.form.password")}}</span-label>
+        <password-input v-model="newUser.password" />
+        <small-error v-if="errors.password">
+          {{ errors.password[0] }}
+        </small-error>
+      </form-group>
+
+      <form-group>
+        <span-label>{{$t("RegisterUser.form.password_confirmation")}}</span-label>
+        <password-input v-model="newUser.password_confirmation" />
+        <small-error v-if="errors.password_confirmation">
+          {{ errors.password_confirmation[0] }}
+        </small-error>
+      </form-group>
+
+      <button-submit @button-submit="registrarUsuario">
+        {{$t("RegisterUser.form.buttonSubmit")}}
+      </button-submit>
+
     </form>
-  </section>
+  </container-v-align-with-brand-head>
 </template>
 
 <script>
-//TODO:
-/* 
-  - Errores de validation
-  - Estilos de formulario
-  - implementar dark y light mode a la vez
-  - implementar subscriber para almacenar datos en local storage
-*/
+
 import axios from 'axios'
-import { useValidationStore } from '@/stores/validation'
-import { useUserStore } from '@/stores/user'
-import { mapActions, mapStores } from 'pinia'
+import SpanLabel from '@/components/forms/SpanLabel.vue'
+import ContainerVAlignWithBrandHead from '@/components/containers/ContainerVAlignWithBrandHead.vue'
+import PasswordInput from '@/components/forms/inputs/PasswordInput.vue'
+import SmallError from '@/components/forms/SmallError.vue'
+import FormGroup from '@/components/forms/FormGroup.vue'
+import EmailInput from '@/components/forms/inputs/EmailInput.vue'
+import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
+import { mapState, mapWritableState } from 'pinia'
+import { useValidationStore } from '@/stores/validation.js'
+import { useUserStore } from '@/stores/user.js'
+import router from '@/router/index.js'
 
 export default {
   name: 'RegisterUser',
+  components: {
+    ButtonSubmit,
+    EmailInput,
+    FormGroup,
+    SmallError,
+    PasswordInput,
+    ContainerVAlignWithBrandHead,
+    SpanLabel
+  },
 
   data() {
     return {
@@ -87,23 +83,28 @@ export default {
   },
 
   computed: {
-    ...mapStores(useValidationStore)
+    ...mapState(useValidationStore, {
+      message:"message",
+      errors:"errors"
+    }),
+    ...mapWritableState(useUserStore, {
+      user:"user"
+    })
   },
+
   methods: {
-    ...mapActions(useUserStore, ['registrarUsuarioOk']),
-
     registrarUsuario() {
-      //TODO Externalizar la URL del servicio en una variable de entorno
       axios
-        .post('http://192.167.1.112:8765/api/registrarse', this.newUser)
+        .post(import.meta.env.VITE_SERVICE_BASE_URL+'registrarse', this.newUser)
         .then((response) => {
-          this.registrarUsuarioOk(response.data)
+          useUserStore().$patch({user: response.data})
 
-          //TODO Redirijo a otra ruta después de la acción
-          //TODO vaciar las validaciones para que no interferencie con la siguiente petición
-          //TODO Muestro un alert informándo del resultado de la operación
+          //TODO Muestro un alert informando del resultado de la operación
+          console.log(this.$t("alerts.registerok"))
+
+          //Redirijo a la ruta de verificación de cuenta tras el registro
+          router.push({name: "AccountVerify"})
         })
-        .catch(() => {})
     }
   }
 }

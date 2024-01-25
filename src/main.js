@@ -13,6 +13,7 @@ const app = createApp(App)
 import filees from './lang/es.json';
 import fileen from './lang/en.json';
 import { createI18n } from 'vue-i18n'
+import { useUserStore } from '@/stores/user.js'
 
 const messages = {
   en: fileen,
@@ -30,21 +31,22 @@ app.use(router)
 
 const validationStore = useValidationStore()
 
-//TODO
-/*
+//Si disponemos de token en el user store, lo metemos en cada request para poder hacer las acciones con autenticación
 axios.interceptors.request.use(function(config){
-    if(store.state.tokenAuth){
-        config.headers.Authorization = "Bearer " + store.state.tokenAuth;
+  const userStore = useUserStore();
+    if(userStore.user && userStore.user.access_token){
+        config.headers.Authorization = "Bearer " + userStore.user.access_token
     }
 
-    if(store.state.firebaseToken){
+    //TODO
+    /*if(store.state.firebaseToken){
         config.headers.firebasetoken = store.state.firebaseToken
-    }
+    }*/
 
     return config;
 }, function(error){
     return Promise.reject(error)
-}); */
+});
 
 /*Cosas a comprobar en todas las respuestas:
 Si el server responde 200, borro/reseteo el array de errores de validaci�n y el mensaje para que en el formulario al que voy
@@ -105,12 +107,11 @@ axios.interceptors.response.use(
         validationStore.errors = error.response.data.errors
       }
     }
-    /* else if(error.response.status === 460){
-        console.log("main.js: Response error captured: 460. Cuenta no verificada, redirijo a la vista de verificaci�n");
-
-        router.push({name:"VerificarCuenta"});
+    else if(error.response.status === 460){
+        console.log("main.js: Response error captured: 460. Cuenta no verificada, redirijo a la vista de verificación");
+        router.push({name:"AccountVerify"});
     }
-    else if(error.response.status === 404){
+    /*else if(error.response.status === 404){
         console.log("main.js: Response error captured: 404. Recurso no encontrado. Muestro la vista 404");
 
         router.push({name:"NotFoundResource"});
