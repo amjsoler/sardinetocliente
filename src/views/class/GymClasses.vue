@@ -1,5 +1,5 @@
 <template>
-
+  <gym-header></gym-header>
   <container-v-align-no-background>
     <h2 class="text-center">Clases disponibles</h2>
       <!--TODO tOGGLE PARA ELEGIR ENTRE CLASES DE HOY Y DE TODA LA SEMANA -->
@@ -17,10 +17,11 @@ import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
 import { mapState } from 'pinia'
 import ContainerVAlignNoBackground from '@/components/containers/ContainerVAlignNoBackground.vue'
+import GymHeader from '@/components/GymHeader.vue'
 
 export default {
   name: "GymClasses",
-  components: { ContainerVAlignNoBackground },
+  components: { GymHeader, ContainerVAlignNoBackground },
 
   computed: {
     ...mapState(useGymStore, {

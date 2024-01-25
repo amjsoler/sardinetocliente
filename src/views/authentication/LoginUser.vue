@@ -1,43 +1,46 @@
 <template>
-  <container-v-align-with-brand-head>
-    <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-      {{$t("LoginUser.title")}}
-    </h1>
-    <form class="space-y-5 md:space-y-6">
-      <form-group>
-        <span-label>{{$t("LoginUser.form.email")}}</span-label>
-        <email-input v-model="nuevoUsuario.email" />
-        <small-error v-if="errors.email">
-          {{ errors.email[0] }}
-        </small-error>
-      </form-group>
+  <video class="min-h-full min-w-full absolute z-[-1] object-cover grayscale brightness-50" loop muted autoplay height="100%" src="@/assets/video/videointro.mp4" type="video/mp4"></video>
+  <div-v-align>
+    <container-with-brand-head blur="true">
+      <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+        {{$t("LoginUser.title")}}
+      </h1>
+      <form class="space-y-5 md:space-y-6">
+        <form-group>
+          <span-label>{{$t("LoginUser.form.email")}}</span-label>
+          <email-input v-model="nuevoUsuario.email" />
+          <small-error v-if="errors.email">
+            {{ errors.email[0] }}
+          </small-error>
+        </form-group>
 
-      <form-group>
-        <span-label>{{$t("LoginUser.form.password")}}</span-label>
-        <password-input v-model="nuevoUsuario.password" />
-        <small-error v-if="errors.password">
-          {{ errors.password[0] }}
-        </small-error>
-      </form-group>
+        <form-group>
+          <span-label>{{$t("LoginUser.form.password")}}</span-label>
+          <password-input v-model="nuevoUsuario.password" />
+          <small-error v-if="errors.password">
+            {{ errors.password[0] }}
+          </small-error>
+        </form-group>
 
-      <button-submit @button-submit="iniciarSesion">
-        {{$t("LoginUser.form.btnsubmit")}}
-      </button-submit>
+        <button-submit @button-submit="iniciarSesion">
+          {{$t("LoginUser.form.btnsubmit")}}
+        </button-submit>
 
-      <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-        {{ $t("LoginUser.form.noaccount") }}
-        <link-standard :destination="{name: 'RegisterUser'}">
-          {{ $t("LoginUser.form.registerlink") }}
-        </link-standard>
-      </p>
+        <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
+          {{ $t("LoginUser.form.noaccount") }}
+          <link-standard :destination="{name: 'RegisterUser'}">
+            {{ $t("LoginUser.form.registerlink") }}
+          </link-standard>
+        </p>
 
-      <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-        <link-standard :destination="{name: 'AccountRecovery'}">
-          {{$t("LoginUser.form.passrememberlink")}}
-        </link-standard>
-      </p>
-    </form>
-  </container-v-align-with-brand-head>
+        <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
+          <link-standard :destination="{name: 'AccountRecovery'}">
+            {{$t("LoginUser.form.passrememberlink")}}
+          </link-standard>
+        </p>
+      </form>
+    </container-with-brand-head>
+  </div-v-align>
 </template>
 
 <script>
@@ -48,17 +51,18 @@ import { useUserStore } from '@/stores/user'
 import {mapWritableState} from 'pinia'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
 import SmallError from '@/components/forms/SmallError.vue'
-import ContainerVAlignWithBrandHead from '@/components/containers/ContainerVAlignWithBrandHead.vue'
 import EmailInput from '@/components/forms/inputs/EmailInput.vue'
 import FormGroup from '@/components/forms/FormGroup.vue'
 import PasswordInput from '@/components/forms/inputs/PasswordInput.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
 import LinkStandard from '@/components/general/LinkStandard.vue'
 import router from '@/router/index.js'
+import DivVAlign from '@/components/containers/DivVAlign.vue'
+import ContainerWithBrandHead from '@/components/containers/ContainerWithBrandHead.vue'
 
 export default {
   name: 'LoginUser',
-  components: { LinkStandard, ButtonSubmit, PasswordInput, FormGroup, EmailInput, ContainerVAlignWithBrandHead, SmallError, SpanLabel },
+  components: { ContainerWithBrandHead, DivVAlign, LinkStandard, ButtonSubmit, PasswordInput, FormGroup, EmailInput, SmallError, SpanLabel },
 
   data() {
     return {

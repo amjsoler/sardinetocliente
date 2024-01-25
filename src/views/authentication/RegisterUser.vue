@@ -48,7 +48,7 @@
 
 import axios from 'axios'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
-import ContainerVAlignWithBrandHead from '@/components/containers/ContainerVAlignWithBrandHead.vue'
+import ContainerVAlignWithBrandHead from '@/components/containers/ContainerWithBrandHead.vue'
 import PasswordInput from '@/components/forms/inputs/PasswordInput.vue'
 import SmallError from '@/components/forms/SmallError.vue'
 import FormGroup from '@/components/forms/FormGroup.vue'

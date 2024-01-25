@@ -4,6 +4,10 @@
     {{ $t("APP_TITLE")}}
   </div>
 </template>
-<script setup>
+<script>
 import AppLogo from '@/components/icons/AppLogo.vue'
+
+export default {
+  components: { AppLogo }
+}
 </script>

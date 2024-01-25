@@ -1,6 +1,6 @@
 import './assets/main.css'
 
-import { createApp, watch } from 'vue'
+import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import axios from 'axios'
 
@@ -78,25 +78,22 @@ axios.interceptors.response.use(
     return response
   },
   (error) => {
-    /* if(error.response.status === 401){
-        console.log("main.js: Response error captured: 401. Eliminando token de storage y state y redirigiendo a login");
-        store.dispatch("cerrarSesionAction");
+     if(error.response.status === 401){
+        console.log("main.js: Response error captured: 401. Delete access token and reddirect to login");
+       useUserStore().$patch({user: {access_token: null}})
+
+       router.push({name: "LoginUser"})
+
+       //TODO Avisar con alert al usuario de que la sesión ha terminado
     }
 
     else if(error.response.status === 403){
-        console.log("main.js: Response error captured: 403. Acci�n no permitida al user.");
-
-        //Loguear esto al server por si hay que emprender acciones contra el usuario
-        globalHelpers.logError("Un usuario ha intentado acceder a un sitio al que no deb�a",
-            {
-                userToken: store.state.tokenAuth,
-                error: error
-            })
+        console.log("main.js: Response error captured: 403. Forbidden action");
 
         router.push({name: "ForbiddenResource"});
     }
- */
-    if (error.response.status === 422) {
+
+    else if (error.response.status === 422) {
       console.log('main.js: Response error captured: 422')
       if (
         error.response &&

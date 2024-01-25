@@ -9,6 +9,7 @@ import LoginUser from '@/views/authentication/LoginUser.vue'
 import GymClasses from '@/views/class/GymClasses.vue'
 import MyGyms from '@/views/Gym/MyGyms.vue'
 import { useGymStore } from '@/stores/gym.js'
+import ForbiddenResource from '@/views/ForbiddenResource.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,6 +67,13 @@ const router = createRouter({
         requiresAuth: true,
         requiresSelectedGym:true
       }
+    },
+
+    /// Rutas de sistema
+    {
+      path: '/fobidden',
+      name: 'ForbiddenResource',
+      component: ForbiddenResource
     }
   ]
 })
