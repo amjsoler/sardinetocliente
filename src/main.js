@@ -1,6 +1,6 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { createApp, watch } from 'vue'
 import { createPinia } from 'pinia'
 import axios from 'axios'
 
@@ -143,5 +143,11 @@ app.config.errorHandler = (err, instance, info) => {
         })
 }
 */
+
+const userStore = useUserStore()
+userStore.$subscribe((mutation, state) => {
+  // persist the whole state to the local storage whenever it changes
+  localStorage.setItem('user', JSON.stringify(state.user))
+})
 
 app.mount('#app')
