@@ -41,5 +41,8 @@
     "sendMailBtnSubmit": "Enviar correo",
     "emailSent": "Correo enviado",
     "emailSent2": "Sigue los pasos que encontrarás en él"
+  },
+  "myGyms": {
+    "title": "Mis gimnasios"
   }
 }

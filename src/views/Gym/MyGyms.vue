@@ -1,19 +1,16 @@
 <template>
-  <container-v-align-no-background>
-    <h3 class="text-center">Mis gimnasios</h3>
-    <section class="flex flex-row flex-wrap justify-center space-x-5 space-y-3">
+    <h3 class="text-center text-2xl pt-6">
+      {{ $t("myGyms.title")}}
+    </h3>
+    <section class="grid grid-cols-2 justify-end pt-6">
       <div @click="selectGym(gym.id)"
         v-for="gym in myGyms" v-bind:key="gym.id"
-           class="max-w-32 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800
-      dark:border-gray-700"
+           class="relative overflow-hidden w-auto h-auto m-1 rounded-lg bg-gray-50 dark:bg-container-background-50 bg-blend-darken"
       >
-        <img class="rounded-t-lg" :src="gym.logo" alt="" />
-        <h5 class="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">
-          {{ gym.nombre}}
-        </h5>
+        <h3 class="absolute bottom-0 w-full text-center text-2xl dark:text-gray-200">AmbittrollAmbittrollAmbittrollAmbittrollAmbittroll</h3>
+        <img class="relative rounded-t-lg z-[-3] grayscale brightness-50" :src="gym.logo" alt="" />
       </div>
     </section>
-  </container-v-align-no-background>
 
 
 </template>
@@ -21,12 +18,10 @@
 import { mapWritableState } from 'pinia'
 import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
-import ContainerVAlignNoBackground from '@/components/containers/ContainerVAlignNoBackground.vue'
 import router from '@/router/index.js'
 
 export default {
   name: "MyGyms",
-  components: { ContainerVAlignNoBackground },
 
   computed: {
     ...mapWritableState(useGymStore, {
