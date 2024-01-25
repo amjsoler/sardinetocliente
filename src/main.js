@@ -14,6 +14,7 @@ import filees from './lang/es.json';
 import fileen from './lang/en.json';
 import { createI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user.js'
+import { useGymStore } from '@/stores/gym.js'
 
 const messages = {
   en: fileen,
@@ -144,10 +145,18 @@ app.config.errorHandler = (err, instance, info) => {
 }
 */
 
+  //// SUBSCRIBERS ////
 const userStore = useUserStore()
 userStore.$subscribe((mutation, state) => {
   // persist the whole state to the local storage whenever it changes
   localStorage.setItem('user', JSON.stringify(state.user))
+})
+
+const gymStore = useGymStore()
+gymStore.$subscribe((mutation, state) => {
+  // persist the whole state to the local storage whenever it changes
+  console.log("Subscribe gyms fired")
+  localStorage.setItem('myGyms', JSON.stringify(state.myGyms))
 })
 
 app.mount('#app')

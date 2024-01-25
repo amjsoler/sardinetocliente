@@ -6,4 +6,7 @@
     </div>
 </template>
 <script>
+export default {
+  name: "ContainerVAlignNoBackground"
+}
 </script>

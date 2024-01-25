@@ -85,7 +85,7 @@ export default {
         //Actualizo los datos de usuario
         useUserStore().$patch({user: response.data})
 
-        router.push({name: "MyGyms"})
+        router.push({name: "GymClasses"})
       })
         .catch((error) => {
           if(error.response.status === 462){
