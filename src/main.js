@@ -152,7 +152,6 @@ userStore.$subscribe((mutation, state) => {
 const gymStore = useGymStore()
 gymStore.$subscribe((mutation, state) => {
   // persist the whole state to the local storage whenever it changes
-  console.log("Subscribe gyms fired")
   localStorage.setItem('myGyms', JSON.stringify(state.myGyms))
 })
 

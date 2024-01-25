@@ -39,6 +39,7 @@
     "accountRecoverMsg": "Te enviaremos un correo electrónico para que puedas restablecer la contraseña de tu cuenta",
     "emailLabel": "Correo electrónico",
     "sendMailBtnSubmit": "Enviar correo",
-    "emailSent": "Correo enviado. Sigue los pasos que encontrarás en él"
+    "emailSent": "Correo enviado",
+    "emailSent2": "Sigue los pasos que encontrarás en él"
   }
 }

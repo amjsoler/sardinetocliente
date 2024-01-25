@@ -25,7 +25,7 @@
     </section>
     <section v-else class="flex flex-col items-center text-green-600">
       <icon-check width="75px" height="75px" />
-      <p class="text-center text-blue-50">
+      <p class="text-center text-gray-50">
         {{ $t("accountVerify.verifyMailSent") }}
       </p>
     </section>

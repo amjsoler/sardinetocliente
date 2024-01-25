@@ -1,5 +1,5 @@
 <template>
-  <video class="min-h-full min-w-full absolute z-[-1] object-cover grayscale brightness-50" loop muted autoplay height="100%" src="@/assets/video/videointro.mp4" type="video/mp4"></video>
+<train-video />
   <div-v-align>
     <container-with-brand-head blur="true">
       <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -59,10 +59,11 @@ import LinkStandard from '@/components/general/LinkStandard.vue'
 import router from '@/router/index.js'
 import DivVAlign from '@/components/containers/DivVAlign.vue'
 import ContainerWithBrandHead from '@/components/containers/ContainerWithBrandHead.vue'
+import TrainVideo from '@/components/containers/TrainVideo.vue'
 
 export default {
   name: 'LoginUser',
-  components: { ContainerWithBrandHead, DivVAlign, LinkStandard, ButtonSubmit, PasswordInput, FormGroup, EmailInput, SmallError, SpanLabel },
+  components: { TrainVideo, ContainerWithBrandHead, DivVAlign, LinkStandard, ButtonSubmit, PasswordInput, FormGroup, EmailInput, SmallError, SpanLabel },
 
   data() {
     return {
