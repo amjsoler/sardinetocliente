@@ -83,7 +83,7 @@ export default {
       axios.post(import.meta.env.VITE_SERVICE_BASE_URL+'iniciar-sesion', this.nuevoUsuario)
       .then((response) => {
         //Actualizo los datos de usuario
-        useUserStore().$patch(response.data)
+        useUserStore().$patch({user: response.data})
 
         router.push({name: "MyGyms"})
       })

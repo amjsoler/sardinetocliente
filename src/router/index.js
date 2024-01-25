@@ -1,5 +1,5 @@
-import { useValidationStore } from '@/stores/validation'
 import { createRouter, createWebHistory } from 'vue-router'
+import { useValidationStore } from '@/stores/validation.js'
 import { useUserStore } from '@/stores/user.js'
 
 const router = createRouter({
@@ -43,11 +43,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   //Vacío el store de validaciones
-  const validationStore = useValidationStore();
-  validationStore.$state.value = {}
+  const validationStore = useValidationStore()
+  validationStore.$reset()
 
   //Cierro modales que puedan quedar abiertos
-  //globalHelpers.cerrarTodosLosModalesAbiertos();
+  ////TODO
 
   //Veo si recibo el firebasetoken y lo almaceno
   /*if(to.query.firebasetoken && (!store.state.firebasetoken || store.state.firebasetoken != to.query.firebasetoken)){
@@ -59,30 +59,31 @@ router.beforeEach((to, from, next) => {
      console.log("router/index.js: requiresAuth detected. Checking...");
     const userStore = useUserStore()
 
-    //Compruebo si hay token en el user, si lo hay dejo seguir, si no, redirijo al login
-     console.log(userStore.user.access_token)
+    //Compruebo si hay token en el user, si lo hay, dejo seguir, si no, redirijo al login
      if(userStore.user && userStore.user.access_token){
+       console.log("router/index.js: Hay token, dejo continuar")
        next()
      }else{
+       console.log("router/index.js: No hay token, redirijo al login")
        next({name: "LoginUser"});
      }
   }
 
   else if (to.matched.some((record) => record.meta.requiresGuest)) {
-    console.log("router/index.js: Redirect con requiresGuest...");
-
+    console.log("router/index.js: requiresGuest detected. Checking...");
     const userStore = useUserStore()
-console.log(userStore.user)
+
     if(!userStore.user || !userStore.user.access_token){
-      console.log("Entro al if")
+      console.log("router/index.js: No hay token, dejo continuar")
       next()
     }else{
+      console.log("router/index.js: Hay un token guardado, redirijo a mygyms")
       next({name: "MyGyms"})
     }
   }
 
-  else{
-    next()
+  else {
+     next()
    }
 })
 
