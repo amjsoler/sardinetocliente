@@ -11,7 +11,8 @@
       </select>
 
       <div class="flex flex-row flex-wrap">
-        <article class="overflow-hidden relative size-24 bg-red-600 gap-4 rounded-lg flex-grow m-3 px-3 py-2 flex flex-col items-center"
+        <article @click="viewingClass = classe"
+          class=" cursor-pointer overflow-hidden relative size-24 bg-red-600 gap-4 rounded-lg flex-grow m-3 px-3 py-2 flex flex-col items-center"
                  v-for="classe in gymSelected.classes" v-bind:key="classe.id"
         >
           <p class="text-3xl mt-1">{{ new Date(classe.fechayhora).getHours() }}:{{ new Date(classe.fechayhora).getMinutes() }}h</p>
@@ -24,21 +25,27 @@
       </div>
     </div>
   </section>
+  <class-visor v-model="viewingClass" @close-event="viewingClass = null" v-show="viewingClass"></class-visor>
 </template>
 
 <script>
 import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
 import { mapState } from 'pinia'
-import ContainerVAlignNoBackground from '@/components/containers/ContainerVAlignNoBackground.vue'
 import GymHeader from '@/components/GymHeader.vue'
 import HeartIcon from '@/components/icons/HeartIcon.vue'
 import UsersIcon from '@/components/icons/UsersIcon.vue'
+import ClassVisor from '@/components/classes/ClassVisor.vue'
 
 export default {
   name: "GymClasses",
-  components: { UsersIcon, HeartIcon, GymHeader, ContainerVAlignNoBackground },
+  components: { ClassVisor, UsersIcon, HeartIcon, GymHeader },
 
+  data() {
+    return {
+      viewingClass:null
+    }
+  },
   computed: {
     ...mapState(useGymStore, {
       gymSelected: 'gymSelected'
