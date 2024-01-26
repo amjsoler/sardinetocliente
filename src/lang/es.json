@@ -43,6 +43,8 @@
     "emailSent2": "Sigue los pasos que encontrarás en él"
   },
   "myGyms": {
-    "title": "Mis gimnasios"
+    "title": "Mis gimnasios",
+    "newGym": "Crear un gimnasio",
+    "altLogoGym": "Logo de un gimnasio"
   }
 }

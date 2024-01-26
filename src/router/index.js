@@ -10,6 +10,7 @@ import GymClasses from '@/views/class/GymClasses.vue'
 import MyGyms from '@/views/Gym/MyGyms.vue'
 import { useGymStore } from '@/stores/gym.js'
 import ForbiddenResource from '@/views/ForbiddenResource.vue'
+import CreateGym from '@/views/Gym/CreateGym.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,14 @@ const router = createRouter({
       }
     },
 
+    {
+      path: '/create-gym',
+      name: 'CreateGym',
+      component: CreateGym,
+      meta: {
+        requiresAuth: true
+      }
+    },
     ///
     //Classes
     ///
