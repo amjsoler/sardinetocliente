@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed w-full flex flex-col items-center py-3">
+  <header class="fixed top-0 w-full flex flex-col items-center py-3">
     <p @click="toggleDropDownGyms"
       class="flex flex-row items-center cursor-pointer" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom">
       <span>

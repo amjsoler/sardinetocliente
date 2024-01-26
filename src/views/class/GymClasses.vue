@@ -1,15 +1,29 @@
 <template>
-  <gym-header></gym-header>
-  <container-v-align-no-background>
-    <h2 class="text-center">Clases disponibles</h2>
-      <!--TODO tOGGLE PARA ELEGIR ENTRE CLASES DE HOY Y DE TODA LA SEMANA -->
-    <p>TOGGLE PARA CAMBIAR ENTRE HOY Y CLASES DE LA SEMANA</p>
+  <section class="pt-12">
+    <gym-header></gym-header>
+    <div class="dark:bg-container-background-50 mx-3 rounded-lg pt-4">
+      <h2 class="text-center text-2xl">Clases disponibles</h2>
 
-    <p>LISTADO DE CLASES CON CARDS, FONDO, HORA, PLAZAS</p>
-      <article v-for="classe in gymSelected.classes" v-bind:key="classe.id">
-        {{ classe.nombre}}
-      </article>
-  </container-v-align-no-background>
+      <select class="block mx-auto my-2 bg-input-background-400">
+        <option>Hoy</option>
+        <option>Mañana</option>
+        <option>Pasado</option>
+      </select>
+
+      <div class="flex flex-row flex-wrap">
+        <article class="overflow-hidden relative size-24 bg-red-600 gap-4 rounded-lg flex-grow m-3 px-3 py-2 flex flex-col items-center"
+                 v-for="classe in gymSelected.classes" v-bind:key="classe.id"
+        >
+          <p class="text-3xl mt-1">{{ new Date(classe.fechayhora).getHours() }}:{{ new Date(classe.fechayhora).getMinutes() }}h</p>
+          <heart-icon width="100px" height="100px" class="absolute bottom-[-40px] right-[-30px] text-gray-200" />
+          <p class="absolute left-3 bottom-2 text-lg flex flex-row ">
+            5/10
+            <span><users-icon /></span>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -18,10 +32,12 @@ import { useGymStore } from '@/stores/gym.js'
 import { mapState } from 'pinia'
 import ContainerVAlignNoBackground from '@/components/containers/ContainerVAlignNoBackground.vue'
 import GymHeader from '@/components/GymHeader.vue'
+import HeartIcon from '@/components/icons/HeartIcon.vue'
+import UsersIcon from '@/components/icons/UsersIcon.vue'
 
 export default {
   name: "GymClasses",
-  components: { GymHeader, ContainerVAlignNoBackground },
+  components: { UsersIcon, HeartIcon, GymHeader, ContainerVAlignNoBackground },
 
   computed: {
     ...mapState(useGymStore, {
