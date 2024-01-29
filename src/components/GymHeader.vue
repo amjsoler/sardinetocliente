@@ -1,14 +1,18 @@
 <template>
-  <header class="fixed top-0 w-full flex flex-col items-center py-3">
+  <header class="fixed top-0 w-full flex flex-col items-center py-3 z-10">
     <p @click="toggleDropDownGyms"
       class="flex flex-row items-center cursor-pointer" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom">
-      <span>
+      <span v-if="selectedGym">
         {{ selectedGym.nombre }}
+      </span>
+      <span v-else>
+        Todavía no perteneces a ningún gimnasio
       </span>
       <span>
       <caret-down-filled width="20px" height="20px"></caret-down-filled>
       </span>
     </p>
+    <admin-panel v-if="selectedGym && selectedGym.propietario === useUserStore().user.id" />
     <div v-show="dropDownGymsVisibility" class="z-10 bg-white rounded-lg shadow w-60 dark:bg-input-background-400">
       <ul class="max-h-24 py-2 overflow-y-auto text-gray-700 dark:text-gray-200">
         <li v-for="(gym,index) in myGyms" v-bind:key="index">
@@ -31,13 +35,15 @@ import CaretDownFilled from '@/components/icons/CaretDownFilled.vue'
 import { mapState } from 'pinia'
 import { useGymStore } from '@/stores/gym.js'
 import SquarePlus from '@/components/icons/SquarePlus.vue'
+import { useUserStore } from '@/stores/user.js'
+import AdminPanel from '@/components/AdminPanel.vue'
 
 export default {
   name: "GymHeader",
-  components: { SquarePlus, CaretDownFilled },
+  components: { AdminPanel, SquarePlus, CaretDownFilled },
   data() {
     return {
-      dropDownGymsVisibility: false
+      dropDownGymsVisibility: false,
     }
   },
   computed: {
@@ -46,7 +52,12 @@ export default {
       myGyms: 'myGyms'
     })
   },
+
+  mounted() {
+    console.log(this.$route)
+  },
   methods: {
+    useUserStore,
     toggleDropDownGyms() {
       this.dropDownGymsVisibility = !this.dropDownGymsVisibility;
     },

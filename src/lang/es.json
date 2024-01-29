@@ -46,5 +46,15 @@
     "title": "Mis gimnasios",
     "newGym": "Crear un gimnasio",
     "altLogoGym": "Logo de un gimnasio"
+  },
+  "createGym": {
+    "title": "Crear gimnasio",
+    "form": {
+      "name": "Nombre del gimnasio",
+      "direccion": "Dirección",
+      "descripcion": "Descripción",
+      "logo": "logo",
+      "submit": "Crear el gimnasio"
+    }
   }
 }

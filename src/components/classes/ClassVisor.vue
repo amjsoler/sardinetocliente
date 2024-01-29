@@ -45,7 +45,7 @@
 
     <div class="fixed bottom-3 w-full">
       <div class="rounded-lg w-auto mx-3 text-balance">
-        <button-submit @button-submit="participateInClass()">
+        <button-submit @button-submit="participateInClass">
           ¡Me apunto!
         </button-submit>
       </div>

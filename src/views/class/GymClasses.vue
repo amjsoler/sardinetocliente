@@ -1,7 +1,6 @@
 <template>
   <section class="pt-12">
-    <gym-header></gym-header>
-    <div class="dark:bg-container-background-50 mx-3 rounded-lg pt-4">
+    <div v-if="gymSelected" class="dark:bg-container-background-50 mx-3 rounded-lg pt-4 overflow-y-auto max-h-dvh">
       <h2 class="text-center text-2xl">Clases disponibles</h2>
 
       <select class="block mx-auto my-2 bg-input-background-400">
@@ -24,6 +23,17 @@
         </article>
       </div>
     </div>
+    <div v-else-if="myGyms.length === 0">
+      <section class="flex flex-col items-center text-">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-badge-up animate-bounce w-6 h-6" width="64" height="64" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 11v6l-5 -4l-5 4v-6l5 -4z" /></svg>
+        <h4 class="text-center text-2xl ">Todavía no formas parte de ningún gimnasio</h4>
+        <p><strong>Pide a tu entrenador que te invite a formar parte de la comunidad para poder comenzar a usar la app</strong></p>
+        <small>También puedes crear tu propio gimnasio</small>
+      </section>
+    </div>
+    <div v-else>
+      Selecciona un gimnasio
+    </div>
   </section>
   <class-visor v-model="viewingClass" @close-event="viewingClass = null" v-show="viewingClass"></class-visor>
 </template>
@@ -32,14 +42,14 @@
 import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
 import { mapState } from 'pinia'
-import GymHeader from '@/components/GymHeader.vue'
 import HeartIcon from '@/components/icons/HeartIcon.vue'
 import UsersIcon from '@/components/icons/UsersIcon.vue'
 import ClassVisor from '@/components/classes/ClassVisor.vue'
+import SmallError from '@/components/forms/SmallError.vue'
 
 export default {
   name: "GymClasses",
-  components: { ClassVisor, UsersIcon, HeartIcon, GymHeader },
+  components: { SmallError, ClassVisor, UsersIcon, HeartIcon },
 
   data() {
     return {
@@ -48,19 +58,16 @@ export default {
   },
   computed: {
     ...mapState(useGymStore, {
-      gymSelected: 'gymSelected'
+      gymSelected: 'gymSelected',
+      myGyms: 'myGyms'
     })
   },
 
   mounted() {
     const gymStore = useGymStore()
-
-    axios.get(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios/"+gymStore.gymSelected.id+"/clases")
+    axios.get(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios")
       .then(response => {
-        gymStore.saveGymClassesGivenGymId(gymStore.gymSelected.id, response.data)
-      })
-      .catch(error => {
-        console.log(error)
+        useGymStore().saveMyGyms(response.data)
       })
   }
 }

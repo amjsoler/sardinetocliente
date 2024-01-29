@@ -7,14 +7,20 @@ import AccountRecovery from '@/views/authentication/AccountRecovery.vue'
 import RegisterUser from '@/views/authentication/RegisterUser.vue'
 import LoginUser from '@/views/authentication/LoginUser.vue'
 import GymClasses from '@/views/class/GymClasses.vue'
-import MyGyms from '@/views/Gym/MyGyms.vue'
-import { useGymStore } from '@/stores/gym.js'
 import ForbiddenResource from '@/views/ForbiddenResource.vue'
 import CreateGym from '@/views/Gym/CreateGym.vue'
+import UserInvite from '@/views/Gym/admin/UserInvite.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/',
+      name: 'EnterUrl',
+      redirect: to => {
+        return {name: "GymClasses"}
+      }
+    },
     {
       path: '/login',
       name: 'LoginUser',
@@ -48,14 +54,6 @@ const router = createRouter({
     ///
     //GYms
     ///
-    {
-      path: '/my-gyms',
-      name: 'MyGyms',
-      component: MyGyms,
-      meta: {
-        requiresAuth: true
-      }
-    },
 
     {
       path: '/create-gym',
@@ -63,6 +61,15 @@ const router = createRouter({
       component: CreateGym,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: '/user-invite',
+      name: 'UserInvite',
+      component: UserInvite,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true
       }
     },
     ///
@@ -74,7 +81,7 @@ const router = createRouter({
       component: GymClasses,
       meta: {
         requiresAuth: true,
-        requiresSelectedGym:true
+        gymHeader: true
       }
     },
 
@@ -118,18 +125,6 @@ router.beforeEach((to, from, next) => {
 
     if(userStore.user && userStore.user.access_token){
       console.log("router/index.js: Hay un token guardado, redirijo a mygyms")
-      primerRequires = true;
-
-      next({name: "MyGyms"})
-    }
-  }
-
-  if (!primerRequires && to.matched.some((record) => record.meta.requiresSelectedGym)) {
-    console.log("router/index.js: requiresSelectedGym detected. Checking...");
-    const gymStore = useGymStore()
-
-    if(!gymStore.gymSelected){
-      console.log("router/index.js: No hay gym seleccionado. Redirijo a myGyms")
       primerRequires = true;
 
       next({name: "MyGyms"})

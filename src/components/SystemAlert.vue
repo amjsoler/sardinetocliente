@@ -1,5 +1,5 @@
 <template>
-  <div id="system-alert-container" class="fixed bottom-3 w-full opacity-0 rounded-lg">
+  <div id="system-alert-container" class="fixed bottom-3 w-full opacity-0 rounded-lg hidden">
     <div id="system-alert"
          class="flex items-center p-4 mx-3  border-t-4"
          :class="{'text-green-800 border-green-300 bg-green-50 dark:text-green-400 dark:bg-input-background-400 dark:border-green-800': alert.type==='success',
@@ -93,6 +93,7 @@
 
 <style scoped>
   .animationvisible {
+    display: block;
     opacity: 100%;
     animation-name: become-visible;
     animation-duration: 800ms;
@@ -100,6 +101,7 @@
   }
 
   .animationinvisible {
+    display: none;
     opacity: 0;
     animation-name: become-invisible;
     animation-duration: 800ms;

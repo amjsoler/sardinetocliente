@@ -1,4 +1,5 @@
 <template>
+  <gym-header v-if="checkRouteRequiresGymHeader" />
   <router-view />
 
   <system-alert></system-alert>
@@ -6,10 +7,22 @@
 
 <script>
 import SystemAlert from '@/components/SystemAlert.vue'
+import router from '@/router/index.js'
+import GymHeader from '@/components/GymHeader.vue'
 
 export default {
   name: 'App',
-  components: { SystemAlert }
+  methods: {
+    router() {
+      return router
+    }
+  },
+  components: { GymHeader, SystemAlert },
+  computed: {
+    checkRouteRequiresGymHeader() {
+      return this.$router.currentRoute.value.meta.gymHeader
+    }
+  }
 }
 
 </script>
