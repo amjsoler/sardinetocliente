@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+import tailwindcss_animated from 'tailwindcss-animated'
+
 export default {
   content: [
     "./index.html",
@@ -51,7 +53,9 @@ export default {
   ]
     },
   },
-  plugins: [],
+  plugins: [tailwindcss_animated
+
+  ],
 
   
 }
