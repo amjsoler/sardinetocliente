@@ -15,6 +15,7 @@ import fileen from './lang/en.json';
 import { createI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user.js'
 import { useGymStore } from '@/stores/gym.js'
+import { useGeneralStore } from '@/stores/general.js'
 
 const messages = {
   en: fileen,
@@ -113,15 +114,12 @@ axios.interceptors.response.use(
         console.log("main.js: Response error captured: 404. Recurso no encontrado. Muestro la vista 404");
 
         router.push({name:"NotFoundResource"});
-    }
+    }*/
     else {
         //Si no conozco el status del error que se devuelve, lo logueo en servidor y muestro un toast
-        globalHelpers.logError("Error con status desconocido", error);
-
-        globalHelpers.mostrarToast("Ha ocurrido un error inesperado. Por favor, intentalo de nuevo m�s tarde y si el problema persiste, ponte en contacto con nosotros");
+        useGeneralStore().$patch({alert: {type: "danger", message: "Se ha producido un error. Intentelo de nuevo más tarde y si el problema persiste, ponte en contacto con nosotros"}})
     }
- */
-    // TODOstore.dispatch("procesandoAction", false);
+
 
     return Promise.reject(error)
   }
@@ -153,6 +151,7 @@ const gymStore = useGymStore()
 gymStore.$subscribe((mutation, state) => {
   // persist the whole state to the local storage whenever it changes
   localStorage.setItem('myGyms', JSON.stringify(state.myGyms))
+  localStorage.setItem('gymSelected', JSON.stringify(state.gymSelected))
 })
 
 app.mount('#app')

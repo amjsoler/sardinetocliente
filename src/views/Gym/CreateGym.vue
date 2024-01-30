@@ -53,15 +53,13 @@ import SmallError from '@/components/forms/SmallError.vue'
 import { mapState } from 'pinia'
 import { useValidationStore } from '@/stores/validation.js'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
-import ContainerWithBrandHead from '@/components/containers/ContainerWithBrandHead.vue'
 import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
-import { createRouter as route } from 'vue-router/dist/vue-router.esm-browser.js'
 import router from '@/router/index.js'
 
 export default {
   name: "CreateGym",
-  components: { ContainerWithBrandHead, ButtonSubmit, SmallError, TextInput, SpanLabel, FormGroup, ContainerVAlignNoBackground },
+  components: { ButtonSubmit, SmallError, TextInput, SpanLabel, FormGroup, ContainerVAlignNoBackground },
   data() {
     return {
       newGym: {

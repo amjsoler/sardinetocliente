@@ -53,8 +53,8 @@ export default {
   ]
     },
   },
-  plugins: [tailwindcss_animated
-
+  plugins: [
+    tailwindcss_animated
   ],
 
   

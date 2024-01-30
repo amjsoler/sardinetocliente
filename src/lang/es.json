@@ -4,6 +4,10 @@
   "alerts": {
     "registerok": "Tu cuenta se ha creado correctamente. Por favor, omprueba tu correo y verifica la cuenta"
   },
+  "userDropDownMenu": {
+    "mymetrics": "Mis métricas"
+  },
+
   "LoginUser": {
     "title": "Inicia sesión",
     "form": {
@@ -56,5 +60,23 @@
       "logo": "logo",
       "submit": "Crear el gimnasio"
     }
+  },
+  "inviteUser": {
+    "title": "Enviar invitación",
+    "form": {
+      "email": "Correo electrónico",
+      "submit": "Enviar invitación"
+    }
+  },
+  "invitedUsers": {
+    "filterinputplaceholder": "Filtrar por nombre o correo",
+    "pendingInvite": "Invitación pendiente",
+    "resendok": "Invitación reenviada"
+  },
+
+  "createMetric": {
+    "inputWeight": "Peso",
+    "inputFat": "Porcentaje graso",
+    "submit": "Guardar métrica"
   }
 }

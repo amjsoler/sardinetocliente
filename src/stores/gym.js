@@ -4,7 +4,7 @@ export const useGymStore = defineStore("gyms", {
   state: () => {
     return {
       myGyms: JSON.parse(localStorage.getItem("myGyms")),
-      gymSelected: null
+      gymSelected: JSON.parse(localStorage.getItem("gymSelected"))
     }
 },
 

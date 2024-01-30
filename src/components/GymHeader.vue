@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 w-full flex flex-col items-center py-3 z-10">
+  <header class="relative w-full flex flex-col items-center py-3 z-10">
     <p @click="toggleDropDownGyms"
       class="flex flex-row items-center cursor-pointer" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom">
       <span v-if="selectedGym">
@@ -13,7 +13,7 @@
       </span>
     </p>
     <admin-panel v-if="selectedGym && selectedGym.propietario === useUserStore().user.id" />
-    <div v-show="dropDownGymsVisibility" class="z-10 bg-white rounded-lg shadow w-60 dark:bg-input-background-400">
+    <div v-show="dropDownGymsVisibility" class="absolute top-12 z-10 bg-white rounded-lg shadow w-60 dark:bg-input-background-400">
       <ul class="max-h-24 py-2 overflow-y-auto text-gray-700 dark:text-gray-200">
         <li v-for="(gym,index) in myGyms" v-bind:key="index">
           <p @click="selectGym(index)"
@@ -28,6 +28,7 @@
         <span class="ml-2">{{ $t("myGyms.newGym") }}</span>
       </router-link>
     </div>
+    <user-drop-down-menu />
   </header>
 </template>
 <script>
@@ -37,10 +38,11 @@ import { useGymStore } from '@/stores/gym.js'
 import SquarePlus from '@/components/icons/SquarePlus.vue'
 import { useUserStore } from '@/stores/user.js'
 import AdminPanel from '@/components/AdminPanel.vue'
+import UserDropDownMenu from '@/components/UserDropdownMenu.vue'
 
 export default {
   name: "GymHeader",
-  components: { AdminPanel, SquarePlus, CaretDownFilled },
+  components: { UserDropDownMenu, AdminPanel, SquarePlus, CaretDownFilled },
   data() {
     return {
       dropDownGymsVisibility: false,

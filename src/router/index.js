@@ -9,7 +9,8 @@ import LoginUser from '@/views/authentication/LoginUser.vue'
 import GymClasses from '@/views/class/GymClasses.vue'
 import ForbiddenResource from '@/views/ForbiddenResource.vue'
 import CreateGym from '@/views/Gym/CreateGym.vue'
-import UserInvite from '@/views/Gym/admin/UserInvite.vue'
+import InvitedUsers from '@/views/Gym/admin/InvitedUsers.vue'
+import MyMetrics from '@/views/metrics/MyMetrics.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,9 +65,9 @@ const router = createRouter({
       }
     },
     {
-      path: '/user-invite',
-      name: 'UserInvite',
-      component: UserInvite,
+      path: '/invited-users',
+      name: 'InvitedUsers',
+      component: InvitedUsers,
       meta: {
         requiresAuth: true,
         gymHeader: true
@@ -79,6 +80,19 @@ const router = createRouter({
       path: '/gym-classes',
       name: 'GymClasses',
       component: GymClasses,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true
+      }
+    },
+
+    ///
+    // Mis métricas
+    ///
+    {
+        path: '/my-metrics',
+      name: 'MyMetrics',
+      component: MyMetrics,
       meta: {
         requiresAuth: true,
         gymHeader: true
