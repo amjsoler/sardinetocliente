@@ -90,5 +90,13 @@
     "descriptionLabel": "Descripción",
     "urlVideoLabel": "URL video de demostración",
     "submit": "Guardar ejercicio"
+  },
+
+  "createArticle": {
+    "buttonCreate": "Crear artículo",
+    "nameLabel": "Nombre",
+    "descriptionLabel": "Descripción",
+    "stockLabel": "Stock",
+    "submit": "Guardar artículo"
   }
 }

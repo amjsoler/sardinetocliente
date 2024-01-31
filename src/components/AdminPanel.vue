@@ -6,16 +6,13 @@
   </p>
 
   <div v-if="adminPanelVisibility"
-       class="w-full h-dvh fixed top-0 backdrop-blur">
+       class="w-full h-dvh fixed top-0 backdrop-blur pt-20">
     <square-rounded-x-filled @click="adminPanelVisibility = !adminPanelVisibility"
                              class="absolute right-3 top-3 w-12 h-12"
     />
-    <div class="w-auto mx-4 mt-20 h-auto bg-red-600 rounded-lg px-3">
-      <section>
-        <h3 class="text-center text-2xl">Usuarios</h3>
-        <p @click="router().push({name: 'InvitedUsers'})">Invitar usuario</p>
-      </section>
-    </div>
+    <block-section>
+      <p @click="router().push({name: 'InvitedUsers'})">Invitar usuario</p>
+    </block-section>
 
     <block-section>
       <p @click="router().push({name: 'GymExercises'})">
@@ -23,6 +20,9 @@
       </p>
     </block-section>
 
+    <block-section>
+      <p @click="router().push({name: 'AdminGymArticles'})">Admin Gym Articles</p>
+    </block-section>
   </div>
 </template>
 <script>

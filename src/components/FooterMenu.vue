@@ -1,16 +1,29 @@
 <template>
-     <ul class="mt-28 fixed bottom-0 w-full flex flex-row text-white gap-4 justify-center h-12 bg-black items-center">
-    <li>
-      <router-link :to="{ name: 'LoginUser' }">Login de usuario</router-link>
-    </li>
-    <li>
-      <router-link :to="{ name: 'RegisterUser' }">Registro de usuario</router-link>
-    </li>
-  </ul>
+     <footer class="absolute bottom-0 w-full h-12 bg-input-background-400 flex flex-row justify-center [&>p]:flex-grow">
+      <p class="flex flex-col items-center justify-center">
+        <shopping-bag-icon @click="router().push({name: 'GymArticles'})"></shopping-bag-icon>
+      </p>
+      <p class="flex flex-col items-center justify-center">
+        <calendar-time-icon></calendar-time-icon>
+      </p>
+      <p class="flex flex-col items-center justify-center">
+        <calendar-time-icon></calendar-time-icon>
+      </p>
+     </footer>
 </template>
 
 <script>
+import ShoppingBagIcon from '@/components/icons/ShoppingBagIcon.vue'
+import CalendarTimeIcon from '@/components/icons/CalendarTimeIcon.vue'
+import router from '@/router/index.js'
+
 export default {
     name: "FooterMenu",
+  methods: {
+    router() {
+      return router
+    }
+  },
+  components: { CalendarTimeIcon, ShoppingBagIcon }
 }
 </script>
