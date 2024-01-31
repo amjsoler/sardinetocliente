@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-dvh fixed top-0 backdrop-blur pt-12">
+  <div class="w-full h-dvh fixed top-0 backdrop-blur pt-20 z-50">
     <square-rounded-x-filled @click="$emit('closeFullScreenContainer')"
                              class="absolute right-3 top-3 w-12 h-12"
     />

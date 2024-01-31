@@ -7,11 +7,11 @@
   </full-screen-blur-with-close-btn-container>
 
   <block-section v-if="gymArticles.length" class="space-y-3">
-    <text-input v-model="searchInput" placeholder="Filtrar ejercicios por nombre" />
+    <text-input v-model="searchInput" :placeholder="$t('gymArticle.searchPlaceholder')" />
     <ul>
       <li v-for="(article, index) in getFilteredGymArticles" v-bind:key="article.id"
           class="flex flex-row border-b-2 pb-2 border-input-background-400 items-center [&>*]:flex-grow space-y-4">
-        <p class="text-2xl">
+        <p>
           {{ article.nombre }} ({{article.stock}})
         </p>
         <p class="flex flex-row justify-end space-x-3">

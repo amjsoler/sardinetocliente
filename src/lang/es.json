@@ -84,6 +84,13 @@
     "submit": "Guardar métrica"
   },
 
+  "gymExercise": {
+    "searchPlaceholder": "Filtrar ejercicios por nombre"
+  },
+
+  "gymArticle": {
+    "searchPlaceholder": "Filtrar artículos por nombre"
+  },
   "createExercise": {
     "buttonCreate": "Crear ejercicio",
     "nameLabel": "Nombre",
