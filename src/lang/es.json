@@ -8,6 +8,10 @@
     "mymetrics": "Mis métricas"
   },
 
+  "adminPanel": {
+    "gymExercises": "Ejercicios del gimnasio"
+  },
+
   "LoginUser": {
     "title": "Inicia sesión",
     "form": {
@@ -78,5 +82,13 @@
     "inputWeight": "Peso",
     "inputFat": "Porcentaje graso",
     "submit": "Guardar métrica"
+  },
+
+  "createExercise": {
+    "buttonCreate": "Crear ejercicio",
+    "nameLabel": "Nombre",
+    "descriptionLabel": "Descripción",
+    "urlVideoLabel": "URL video de demostración",
+    "submit": "Guardar ejercicio"
   }
 }

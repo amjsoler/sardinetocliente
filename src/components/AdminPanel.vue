@@ -8,7 +8,8 @@
   <div v-if="adminPanelVisibility"
        class="w-full h-dvh fixed top-0 backdrop-blur">
     <square-rounded-x-filled @click="adminPanelVisibility = !adminPanelVisibility"
-                             class="absolute right-3 top-3 w-12 h-12"></square-rounded-x-filled>
+                             class="absolute right-3 top-3 w-12 h-12"
+    />
     <div class="w-auto mx-4 mt-20 h-auto bg-red-600 rounded-lg px-3">
       <section>
         <h3 class="text-center text-2xl">Usuarios</h3>
@@ -16,11 +17,18 @@
       </section>
     </div>
 
+    <block-section>
+      <p @click="router().push({name: 'GymExercises'})">
+        {{ $t("adminPanel.gymExercises")}}
+      </p>
+    </block-section>
+
   </div>
 </template>
 <script>
 import SquareRoundedXFilled from '@/components/icons/SquareRoundedXFilled.vue'
 import router from '@/router/index.js'
+import BlockSection from '@/components/containers/BlockSection.vue'
 
 export default {
   name: "AdminPanel",
@@ -29,7 +37,7 @@ export default {
       return router
     }
   },
-  components: { SquareRoundedXFilled },
+  components: { BlockSection, SquareRoundedXFilled },
 
   data() {
     return {

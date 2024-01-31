@@ -11,6 +11,7 @@ import ForbiddenResource from '@/views/ForbiddenResource.vue'
 import CreateGym from '@/views/Gym/CreateGym.vue'
 import InvitedUsers from '@/views/Gym/admin/InvitedUsers.vue'
 import MyMetrics from '@/views/metrics/MyMetrics.vue'
+import GymExercises from '@/views/exercise/GymExercises.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +94,19 @@ const router = createRouter({
         path: '/my-metrics',
       name: 'MyMetrics',
       component: MyMetrics,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true
+      }
+    },
+
+    ///
+    // Exercises
+    ///
+    {
+      path: '/gym-exercises',
+      name: 'GymExercises',
+      component: GymExercises,
       meta: {
         requiresAuth: true,
         gymHeader: true
