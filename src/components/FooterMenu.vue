@@ -4,10 +4,10 @@
         <shopping-bag-icon @click="router().push({name: 'GymArticles'})"></shopping-bag-icon>
       </p>
       <p class="flex flex-col items-center justify-center">
-        <calendar-time-icon></calendar-time-icon>
+        <calendar-time-icon ></calendar-time-icon>
       </p>
       <p class="flex flex-col items-center justify-center">
-        <calendar-time-icon></calendar-time-icon>
+        <scale-icon @click="router().push({name: 'UserExercises'})"></scale-icon>
       </p>
      </footer>
 </template>
@@ -16,6 +16,7 @@
 import ShoppingBagIcon from '@/components/icons/ShoppingBagIcon.vue'
 import CalendarTimeIcon from '@/components/icons/CalendarTimeIcon.vue'
 import router from '@/router/index.js'
+import ScaleIcon from '@/components/icons/ScaleIcon.vue'
 
 export default {
     name: "FooterMenu",
@@ -24,6 +25,6 @@ export default {
       return router
     }
   },
-  components: { CalendarTimeIcon, ShoppingBagIcon }
+  components: { ScaleIcon, CalendarTimeIcon, ShoppingBagIcon }
 }
 </script>

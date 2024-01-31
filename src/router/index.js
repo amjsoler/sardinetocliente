@@ -14,6 +14,7 @@ import MyMetrics from '@/views/metrics/MyMetrics.vue'
 import GymExercises from '@/views/exercise/GymExercises.vue'
 import GymArticles from '@/views/articles/GymArticles.vue'
 import AdminGymArticles from '@/views/articles/AdminGymArticles.vue'
+import UserExercises from '@/views/userexercises/UserExercises.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -134,6 +135,17 @@ const router = createRouter({
       path: '/admin-gym-articles',
       name: 'AdminGymArticles',
       component: AdminGymArticles,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
+      }
+    },
+
+    {
+      path: '/user-exercises',
+      name: 'UserExercises',
+      component: UserExercises,
       meta: {
         requiresAuth: true,
         gymHeader: true,
