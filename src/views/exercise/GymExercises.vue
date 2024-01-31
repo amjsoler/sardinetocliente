@@ -1,8 +1,10 @@
 <template>
   <create-exercise @exercise-created="exerciseCreatedCallback"/>
 
-  <modify-exercise v-if="exerciseToModify" @exercise-modified="exerciseModified" :exercise-to-modify="exerciseToModify">
-  </modify-exercise>
+  <full-screen-blur-with-close-btn-container v-if="exerciseToModify" @close-full-screen-container="exerciseToModify=null">
+    <modify-exercise @exercise-modified="exerciseModified" :exercise-to-modify="exerciseToModify">
+    </modify-exercise>
+  </full-screen-blur-with-close-btn-container>
 
   <block-section v-if="gymExercises.length" class="space-y-3">
     <text-input v-model="searchInput" placeholder="Filtrar ejercicios por nombre" />
@@ -13,7 +15,7 @@
           {{ exercise.nombre }}
         </p>
         <p class="flex flex-row justify-end space-x-3">
-          <edit-icon @click="exerciseToModify = exercise" class="text-primary-400 cursor-pointer"></edit-icon>
+          <edit-icon @click="exerciseToModify=exercise;" class="text-primary-400 cursor-pointer"></edit-icon>
           <trash-x-icon @click="deleteExercise(exercise.id, index)" class="text-red-300 cursor-pointer"></trash-x-icon>
         </p>
       </li>
@@ -30,16 +32,17 @@ import TrashXIcon from '@/components/icons/TrashXIcon.vue'
 import EditIcon from '@/components/icons/EditIcon.vue'
 import TextInput from '@/components/forms/inputs/TextInput.vue'
 import ModifyExercise from '@/views/exercise/ModifyExercise.vue'
+import FullScreenBlurWithCloseBtnContainer from '@/components/containers/FullScreenBlurWithCloseBtnContainer.vue'
 
 export default {
   name: "GymExercises",
-  components: { ModifyExercise, TextInput, EditIcon, TrashXIcon, BlockSection, CreateExercise },
+  components: { FullScreenBlurWithCloseBtnContainer, ModifyExercise, TextInput, EditIcon, TrashXIcon, BlockSection, CreateExercise },
 
   data() {
     return {
       gymExercises: [],
       exerciseToModify: null,
-      searchInput: ""
+      searchInput: "",
     }
   },
 

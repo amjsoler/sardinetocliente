@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <block-section>
     <form class="space-y-3">
       <form-group>
         <span-label>{{ $t("createExercise.nameLabel") }}</span-label>
@@ -23,7 +23,7 @@
         {{ $t("createExercise.submit") }}
       </button-submit>
     </form>
-  </section>
+  </block-section>
 
 </template>
 
@@ -37,10 +37,11 @@ import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
 import { mapState } from 'pinia'
 import { useValidationStore } from '@/stores/validation.js'
+import BlockSection from '@/components/containers/BlockSection.vue'
 
 export default {
   name: "ModifyExercise",
-  components: { ButtonSubmit, SpanLabel, FormGroup, TextInput, SmallError },
+  components: { BlockSection, ButtonSubmit, SpanLabel, FormGroup, TextInput, SmallError },
   props: ["exerciseToModify"],
   emits: ["exerciseModified"],
   data() {

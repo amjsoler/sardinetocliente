@@ -75,6 +75,11 @@ export default {
       this.newExercise)
         .then(response => {
           this.createFormVisibility = false
+          this.newExercise = {
+            nombre: "",
+            descripcion: "",
+            demostracion: ""
+          }
           this.$emit("exerciseCreated", response.data)
         })
         .catch(() => {
