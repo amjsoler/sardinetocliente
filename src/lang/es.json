@@ -109,5 +109,9 @@
 
   "userBuyingHistory": {
     "viewBuyingHistory": "Compras anteriores"
+  },
+
+  "createWeightScore":{
+    "unormLabel": "Nueva marca 1RM"
   }
 }

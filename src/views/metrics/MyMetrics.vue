@@ -110,7 +110,6 @@ export default {
         ]
       }
     },
-
   },
   mounted() {
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL+
