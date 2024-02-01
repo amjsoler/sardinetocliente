@@ -18,6 +18,7 @@ import UserExercises from '@/views/userexercises/UserExercises.vue'
 import AdminBuyingArticles from '@/views/articles/AdminBuyingArticles.vue'
 import GymRates from '@/views/rate/GymRates.vue'
 import NotFoundResource from '@/views/NotFoundResource.vue'
+import UserSubscribe from '@/views/subscription/UserSubscribe.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -178,6 +179,16 @@ const router = createRouter({
       }
     },
 
+    {
+      path: '/user-subscription',
+      name: 'UserSubscribe',
+      component: UserSubscribe,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
+      }
+    },
     /// Rutas de sistema
     {
       path: '/fobidden',
