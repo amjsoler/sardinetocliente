@@ -17,6 +17,7 @@ import AdminGymArticles from '@/views/articles/AdminGymArticles.vue'
 import UserExercises from '@/views/userexercises/UserExercises.vue'
 import AdminBuyingArticles from '@/views/articles/AdminBuyingArticles.vue'
 import GymRates from '@/views/rate/GymRates.vue'
+import NotFoundResource from '@/views/NotFoundResource.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -182,6 +183,12 @@ const router = createRouter({
       path: '/fobidden',
       name: 'ForbiddenResource',
       component: ForbiddenResource
+    },
+
+    {
+      path: '/not-found',
+      name: 'NotFoundResource',
+      component: NotFoundResource
     }
   ]
 })

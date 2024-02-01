@@ -110,11 +110,11 @@ axios.interceptors.response.use(
         console.log("main.js: Response error captured: 460. Cuenta no verificada, redirijo a la vista de verificación");
         router.push({name:"AccountVerify"});
     }
-    /*else if(error.response.status === 404){
+    else if(error.response.status === 404){
         console.log("main.js: Response error captured: 404. Recurso no encontrado. Muestro la vista 404");
 
         router.push({name:"NotFoundResource"});
-    }*/
+    }
     else {
         //Si no conozco el status del error que se devuelve, lo logueo en servidor y muestro un toast
         useGeneralStore().$patch({alert: {type: "danger", message: "Se ha producido un error. Intentelo de nuevo más tarde y si el problema persiste, ponte en contacto con nosotros"}})
