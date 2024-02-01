@@ -113,5 +113,14 @@
 
   "createWeightScore":{
     "unormLabel": "Nueva marca 1RM"
+  },
+
+  "createGymRate": {
+    "buttonCreate": "Crear Tarifa",
+    "nameLabel": "Nombre de la tarifa",
+    "precioLabel": "Precio",
+    "creditosLabel": "Créditos que otorga",
+    "tipoLabel": "Tipo de tarifa",
+    "submit": "Guardar tarifa"
   }
 }
