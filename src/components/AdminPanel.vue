@@ -22,6 +22,7 @@
 
     <block-section>
       <p @click="router().push({name: 'AdminGymArticles'})">Admin Gym Articles</p>
+      <p @click="router().push({name: 'AdminBuyingArticles'})">Compras Realizadas</p>
     </block-section>
   </div>
 </template>

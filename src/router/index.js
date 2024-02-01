@@ -15,6 +15,7 @@ import GymExercises from '@/views/exercise/GymExercises.vue'
 import GymArticles from '@/views/articles/GymArticles.vue'
 import AdminGymArticles from '@/views/articles/AdminGymArticles.vue'
 import UserExercises from '@/views/userexercises/UserExercises.vue'
+import AdminBuyingArticles from '@/views/articles/AdminBuyingArticles.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -135,6 +136,17 @@ const router = createRouter({
       path: '/admin-gym-articles',
       name: 'AdminGymArticles',
       component: AdminGymArticles,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
+      }
+    },
+
+    {
+      path: '/admin-buyings',
+      name: 'AdminBuyingArticles',
+      component: AdminBuyingArticles,
       meta: {
         requiresAuth: true,
         gymHeader: true,
