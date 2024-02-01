@@ -105,5 +105,9 @@
     "descriptionLabel": "Descripción",
     "stockLabel": "Stock",
     "submit": "Guardar artículo"
+  },
+
+  "userBuyingHistory": {
+    "viewBuyingHistory": "Compras anteriores"
   }
 }

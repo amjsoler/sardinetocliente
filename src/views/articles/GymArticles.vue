@@ -1,4 +1,9 @@
 <template>
+
+  <block-section>
+    <user-buying-history />
+  </block-section>
+
   <full-screen-blur-with-close-btn-container v-if="viewingArticle" @close-full-screen-container="viewingArticle=null">
     <block-section class="flex flex-col items-center flex-wrap space-y-3">
         <p class="text-2xl">{{ viewingArticle.nombre}}</p>
@@ -36,10 +41,11 @@ import TextInput from '@/components/forms/inputs/TextInput.vue'
 import BlockSection from '@/components/containers/BlockSection.vue'
 import FullScreenBlurWithCloseBtnContainer from '@/components/containers/FullScreenBlurWithCloseBtnContainer.vue'
 import CreditCardPayIcon from '@/components/icons/CreditCardPayIcon.vue'
+import UserBuyingHistory from '@/views/articles/UserBuyingHistory.vue'
 
 export default {
   name: "GymArticles",
-  components: { CreditCardPayIcon, FullScreenBlurWithCloseBtnContainer, BlockSection, TextInput },
+  components: { UserBuyingHistory, CreditCardPayIcon, FullScreenBlurWithCloseBtnContainer, BlockSection, TextInput },
 
   data() {
     return {

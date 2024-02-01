@@ -1,5 +1,5 @@
 <template>
-     <footer class="absolute bottom-0 w-full h-12 bg-input-background-400 flex flex-row justify-center [&>p]:flex-grow">
+     <footer class="fixed bottom-0 w-full h-12 bg-input-background-400 flex flex-row justify-center [&>p]:flex-grow">
       <p class="flex flex-col items-center justify-center">
         <shopping-bag-icon @click="router().push({name: 'GymArticles'})"></shopping-bag-icon>
       </p>
