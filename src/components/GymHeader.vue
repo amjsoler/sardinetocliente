@@ -1,7 +1,7 @@
 <template>
   <header class="relative w-full flex flex-col items-center py-3 z-10">
     <p @click="toggleDropDownGyms"
-      class="flex flex-row items-center cursor-pointer" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom">
+      class="flex flex-row items-center cursor-pointer">
       <span v-if="selectedGym">
         {{ selectedGym.nombre }}
       </span>
@@ -55,9 +55,6 @@ export default {
     })
   },
 
-  mounted() {
-    console.log(this.$route)
-  },
   methods: {
     useUserStore,
     toggleDropDownGyms() {

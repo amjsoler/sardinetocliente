@@ -1,49 +1,126 @@
 <template>
-  <form>
+  <form class="space-y-4">
+
+    <div class="flex">
+      <button id="states-button" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 z-10 inline-flex
+       items-center py-2.5 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300
+       rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600
+        dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button"
+      >
+        <div class="inline-flex items-center">
+          {{ rateSelectType }}
+          <caret-down-filled></caret-down-filled>
+        </div>
+      </button>
+      <div id="dropdown-states" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="states-button">
+          <li>
+            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+             dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              <div class="inline-flex items-center" @click="rateSelectType='Suscripción'">
+                Suscripción
+              </div>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+              <div class="inline-flex items-center" @click="rateSelectType='Abono'">
+                Abono
+              </div>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <label for="states" class="sr-only">Choose a state</label>
+      <select id="states" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option selected>Choose a state</option>
+        <option value="CA">California</option>
+        <option value="TX">Texas</option>
+        <option value="WH">Washinghton</option>
+        <option value="FL">Florida</option>
+        <option value="VG">Virginia</option>
+        <option value="GE">Georgia</option>
+        <option value="MI">Michigan</option>
+      </select>
+    </div>
+
     <form-group>
       <span-label>Tarifa</span-label>
-      <select>
-        <option v-for="rate in gymRates" v-bind:key="rate.id">
+      <select v-model="newSubscription.tarifa" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+      focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+      dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value="Elige una tarifa" selected>Elige una tarifa</option>
+        <option :value="rate.id" v-for="rate in getGymRateByType" v-bind:key="rate.id">
           {{ rate.nombre }}
         </option>
       </select>
+      <small-error v-if="message">{{ message }}</small-error>
     </form-group>
 
     <form-group>
-      <button-submit>Suscribirme</button-submit>
+      <button-submit @button-submit="createUserSubscription">Suscribirme</button-submit>
     </form-group>
   </form>
 </template>
 
 <script>
-  import axios from 'axios'
-  import { useGymStore } from '@/stores/gym.js'
   import FormGroup from '@/components/forms/FormGroup.vue'
   import SpanLabel from '@/components/forms/SpanLabel.vue'
   import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
+  import axios from 'axios'
+  import { useGymStore } from '@/stores/gym.js'
+  import SmallError from '@/components/forms/SmallError.vue'
+  import { mapState } from 'pinia'
+  import { useValidationStore } from '@/stores/validation.js'
+  import CaretDownFilled from '@/components/icons/CaretDownFilled.vue'
 
   export default {
     name: "UserSubscribe",
-    components: { ButtonSubmit, SpanLabel, FormGroup },
+    components: { CaretDownFilled, SmallError, ButtonSubmit, SpanLabel, FormGroup },
+    emits: ["userSubscriptionCreated"],
 
     data() {
       return {
         gymRates: [],
+        rateSelectType: "Suscripcion",
         newSubscription: {
           tarifa: null
         }
       }
     },
 
+    computed: {
+        ...mapState(useValidationStore, {
+          message: 'message',
+          errors: 'errors'
+        })
+    },
+
     mounted() {
-      axios.get(
-        import.meta.env.VITE_SERVICE_BASE_URL +
-        "gimnasios/" + useGymStore().gymSelected.id + "/tarifas"
-      )
+      axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
+      "gimnasios/" + useGymStore().gymSelected.id + "/tarifas")
         .then(response => {
           this.gymRates = response.data
         })
         .catch(() => {})
+    },
+
+    methods: {
+      createUserSubscription() {
+        axios.post(import.meta.env.VITE_SERVICE_BASE_URL +
+          "gimnasios/" + useGymStore().gymSelected.id + "/suscripciones",
+        this.newSubscription)
+          .then(response => {
+            this.$emit("userSubscriptionCreated", response.data)
+          })
+          .catch(() => {})
+      },
+
+      getGymRateByType(){
+        return this.gymRates.filter(item => item.tipo == this.rateSelectType)
+      }
     }
   }
 </script>

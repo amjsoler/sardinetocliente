@@ -69,7 +69,6 @@ export default {
 
   methods: {
     articleCreatedCallback(createdArticle) {
-      console.log("HLI")
       //Push the created exercise into the exercises array
       this.gymArticles.push(createdArticle)
 

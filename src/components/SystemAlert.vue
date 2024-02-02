@@ -38,7 +38,6 @@
                 'bg-primary-50 text-primary-500 focus:ring-2 focus:ring-primary-400 hover:bg-primary-200 dark:bg-primary-800 dark:text-primary-400 dark:hover:bg-primary-700': alert.type==='info',
                 'bg-red-50 text-red-500 focus:ring-2 focus:ring-red-400 hover:bg-red-200 dark:bg-red-800 dark:text-red-400 dark:hover:bg-red-700': alert.type==='danger',
               }"
-              data-dismiss-target="#alert-border-3"
               aria-label="Close"
               @click="closeAlert()"
       >
