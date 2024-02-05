@@ -30,7 +30,7 @@
   </block-section>
 
   <block-section class="space-y-3">
-    <p class="font-bold text-center">{{ $tc("mySubscriptions.userSubscribeTitle", getActiveSubscriptionThisMonth.length)}}</p>
+    <p class="font-bold text-center">{{ $tc("mySubscriptions.userSubscribeTitle", 1)}}</p>
     <user-subscribe @user-subscription-created="userSubscriptionCreatedCallback" />
   </block-section>
 

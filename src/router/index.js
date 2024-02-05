@@ -21,6 +21,7 @@ import NotFoundResource from '@/views/NotFoundResource.vue'
 import UserSubscribe from '@/views/subscription/UserSubscribe.vue'
 import MySubscriptions from '@/views/subscription/MySubscriptions.vue'
 import GymSubscriptions from '@/views/subscription/GymSubscriptions.vue'
+import AdminSubscribeUser from '@/views/subscription/AdminSubscribeUser.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -184,7 +185,7 @@ const router = createRouter({
     {
       path: '/prueba-componente',
       name: 'PruebaComponente',
-      component: UserSubscribe,
+      component: AdminSubscribeUser,
       meta: {
         requiresAuth: true,
         gymHeader: true,
