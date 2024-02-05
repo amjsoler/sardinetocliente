@@ -1,61 +1,43 @@
 <template>
   <form class="space-y-4">
-
-    <div class="flex">
-      <button id="states-button" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 z-10 inline-flex
+    <form-group>
+      <div class="flex">
+        <button id="states-button" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 z-10 inline-flex
        items-center py-2.5 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300
        rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600
         dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button"
-      >
-        <div class="inline-flex items-center">
-          {{ rateSelectType }}
-          <caret-down-filled></caret-down-filled>
-        </div>
-      </button>
-      <div id="dropdown-states" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="states-button">
-          <li>
-            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+        >
+          <p class="inline-flex items-center">
+            {{ rateTypes[rateTypeSelected].name }}
+            <caret-down-filled></caret-down-filled>
+          </p>
+        </button>
+        <div id="dropdown-states" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="states-button">
+            <li>
+              <div class="cursor-pointer inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
              dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              <div class="inline-flex items-center" @click="rateSelectType='Suscripción'">
-                Suscripción
+                   @click="rateTypeSelected=0"
+              >
+                {{ rateTypes[0].name }}
               </div>
-            </button>
-          </li>
-          <li>
-            <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
-              <div class="inline-flex items-center" @click="rateSelectType='Abono'">
-                Abono
+            </li>
+            <li>
+              <div class=" cursor-pointer inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                   @click="rateTypeSelected=1"
+              >
+                {{ rateTypes[1].name }}
               </div>
-            </button>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
+        <select v-model="newSubscription.tarifa" id="states" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="-1" selected="selected">Elige una tarifa</option>
+          <option :value="rate.id" v-for="rate in getGymRateByType()" v-bind:key="rate.id">
+            {{ rate.nombre }}
+          </option>
+        </select>
       </div>
-      <label for="states" class="sr-only">Choose a state</label>
-      <select id="states" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option selected>Choose a state</option>
-        <option value="CA">California</option>
-        <option value="TX">Texas</option>
-        <option value="WH">Washinghton</option>
-        <option value="FL">Florida</option>
-        <option value="VG">Virginia</option>
-        <option value="GE">Georgia</option>
-        <option value="MI">Michigan</option>
-      </select>
-    </div>
-
-    <form-group>
-      <span-label>Tarifa</span-label>
-      <select v-model="newSubscription.tarifa" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-      focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
-      dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      >
-        <option value="Elige una tarifa" selected>Elige una tarifa</option>
-        <option :value="rate.id" v-for="rate in getGymRateByType" v-bind:key="rate.id">
-          {{ rate.nombre }}
-        </option>
-      </select>
       <small-error v-if="message">{{ message }}</small-error>
     </form-group>
 
@@ -67,7 +49,6 @@
 
 <script>
   import FormGroup from '@/components/forms/FormGroup.vue'
-  import SpanLabel from '@/components/forms/SpanLabel.vue'
   import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
   import axios from 'axios'
   import { useGymStore } from '@/stores/gym.js'
@@ -78,15 +59,30 @@
 
   export default {
     name: "UserSubscribe",
-    components: { CaretDownFilled, SmallError, ButtonSubmit, SpanLabel, FormGroup },
+    components: { CaretDownFilled, SmallError, ButtonSubmit, FormGroup },
+    props: {
+      yaSuscrito: {
+        default: false
+      }
+    },
     emits: ["userSubscriptionCreated"],
 
     data() {
       return {
         gymRates: [],
-        rateSelectType: "Suscripcion",
+        rateTypes: [
+          {
+            "name": "Suscripción",
+            "value": "suscripcion"
+          },
+          {
+            "name": "Abono",
+            "value": "abono"
+          }
+        ],
+        rateTypeSelected: 0,
         newSubscription: {
-          tarifa: null
+          tarifa: -1
         }
       }
     },
@@ -113,13 +109,15 @@
           "gimnasios/" + useGymStore().gymSelected.id + "/suscripciones",
         this.newSubscription)
           .then(response => {
+            console.log("ResponseDelCallback:")
+            console.log(response.data)
             this.$emit("userSubscriptionCreated", response.data)
           })
           .catch(() => {})
       },
 
       getGymRateByType(){
-        return this.gymRates.filter(item => item.tipo == this.rateSelectType)
+        return this.gymRates.filter(item => item.tipo === this.rateTypes[this.rateTypeSelected].value)
       }
     }
   }

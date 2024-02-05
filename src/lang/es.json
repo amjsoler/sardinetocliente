@@ -122,5 +122,14 @@
     "creditosLabel": "Créditos que otorga",
     "tipoLabel": "Tipo de tarifa",
     "submit": "Guardar tarifa"
+  },
+
+  "mySubscriptions": {
+    "subscriptionTitle": "Suscripción activa",
+    "abonoTitle": "Abono activo | Abonos activos",
+    "noSubscriptions": "Sin suscripciones activas este mes",
+    "noAbonos": "Sin abonos activos",
+    "userSubscribeTitle": "Suscríbete este mes | ¿Necesitas más este mes? Compra un abono",
+    "creditsLeft": "No quedan créditos | 1 crédito restante | {count} créditos restantes"
   }
 }
