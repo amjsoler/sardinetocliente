@@ -72,7 +72,7 @@ export default {
 
   computed: {
     getActiveSubscriptionThisMonth(){
-      return this.mySubscriptions.filter(item => new Date(item.created_at).getMonth() === new Date().getMonth() && item.pagada)
+      return this.mySubscriptions.filter(item => new Date(item.created_at).getMonth() === new Date().getMonth() && item.tarifa_a_la_que_pertenece.tipo === "suscripcion" && item.pagada)
     },
 
     getActiveAbonos() {

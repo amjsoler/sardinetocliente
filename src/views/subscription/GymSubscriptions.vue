@@ -3,7 +3,7 @@
     <text-input v-model="searchInput" :placeholder="$t('gymArticle.searchPlaceholder')" />
     <div v-for="(subscription, index) in getFilteredGymSubscriptions"
          v-bind:key="subscription.id"
-         class="bg-input-background-400 rounded-lg p-4"
+         class="bg-input-background-400 rounded-lg p-4 relative"
     >
       <section class="flex flex-row justify-around items-center">
         <section class="flex flex-col items-center justify-center text-sm">
@@ -28,6 +28,10 @@
          class="flex flex-row justify-center pt-4" v-if="!subscription.pagada">
         <credit-card class="text-red-300" />
       </p>
+      <p @click="deleteSubscription(subscription.id, index)"
+      class="absolute right-1 bottom-1 text-red-300">
+        <trash-x-icon />
+      </p>
     </div>
   </block-section>
 </template>
@@ -39,10 +43,11 @@ import BlockSection from '@/components/containers/BlockSection.vue'
 import { getDateAndHourFromString, getDateFromString, getHourFromString } from '@/helpers/Helpers.js'
 import TextInput from '@/components/forms/inputs/TextInput.vue'
 import CreditCard from '@/components/icons/CreditCard.vue'
+import TrashXIcon from '@/components/icons/TrashXIcon.vue'
 
 export default {
   name: "GymSubscriptions",
-  components: { CreditCard, TextInput, BlockSection },
+  components: { TrashXIcon, CreditCard, TextInput, BlockSection },
 
   data() {
     return {
@@ -79,6 +84,15 @@ export default {
       "gimnasios/" + useGymStore().gymSelected.id + "/suscripciones/" + subscriptionId + "/marcar-pagada")
         .then(() => {
           this.gymSubscriptions[subscriptionIndex].pagada = new Date()
+        })
+        .catch(() => {})
+    },
+
+    deleteSubscription(subscriptionId, subscriptionIndex) {
+      axios.delete(import.meta.env.VITE_SERVICE_BASE_URL +
+        "gimnasios/" + useGymStore().gymSelected.id + "/suscripciones/" + subscriptionId)
+        .then(() => {
+          this.gymSubscriptions.splice(subscriptionIndex,1)
         })
         .catch(() => {})
     }
