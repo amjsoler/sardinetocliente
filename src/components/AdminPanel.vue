@@ -28,6 +28,10 @@
     <block-section>
       <p @click="router().push({name: 'GymRates'})">Tarifas</p>
     </block-section>
+
+    <block-section>
+      <p @click="router().push({name: 'GymSubscriptions'})">Suscripciones del gimnsio</p>
+    </block-section>
   </div>
 </template>
 <script>

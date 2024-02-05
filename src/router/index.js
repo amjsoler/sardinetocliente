@@ -20,6 +20,7 @@ import GymRates from '@/views/rate/GymRates.vue'
 import NotFoundResource from '@/views/NotFoundResource.vue'
 import UserSubscribe from '@/views/subscription/UserSubscribe.vue'
 import MySubscriptions from '@/views/subscription/MySubscriptions.vue'
+import GymSubscriptions from '@/views/subscription/GymSubscriptions.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -195,6 +196,17 @@ const router = createRouter({
       path: '/my-subscriptions',
       name: 'MySubscriptions',
       component: MySubscriptions,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
+      }
+    },
+
+    {
+      path: '/gym-subscriptions',
+      name: 'GymSubscriptions',
+      component: GymSubscriptions,
       meta: {
         requiresAuth: true,
         gymHeader: true,

@@ -12,6 +12,12 @@
     <block-section @click="router().push({name: 'MyMetrics'})" class="mt-20 text-center text-2xl cursor-pointer">
       {{ $t("userDropDownMenu.mymetrics")}}
     </block-section>
+
+    <block-section @click="router().push({name: 'MySubscriptions'})"
+                   class="mt-20 text-center text-2xl cursor-pointer"
+    >
+      Mis suscripciones
+    </block-section>
   </div>
 </template>
 <script>
