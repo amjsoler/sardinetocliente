@@ -1,74 +1,60 @@
 <template>
-  <section>
-    <div-v-align>
-      <container-with-brand-head blur="true">
-        <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-          {{$t("RegisterUser.title")}}
-        </h1>
-        <form class="space-y-5 md:space-y-6">
-          <form-group>
-            <span-label>{{$t("RegisterUser.form.name")}}</span-label>
-            <email-input v-model="newUser.name" />
-            <small-error v-if="errors.name">
-              {{ errors.name[0] }}
-            </small-error>
-          </form-group>
+  <div-v-align>
+    <container-with-brand-head blur="true">
+      <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+        {{$t("RegisterUser.title")}}
+      </h1>
+      <form class="space-y-5 md:space-y-6">
+        <form-group>
+          <span-label>{{$t("RegisterUser.form.name")}}</span-label>
+          <email-input autofocus v-model="newUser.name" />
+          <small-error field-name="name" />
+        </form-group>
 
-          <form-group>
-            <span-label>{{$t("RegisterUser.form.email")}}</span-label>
-            <email-input v-model="newUser.email" />
-            <small-error v-if="errors.email">
-              {{ errors.email[0] }}
-            </small-error>
-          </form-group>
+        <form-group>
+          <span-label>{{$t("RegisterUser.form.email")}}</span-label>
+          <email-input v-model="newUser.email" />
+          <small-error field-name="email" />
+        </form-group>
 
-          <form-group>
-            <span-label>{{$t("RegisterUser.form.password")}}</span-label>
-            <password-input v-model="newUser.password" />
-            <small-error v-if="errors.password">
-              {{ errors.password[0] }}
-            </small-error>
-          </form-group>
+        <form-group>
+          <span-label>{{$t("RegisterUser.form.password")}}</span-label>
+          <password-input v-model="newUser.password" />
+          <small-error field-name="password" />
+        </form-group>
 
-          <form-group>
-            <span-label>{{$t("RegisterUser.form.password_confirmation")}}</span-label>
-            <password-input v-model="newUser.password_confirmation" />
-            <small-error v-if="errors.password_confirmation">
-              {{ errors.password_confirmation[0] }}
-            </small-error>
-          </form-group>
+        <form-group>
+          <span-label>{{$t("RegisterUser.form.password_confirmation")}}</span-label>
+          <password-input v-model="newUser.password_confirmation" />
+          <small-error field-name="password_confirmation" />
+        </form-group>
 
-          <button-submit @button-submit="registrarUsuario">
-            {{$t("RegisterUser.form.buttonSubmit")}}
-          </button-submit>
+        <button-submit processing-id="register-button" @button-submit="registrarUsuario">
+          {{$t("RegisterUser.form.buttonSubmit")}}
+        </button-submit>
 
-        </form>
-      </container-with-brand-head>
-    </div-v-align>
-  </section>
+      </form>
+    </container-with-brand-head>
+  </div-v-align>
 </template>
 
 <script>
 
-import axios from 'axios'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
 import PasswordInput from '@/components/forms/inputs/PasswordInput.vue'
 import SmallError from '@/components/forms/SmallError.vue'
 import FormGroup from '@/components/forms/FormGroup.vue'
 import EmailInput from '@/components/forms/inputs/EmailInput.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
-import { mapState, mapWritableState } from 'pinia'
-import { useValidationStore } from '@/stores/validation.js'
 import { useUserStore } from '@/stores/user.js'
 import router from '@/router/index.js'
 import ContainerWithBrandHead from '@/components/containers/ContainerWithBrandHead.vue'
 import DivVAlign from '@/components/containers/DivVAlign.vue'
-import TrainVideo from '@/components/containers/TrainVideo.vue'
+import { useGeneralStore } from '@/stores/general.js'
 
 export default {
   name: 'RegisterUser',
   components: {
-    TrainVideo,
     DivVAlign,
     ContainerWithBrandHead,
     ButtonSubmit,
@@ -90,32 +76,17 @@ export default {
     }
   },
 
-  computed: {
-    ...mapState(useValidationStore, {
-      message:"message",
-      errors:"errors"
-    }),
-    ...mapWritableState(useUserStore, {
-      user:"user"
-    })
-  },
-
   methods: {
-    registrarUsuario() {
-      axios
-        .post(import.meta.env.VITE_SERVICE_BASE_URL+'registrarse', this.newUser)
-        .then((response) => {
-          useUserStore().$patch({user: response.data})
+    async registrarUsuario() {
+      if(await useUserStore().actionRegister(this.newUser)){
 
-          //TODO Muestro un alert informando del resultado de la operación
-          console.log(this.$t("alerts.registerok"))
+        useGeneralStore().showAlert(
+          this.$t("RegisterUser.alertOk"),
+          "success"
+        )
 
-          //Redirijo a la ruta de verificación de cuenta tras el registro
-          router.push({name: "AccountVerify"})
-        })
-        .catch(() => {
-
-        })
+        router.push({name: "GymClasses"})
+      }
     }
   }
 }

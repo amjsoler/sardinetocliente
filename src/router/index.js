@@ -260,10 +260,10 @@ router.beforeEach((to, from, next) => {
     const userStore = useUserStore()
 
     if(userStore.user && userStore.user.access_token){
-      console.log("router/index.js: Hay un token guardado, redirijo a mygyms")
+      console.log("router/index.js: Hay un token guardado, redirijo a GymClasses")
       primerRequires = true;
 
-      next({name: "MyGyms"})
+      next({name: "GymClasses"})
     }
   }
 

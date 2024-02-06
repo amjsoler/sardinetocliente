@@ -32,7 +32,8 @@
       "password": "Contraseña",
       "password_confirmation": "Repite la contraseña",
       "buttonSubmit": "Crea tu cuenta"
-    }
+    },
+    "alertOk": "Tu usuario se ha creado correctamente. Por favor, revisa tu correo y valida la cuenta"
   },
   "accountVerify": {
     "title": "Verifica tu cuenta",
