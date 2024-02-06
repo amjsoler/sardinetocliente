@@ -1,8 +1,13 @@
 <template>
   <form>
     <form-group>
+      <span-label>Selecciona el usuario a suscribir</span-label>
+      <user-selector v-model="newSubscription.usuario" />
+      <small-error v-if="errors.usuario">{{ errors.usuario[0]}}</small-error>
+    </form-group>
+    <form-group>
       <span-label>Selecciona la tarifa</span-label>
-      <rate-selector @selected-rate="(selectedRate) => console.log(selectedRate)" />
+      <rate-selector v-model="newSubscription.tarifa" />
       <small-error v-if="errors.tarifa">
         {{ errors.tarifa[0] }}
       </small-error>
@@ -25,25 +30,23 @@ import { mapState } from 'pinia'
 import { useValidationStore } from '@/stores/validation.js'
 import RateSelector from '@/components/forms/inputs/RateSelector.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
+import UserSelector from '@/components/forms/inputs/UserSelector.vue'
 
 export default {
   name: "AdminSubscribeUser",
 
-  components: { ButtonSubmit, RateSelector, SmallError, SpanLabel, FormGroup },
-
-  props: {
-    userToSubscribe: {
-      required: true
-    }
-  },
+  components: { UserSelector, ButtonSubmit, RateSelector, SmallError, SpanLabel, FormGroup },
 
   emits: ["newSubscriptionAsAdminCreated"],
 
   data() {
     return {
+      newUsuario: "",
+      newTarifa: "",
+
       newSubscription: {
-        usuario: this.userToSubscribe,
-        tarifa: null
+        usuario: "",
+        tarifa: ""
       }
     }
   },
@@ -55,6 +58,10 @@ export default {
     })
   },
 
+  mounted() {
+    console.log("Montado el adminsubscribe")
+  },
+
   methods: {
     subscribeUserAsAdmin(){
       axios.post(import.meta.env.VITE_SERVICE_BASE_URL +
@@ -64,6 +71,11 @@ export default {
           this.$emit("newSubscriptionAsAdminCreated", response.data)
         })
         .catch(() => {})
+    },
+
+    userSelectedCallback(userSelected) {
+      console.log("asdf")
+      this.newUsuario = userSelected.id
     }
   }
 }

@@ -1,57 +1,57 @@
 <template>
-  <train-video />
-  <div-v-align>
-    <container-with-brand-head blur="true">
-      <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-        {{$t("RegisterUser.title")}}
-      </h1>
-      <form class="space-y-5 md:space-y-6">
-        <form-group>
-          <span-label>{{$t("RegisterUser.form.name")}}</span-label>
-          <email-input v-model="newUser.name" />
-          <small-error v-if="errors.name">
-            {{ errors.name[0] }}
-          </small-error>
-        </form-group>
+  <section>
+    <div-v-align>
+      <container-with-brand-head blur="true">
+        <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          {{$t("RegisterUser.title")}}
+        </h1>
+        <form class="space-y-5 md:space-y-6">
+          <form-group>
+            <span-label>{{$t("RegisterUser.form.name")}}</span-label>
+            <email-input v-model="newUser.name" />
+            <small-error v-if="errors.name">
+              {{ errors.name[0] }}
+            </small-error>
+          </form-group>
 
-        <form-group>
-          <span-label>{{$t("RegisterUser.form.email")}}</span-label>
-          <email-input v-model="newUser.email" />
-          <small-error v-if="errors.email">
-            {{ errors.email[0] }}
-          </small-error>
-        </form-group>
+          <form-group>
+            <span-label>{{$t("RegisterUser.form.email")}}</span-label>
+            <email-input v-model="newUser.email" />
+            <small-error v-if="errors.email">
+              {{ errors.email[0] }}
+            </small-error>
+          </form-group>
 
-        <form-group>
-          <span-label>{{$t("RegisterUser.form.password")}}</span-label>
-          <password-input v-model="newUser.password" />
-          <small-error v-if="errors.password">
-            {{ errors.password[0] }}
-          </small-error>
-        </form-group>
+          <form-group>
+            <span-label>{{$t("RegisterUser.form.password")}}</span-label>
+            <password-input v-model="newUser.password" />
+            <small-error v-if="errors.password">
+              {{ errors.password[0] }}
+            </small-error>
+          </form-group>
 
-        <form-group>
-          <span-label>{{$t("RegisterUser.form.password_confirmation")}}</span-label>
-          <password-input v-model="newUser.password_confirmation" />
-          <small-error v-if="errors.password_confirmation">
-            {{ errors.password_confirmation[0] }}
-          </small-error>
-        </form-group>
+          <form-group>
+            <span-label>{{$t("RegisterUser.form.password_confirmation")}}</span-label>
+            <password-input v-model="newUser.password_confirmation" />
+            <small-error v-if="errors.password_confirmation">
+              {{ errors.password_confirmation[0] }}
+            </small-error>
+          </form-group>
 
-        <button-submit @button-submit="registrarUsuario">
-          {{$t("RegisterUser.form.buttonSubmit")}}
-        </button-submit>
+          <button-submit @button-submit="registrarUsuario">
+            {{$t("RegisterUser.form.buttonSubmit")}}
+          </button-submit>
 
-      </form>
-    </container-with-brand-head>
-  </div-v-align>
+        </form>
+      </container-with-brand-head>
+    </div-v-align>
+  </section>
 </template>
 
 <script>
 
 import axios from 'axios'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
-import ContainerVAlignWithBrandHead from '@/components/containers/ContainerWithBrandHead.vue'
 import PasswordInput from '@/components/forms/inputs/PasswordInput.vue'
 import SmallError from '@/components/forms/SmallError.vue'
 import FormGroup from '@/components/forms/FormGroup.vue'
@@ -76,7 +76,6 @@ export default {
     FormGroup,
     SmallError,
     PasswordInput,
-    ContainerVAlignWithBrandHead,
     SpanLabel
   },
 

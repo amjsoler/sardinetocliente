@@ -1,5 +1,4 @@
 <template>
-<train-video />
   <div-v-align>
     <container-with-brand-head blur="true">
       <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
