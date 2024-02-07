@@ -25,12 +25,6 @@ import AdminSubscribeUser from '@/views/subscription/AdminSubscribeUser.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
-
-
-
-    ///
-    // Auth routes
-    ///
     {
       path: '/',
       name: 'EnterUrl',
@@ -38,12 +32,18 @@ const router = createRouter({
         return {name: "GymClasses"}
       }
     },
+
+
+    ///
+    // Auth routes
+    ///
     {
       path: '/login',
       name: 'LoginUser',
       component: LoginUser,
       meta: {
-        requiresGuest: true
+        requiresGuest: true,
+        trainVideo: true
       }
     },
     {
@@ -51,20 +51,25 @@ const router = createRouter({
       name: 'RegisterUser',
       component: RegisterUser,
       meta: {
-        requiresGuest: true
+        requiresGuest: true,
+        trainVideo: true
       }
     },
     {
       path: '/account-recovery',
       name: 'AccountRecovery',
-      component: AccountRecovery
+      component: AccountRecovery,
+      meta: {
+        trainVideo: true,
+      }
     },
     {
       path: '/account-verify',
       name: 'AccountVerify',
       component: AccountVerify,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        trainVideo: true
       }
     },
 

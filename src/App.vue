@@ -1,8 +1,8 @@
 <template>
-  <train-video />
+  <train-video v-if="checkRouteRequiresTrainVideo"/>
   <gym-header v-if="checkRouteRequiresGymHeader" />
   <router-view v-slot="{ Component }">
-    <Transition name="compotransition">
+    <Transition name="view-transition">
       <component :is="Component" />
     </Transition>
   </router-view>
@@ -11,16 +11,17 @@
   <system-alert></system-alert>
 </template>
 
-<style scoped>
-.compotransition-enter-active {
-  animation: compotransition-in 0.2s;
+<style>
+.view-transition-enter-active {
+  animation: appear-from-right 0.2s;
   animation-delay: .2s;
 }
 
-.compotransition-leave-active {
-  animation: compotransition-out 0.2s;
+.view-transition-leave-active {
+  animation: disappear-to-left 0.2s;
 }
-@keyframes compotransition-out {
+
+@keyframes disappear-to-left {
   0% {
     transform: translateX(0);
     opacity: 1;
@@ -31,7 +32,7 @@
   }
 }
 
-@keyframes compotransition-in {
+@keyframes appear-from-right {
   0% {
     transform: translateX(200px);
     opacity: 0;
@@ -41,7 +42,6 @@
     opacity: 1;
   }
 }
-
 </style>
 
 <script>
@@ -66,7 +66,13 @@ export default {
 
     checkRouteRequiresFooterMenu() {
       return this.$router.currentRoute.value.meta.footerMenu
+    },
+
+    checkRouteRequiresTrainVideo() {
+      return this.$router.currentRoute.value.meta.trainVideo
     }
+
+
   }
 }
 
