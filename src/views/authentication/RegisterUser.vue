@@ -87,7 +87,7 @@ export default {
           "success"
         )
 
-        router.push({name: "GymClasses"})
+        router.push({name: "AccountVerify"})
       }
     }
   }

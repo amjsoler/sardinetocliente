@@ -42,6 +42,16 @@ export const useUserStore = defineStore('user', {
       }catch(error) {
         return false
       }
+    },
+
+    async actionAccountVerify() {
+      try {
+        await API.users.accountVerify()
+
+        return true
+      }catch(error){
+        return false
+      }
     }
   }
 })

@@ -11,7 +11,6 @@ const instance = axios
 
   instance.interceptors.response.use(
     (response) => {
-      console.log("HOLI")
       if (response.status === 200) {
         //Si recibo 200, borro el array de errores y mensaje para que no afecte a las páginas
         console.log('main.js: Response captured: 200')
