@@ -61,18 +61,16 @@ const instance = axios
       }
       else {
         //Si no conozco el status del error que se devuelve, lo logueo en servidor y muestro un toast
-        useGeneralStore().$patch({alert: {type: "danger", message: "Se ha producido un error. Intentelo de nuevo más tarde y si el problema persiste, ponte en contacto con nosotros"}})
+        useGeneralStore().$patch({alert: {type: "danger", message: "Se ha producido un error. Intentalo de nuevo más tarde y si el problema persiste, ponte en contacto con nosotros"}})
       }
-
 
       return Promise.reject(error)
     }
   )
 
   instance.interceptors.request.use(function(config){
-    const userStore = useUserStore();
-    if(userStore.user && userStore.user.access_token){
-      config.headers.Authorization = "Bearer " + userStore.user.access_token
+    if(useUserStore().user && useUserStore().user.access_token){
+      config.headers.Authorization = "Bearer " + useUserStore().user.access_token
     }
 
     //TODO

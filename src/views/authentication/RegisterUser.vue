@@ -32,7 +32,6 @@
         <button-submit processing-id="register-form-button" @button-submit="registrarUsuario">
           {{$t("RegisterUser.form.buttonSubmit")}}
         </button-submit>
-
       </form>
     </container-with-brand-head>
   </div-v-align>

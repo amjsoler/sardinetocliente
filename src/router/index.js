@@ -18,18 +18,23 @@ import UserExercises from '@/views/userexercises/UserExercises.vue'
 import AdminBuyingArticles from '@/views/articles/AdminBuyingArticles.vue'
 import GymRates from '@/views/rate/GymRates.vue'
 import NotFoundResource from '@/views/NotFoundResource.vue'
-import UserSubscribe from '@/views/subscription/UserSubscribe.vue'
 import MySubscriptions from '@/views/subscription/MySubscriptions.vue'
 import GymSubscriptions from '@/views/subscription/GymSubscriptions.vue'
 import AdminSubscribeUser from '@/views/subscription/AdminSubscribeUser.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
+
+
+
+    ///
+    // Auth routes
+    ///
     {
       path: '/',
       name: 'EnterUrl',
-      redirect: to => {
+      redirect: () => {
         return {name: "GymClasses"}
       }
     },
@@ -63,8 +68,10 @@ const router = createRouter({
       }
     },
 
+
+
     ///
-    //GYms
+    //Gyms
     ///
 
     {
@@ -84,6 +91,52 @@ const router = createRouter({
         gymHeader: true
       }
     },
+
+
+
+    ///
+    // Rates
+    ///
+    {
+      path: '/gym-rates',
+      name: 'GymRates',
+      component: GymRates,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
+      }
+    },
+
+
+
+    ///
+    // Subscriptions
+    ///
+    {
+      path: '/my-subscriptions',
+      name: 'MySubscriptions',
+      component: MySubscriptions,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
+      }
+    },
+
+    {
+      path: '/gym-subscriptions',
+      name: 'GymSubscriptions',
+      component: GymSubscriptions,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
+      }
+    },
+
+
+
     ///
     //Classes
     ///
@@ -97,8 +150,10 @@ const router = createRouter({
       }
     },
 
+
+
     ///
-    // Mis métricas
+    // Metrics
     ///
     {
         path: '/my-metrics',
@@ -110,8 +165,10 @@ const router = createRouter({
       }
     },
 
+
+
     ///
-    // Exercises
+    // GYM Exercises
     ///
     {
       path: '/gym-exercises',
@@ -123,6 +180,24 @@ const router = createRouter({
         footerMenu: true
       }
     },
+
+
+
+    ///
+    // Uer Exercises
+    ///
+    {
+      path: '/user-exercises',
+      name: 'UserExercises',
+      component: UserExercises,
+      meta: {
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
+      }
+    },
+
+
 
     ///
     // Articles
@@ -160,26 +235,21 @@ const router = createRouter({
       }
     },
 
+
+
+    ///
+    /// Rutas de sistema
+    ///
     {
-      path: '/user-exercises',
-      name: 'UserExercises',
-      component: UserExercises,
-      meta: {
-        requiresAuth: true,
-        gymHeader: true,
-        footerMenu: true
-      }
+      path: '/fobidden',
+      name: 'ForbiddenResource',
+      component: ForbiddenResource
     },
 
     {
-      path: '/gym-rates',
-      name: 'GymRates',
-      component: GymRates,
-      meta: {
-        requiresAuth: true,
-        gymHeader: true,
-        footerMenu: true
-      }
+      path: '/not-found',
+      name: 'NotFoundResource',
+      component: NotFoundResource
     },
 
     {
@@ -192,41 +262,6 @@ const router = createRouter({
         footerMenu: true
       }
     },
-
-    {
-      path: '/my-subscriptions',
-      name: 'MySubscriptions',
-      component: MySubscriptions,
-      meta: {
-        requiresAuth: true,
-        gymHeader: true,
-        footerMenu: true
-      }
-    },
-
-    {
-      path: '/gym-subscriptions',
-      name: 'GymSubscriptions',
-      component: GymSubscriptions,
-      meta: {
-        requiresAuth: true,
-        gymHeader: true,
-        footerMenu: true
-      }
-    },
-
-    /// Rutas de sistema
-    {
-      path: '/fobidden',
-      name: 'ForbiddenResource',
-      component: ForbiddenResource
-    },
-
-    {
-      path: '/not-found',
-      name: 'NotFoundResource',
-      component: NotFoundResource
-    }
   ]
 })
 
@@ -235,19 +270,13 @@ router.beforeEach((to, from, next) => {
   const validationStore = useValidationStore()
   validationStore.$reset()
 
-  //Veo si recibo el firebasetoken y lo almaceno
-  /*if(to.query.firebasetoken && (!store.state.firebasetoken || store.state.firebasetoken != to.query.firebasetoken)){
-    store.dispatch("almacenarFirebaseTokenAction", to.query.firebasetoken);
-  }*/
-
   var primerRequires = false;
   //Comprobamos si la ruta de destino precisa autenticación
    if (!primerRequires && to.matched.some((record) => record.meta.requiresAuth)) {
      console.log("router/index.js: requiresAuth detected. Checking...");
-    const userStore = useUserStore()
 
     //Compruebo si hay token en el user, si lo hay, dejo seguir, si no, redirijo al login
-     if(!userStore.user || !userStore.user.access_token){
+     if(!useUserStore().user || !useUserStore().user.access_token){
        console.log("router/index.js: No hay token, redirijo al login")
        primerRequires = true;
 
@@ -257,9 +286,8 @@ router.beforeEach((to, from, next) => {
 
   if (!primerRequires && to.matched.some((record) => record.meta.requiresGuest)) {
     console.log("router/index.js: requiresGuest detected. Checking...");
-    const userStore = useUserStore()
 
-    if(userStore.user && userStore.user.access_token){
+    if(useUserStore().user && useUserStore().user.access_token){
       console.log("router/index.js: Hay un token guardado, redirijo a GymClasses")
       primerRequires = true;
 

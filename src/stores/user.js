@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { API } from '@/services/index.js'
+
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
