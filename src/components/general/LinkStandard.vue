@@ -1,6 +1,6 @@
 <template>
   <router-link :to="destination"
-     class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+     class="font-medium dark:text-primary-500"
   >
     <slot />
   </router-link>

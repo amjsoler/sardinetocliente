@@ -54,6 +54,13 @@ const instance = axios
         console.log("main.js: Response error captured: 460. Cuenta no verificada, redirijo a la vista de verificación");
         router.push({name:"AccountVerify"});
       }
+      else if(error.response.status === 462){
+        console.log("main.js: Response error captured: 462. Contraseña no es correcta");
+
+        console.log(error.response.data)
+        useValidationStore().message = error.response.data
+        useValidationStore().errors.password = [error.response.data]
+      }
       else if(error.response.status === 404){
         console.log("main.js: Response error captured: 404. Recurso no encontrado. Muestro la vista 404");
 

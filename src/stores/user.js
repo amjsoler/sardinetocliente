@@ -19,6 +19,29 @@ export const useUserStore = defineStore('user', {
       catch(error){
         return false
       }
+    },
+
+    async actionLogin(user) {
+      try {
+        const response = await API.users.loginUser(user)
+
+        //Actualizo los datos de usuario
+        useUserStore().$patch({user: response.data})
+
+        return true
+      }catch(error) {
+        return false
+      }
+    },
+
+    async actionRecoverAccount(account) {
+      try {
+        await API.users.accountRecover(account)
+
+        return true
+      }catch(error) {
+        return false
+      }
     }
   }
 })
