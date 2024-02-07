@@ -3,7 +3,7 @@
     <text-input v-model="searchInput" :placeholder="$t('gymArticle.searchPlaceholder')" />
     <div v-for="(subscription, index) in getFilteredGymSubscriptions"
          v-bind:key="subscription.id"
-         class="bg-input-background-400 rounded-lg p-4 relative"
+         class="bg-input-background rounded-lg p-4 relative"
     >
       <section class="flex flex-row justify-around items-center">
         <section class="flex flex-col items-center justify-center text-sm">

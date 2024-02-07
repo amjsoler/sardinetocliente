@@ -1,6 +1,6 @@
 <template>
-     <footer class="fixed bottom-0 w-full h-12 bg-container-background-50 flex flex-row
-     justify-center [&>p]:flex-grow border-t-2 border-input-background-400">
+     <footer class="fixed bottom-0 w-full h-12 bg-container-background flex flex-row
+     justify-center [&>p]:flex-grow border-t-2 border-input-background">
       <p class="flex flex-col items-center justify-center">
         <shopping-bag-icon @click="router().push({name: 'GymArticles'})"></shopping-bag-icon>
       </p>

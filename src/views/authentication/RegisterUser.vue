@@ -1,35 +1,35 @@
 <template>
   <div-v-align>
     <container-with-brand-head blur="true">
-      <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+      <h1 class="text-lg text-center font-bold text-gray-900 dark:text-white">
         {{$t("RegisterUser.title")}}
       </h1>
-      <form class="space-y-5 md:space-y-6">
+      <form class="space-y-6">
         <form-group>
           <span-label>{{$t("RegisterUser.form.name")}}</span-label>
-          <email-input autofocus v-model="newUser.name" />
+          <variable-input type="text" autofocus v-model="newUser.name" />
           <small-error field-name="name" />
         </form-group>
 
         <form-group>
           <span-label>{{$t("RegisterUser.form.email")}}</span-label>
-          <email-input v-model="newUser.email" />
+          <variable-input type="email" v-model="newUser.email" />
           <small-error field-name="email" />
         </form-group>
 
         <form-group>
           <span-label>{{$t("RegisterUser.form.password")}}</span-label>
-          <password-input v-model="newUser.password" />
+          <variable-input type="password" v-model="newUser.password" />
           <small-error field-name="password" />
         </form-group>
 
         <form-group>
           <span-label>{{$t("RegisterUser.form.password_confirmation")}}</span-label>
-          <password-input v-model="newUser.password_confirmation" />
+          <variable-input type="password" v-model="newUser.password_confirmation" />
           <small-error field-name="password_confirmation" />
         </form-group>
 
-        <button-submit processing-id="register-button" @button-submit="registrarUsuario">
+        <button-submit processing-id="register-form-button" @button-submit="registrarUsuario">
           {{$t("RegisterUser.form.buttonSubmit")}}
         </button-submit>
 
@@ -41,27 +41,27 @@
 <script>
 
 import SpanLabel from '@/components/forms/SpanLabel.vue'
-import PasswordInput from '@/components/forms/inputs/PasswordInput.vue'
 import SmallError from '@/components/forms/SmallError.vue'
 import FormGroup from '@/components/forms/FormGroup.vue'
-import EmailInput from '@/components/forms/inputs/EmailInput.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
 import { useUserStore } from '@/stores/user.js'
 import router from '@/router/index.js'
 import ContainerWithBrandHead from '@/components/containers/ContainerWithBrandHead.vue'
 import DivVAlign from '@/components/containers/DivVAlign.vue'
 import { useGeneralStore } from '@/stores/general.js'
+import { removeIdFromProcessing } from '@/helpers/Helpers.js'
+import VariableInput from '@/components/forms/inputs/VariableInput.vue'
 
 export default {
   name: 'RegisterUser',
+
   components: {
+    VariableInput,
     DivVAlign,
     ContainerWithBrandHead,
     ButtonSubmit,
-    EmailInput,
     FormGroup,
     SmallError,
-    PasswordInput,
     SpanLabel
   },
 
@@ -78,8 +78,11 @@ export default {
 
   methods: {
     async registrarUsuario() {
-      if(await useUserStore().actionRegister(this.newUser)){
+      const response = await useUserStore().actionRegister(this.newUser);
 
+      removeIdFromProcessing("register-form-button")
+
+      if(response){
         useGeneralStore().showAlert(
           this.$t("RegisterUser.alertOk"),
           "success"

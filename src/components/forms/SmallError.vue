@@ -29,6 +29,8 @@ import { useValidationStore } from '@/stores/validation.js'
 
 export default {
 
+  name: "SmallError",
+
   props: {
     fieldName: {
       required: true

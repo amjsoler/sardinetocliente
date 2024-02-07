@@ -1,9 +1,9 @@
 <template>
   <section class="pt-12">
-    <div v-if="gymSelected" class="dark:bg-container-background-50 mx-3 rounded-lg pt-4 overflow-y-auto max-h-dvh">
+    <div v-if="gymSelected" class="dark:bg-container-background mx-3 rounded-lg pt-4 overflow-y-auto max-h-dvh">
       <h2 class="text-center text-2xl">Clases disponibles</h2>
 
-      <select class="block mx-auto my-2 bg-input-background-400">
+      <select class="block mx-auto my-2 bg-input-background">
         <option>Hoy</option>
         <option>Mañana</option>
         <option>Pasado</option>

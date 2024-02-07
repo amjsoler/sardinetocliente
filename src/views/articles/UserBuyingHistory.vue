@@ -7,7 +7,7 @@
     <block-section>
       <div class="flex flex-row flex-wrap gap-3">
         <article v-for="(article) in myBuyings" v-bind:key="article.id"
-                  class="flex flex-col items-center justify-center flex-grow space-y-2 bg-input-background-400
+                  class="flex flex-col items-center justify-center flex-grow space-y-2 bg-input-background
 rounded-lg py-3"
         >
             <p>{{ article.nombre }}</p>

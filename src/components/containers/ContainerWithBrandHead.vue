@@ -1,21 +1,17 @@
 <template>
-  <div class="flex-grow flex flex-col items-center px-6">
+  <div class="flex-grow flex flex-col items-center space-y-6 px-4">
     <logo-and-app-name-horizontal />
-    <div class="w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-none"
-        :class="{'bg-white dark:bg-container-background-50': !blur,
-                 'backdrop-blur': blur}"
-    >
-      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <slot></slot>
-      </div>
-    </div>
+    <block-section blur="true">
+      <slot />
+    </block-section>
   </div>
 </template>
 <script>
 import LogoAndAppNameHorizontal from '@/components/LogoAndAppNameHorizontal.vue'
+import BlockSection from '@/components/containers/BlockSection.vue'
 
 export default {
-  components: { LogoAndAppNameHorizontal },
+  components: { BlockSection, LogoAndAppNameHorizontal },
   props: {
     blur: {
       default: false

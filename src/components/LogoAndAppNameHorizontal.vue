@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-    <app-logo width="35px" height="35px" />
+  <div class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+    <app-logo class="w-8 h-8" />
     {{ $t("APP_TITLE")}}
   </div>
 </template>

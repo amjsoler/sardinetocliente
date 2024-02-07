@@ -1,6 +1,6 @@
 <template>
   <div-v-align>
-    <container-v-align-no-background>
+    <block-section>
       <section v-if="!correoEnviado"
                class="flex flex-col items-center space-y-4 pt-4">
         <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -30,20 +30,20 @@
           {{ $t("accountVerify.verifyMailSent") }}
         </p>
       </section>
-    </container-v-align-no-background>
+    </block-section>
   </div-v-align>
 </template>
 
 <script>
-import ContainerVAlignNoBackground from '@/components/containers/ContainerVAlignNoBackground.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
 import axios from 'axios'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import DivVAlign from '@/components/containers/DivVAlign.vue'
+import BlockSection from '@/components/containers/BlockSection.vue'
 
 export default {
   name: "AccountVerify",
-  components: { DivVAlign, IconCheck, ButtonSubmit, ContainerVAlignNoBackground },
+  components: { BlockSection, DivVAlign, IconCheck, ButtonSubmit },
 
   data() {
     return {

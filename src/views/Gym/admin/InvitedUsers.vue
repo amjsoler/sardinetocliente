@@ -7,7 +7,7 @@
   <block-section class="space-y-3" v-if="invitedUsers && invitedUsers.length !== 0">
     <email-input v-model="filterToApply" :placeholder="$t('invitedUsers.filterinputplaceholder')"></email-input>
     <div class="flex flex-row flex-wrap gap-3">
-      <article class="flex flex-col items-center justify-center flex-grow p-2 rounded-lg bg-input-background-400"
+      <article class="flex flex-col items-center justify-center flex-grow p-2 rounded-lg bg-input-background"
                v-for="user in filteredInvitedUsers" v-bind:key="user.id">
         <p>{{ user.name }}</p>
         <p>{{ user.email }}</p>
@@ -28,7 +28,7 @@ import { useGymStore } from '@/stores/gym.js'
 import InviteUser from '@/views/Gym/admin/InviteUser.vue'
 import BlockSection from '@/components/containers/BlockSection.vue'
 import HourglassIcon from '@/components/icons/HourglassIcon.vue'
-import EmailInput from '@/components/forms/inputs/EmailInput.vue'
+import EmailInput from '@/components/forms/inputs/VariableInput.vue'
 import MailForward from '@/components/icons/MailForward.vue'
 import { useGeneralStore } from '@/stores/general.js'
 

@@ -2,9 +2,9 @@
   <div id="system-alert-container" class="fixed bottom-3 w-full opacity-0 rounded-lg hidden">
     <div id="system-alert"
          class="flex items-center p-4 mx-3  border-t-4"
-         :class="{'text-green-800 border-green-300 bg-green-50 dark:text-green-400 dark:bg-input-background-400 dark:border-green-800': alert.type==='success',
-                  'text-red-800 border-red-300 bg-red-50 dark:text-red-400 dark:bg-input-background-400 dark:border-red-800': alert.type === 'danger',
-                  'text-primary-800 border-primary-300 bg-primary-50 dark:text-primary-400 dark:bg-input-background-400 dark:border-primary-800': alert.type === 'info'
+         :class="{'text-green-800 border-green-300 bg-green-50 dark:text-green-400 dark:bg-input-background dark:border-green-800': alert.type==='success',
+                  'text-red-800 border-red-300 bg-red-50 dark:text-red-400 dark:bg-input-background dark:border-red-800': alert.type === 'danger',
+                  'text-primary-800 border-primary-300 bg-primary-50 dark:text-primary-400 dark:bg-input-background dark:border-primary-800': alert.type === 'info'
                 }"
          role="alert"
     >

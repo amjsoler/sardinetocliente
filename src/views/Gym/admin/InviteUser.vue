@@ -18,7 +18,7 @@
 import FormGroup from '@/components/forms/FormGroup.vue'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
-import EmailInput from '@/components/forms/inputs/EmailInput.vue'
+import EmailInput from '@/components/forms/inputs/VariableInput.vue'
 import SmallError from '@/components/forms/SmallError.vue'
 import { mapState } from 'pinia'
 import { useValidationStore } from '@/stores/validation.js'

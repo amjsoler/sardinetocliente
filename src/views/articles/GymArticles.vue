@@ -21,11 +21,11 @@
       <article v-for="(article) in getFilteredGymArticles" v-bind:key="article.id"
           @click="viewingArticle = article"
          class="overflow-hidden h-28 relative flex flex-col items-center justify-end
-          bg-input-background-400 rounded-xl px-3 pt-3 pb-1 flex-grow">
+          bg-input-background rounded-xl px-3 pt-3 pb-1 flex-grow">
         <img alt="imagen de un artículo del gimnasio" src="@/assets/img.png"
              class="absolute top-0 left-0 object-fill w-full h-auto
                     after:bg-gradient-to-t after:from-red-800 after:to-transparent">
-        <div class="absolute inset-0 bg-gradient-to-t from-input-background-400 from-20% to-transparent to-40%" />
+        <div class="absolute inset-0 bg-gradient-to-t from-input-background from-20% to-transparent to-40%" />
         <p class="z-10">
           {{ article.nombre }} ({{article.stock}})
         </p>

@@ -24,5 +24,5 @@ export const useGeneralStore = defineStore("general", {
       this.alert.type = type
       this.alert.message = message
     }
-  }
+  },
 })

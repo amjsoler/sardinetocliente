@@ -10,7 +10,7 @@
     <text-input v-model="searchInput" :placeholder="$t('gymArticle.searchPlaceholder')" />
     <ul>
       <li v-for="(article, index) in getFilteredGymArticles" v-bind:key="article.id"
-          class="flex flex-row border-b-2 pb-2 border-input-background-400 items-center [&>*]:flex-grow space-y-4">
+          class="flex flex-row border-b-2 pb-2 border-input-background items-center [&>*]:flex-grow space-y-4">
         <p>
           {{ article.nombre }} ({{article.stock}})
         </p>

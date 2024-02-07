@@ -1,5 +1,5 @@
 <template>
-    <container-v-align-no-background>
+    <block-section>
       <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
         {{$t("createGym.title")}}
       </h1>
@@ -41,11 +41,10 @@
           {{$t("createGym.form.submit")}}
         </button-submit>
       </form>
-    </container-v-align-no-background>
+    </block-section>
 </template>
 
 <script>
-import ContainerVAlignNoBackground from '@/components/containers/ContainerVAlignNoBackground.vue'
 import FormGroup from '@/components/forms/FormGroup.vue'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
 import TextInput from '@/components/forms/inputs/TextInput.vue'
@@ -56,10 +55,11 @@ import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
 import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
 import router from '@/router/index.js'
+import BlockSection from '@/components/containers/BlockSection.vue'
 
 export default {
   name: "CreateGym",
-  components: { ButtonSubmit, SmallError, TextInput, SpanLabel, FormGroup, ContainerVAlignNoBackground },
+  components: { BlockSection, ButtonSubmit, SmallError, TextInput, SpanLabel, FormGroup },
   data() {
     return {
       newGym: {

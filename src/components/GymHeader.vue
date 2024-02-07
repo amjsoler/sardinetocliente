@@ -13,7 +13,7 @@
       </span>
     </p>
     <admin-panel v-if="selectedGym && selectedGym.propietario === useUserStore().user.id" />
-    <div v-show="dropDownGymsVisibility" class="absolute top-12 z-10 bg-white rounded-lg shadow w-60 dark:bg-input-background-400">
+    <div v-show="dropDownGymsVisibility" class="absolute top-12 z-10 bg-white rounded-lg shadow w-60 dark:bg-input-background">
       <ul class="max-h-24 py-2 overflow-y-auto text-gray-700 dark:text-gray-200">
         <li v-for="(gym,index) in myGyms" v-bind:key="index">
           <p @click="selectGym(index)"

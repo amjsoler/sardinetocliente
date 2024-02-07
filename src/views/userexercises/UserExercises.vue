@@ -4,7 +4,7 @@
       <create-weight-score :exercise-id="viewingScore.id"></create-weight-score>
     </block-section>
     <block-section>
-      <block-section class="bg-input-background-400">
+      <block-section class="bg-input-background">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           <li class="me-2 flex-grow">
             <p @click="viewGraphSection=true;viewDataSection=false"
@@ -27,11 +27,11 @@
         </ul>
       </block-section>
 
-      <block-section class="bg-input-background-400" v-if="viewingScore.ejercicios_usuarios && viewingScore.ejercicios_usuarios.length !== 0" v-show="viewGraphSection">
+      <block-section class="bg-input-background" v-if="viewingScore.ejercicios_usuarios && viewingScore.ejercicios_usuarios.length !== 0" v-show="viewGraphSection">
         <Line :data="getGraphData" :options="options" />
       </block-section>
 
-      <block-section class="bg-input-background-400" v-show="viewDataSection">
+      <block-section class="bg-input-background" v-show="viewDataSection">
         <div class="flex flex-col flex-wrap space-y-3">
           <article v-for="(score, index) in viewingScore.ejercicios_usuarios" v-bind:key="score.id"
                    class="flex flex-row items-center flex-grow [&>p]:flex-grow">
@@ -49,7 +49,7 @@
     <text-input v-model="searchInput" placeholder="Filtrar ejercicios por nombre" />
     <div>
       <article v-for="(exercise) in getFilteredGymExercises" v-bind:key="exercise.id"
-          class="flex flex-row border-b-2 pb-2 border-input-background-400 items-center [&>*]:flex-grow space-y-4"
+          class="flex flex-row border-b-2 pb-2 border-input-background items-center [&>*]:flex-grow space-y-4"
            @click="viewingScore = exercise">
         <section>
           <img :src="exercise.demostracion" />

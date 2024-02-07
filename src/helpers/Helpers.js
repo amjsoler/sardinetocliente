@@ -1,3 +1,5 @@
+import { useGeneralStore } from '@/stores/general.js'
+
 export const getDateFromString = (datetime) => {
   const date = new Date(datetime)
 
@@ -70,4 +72,16 @@ export const getMonthLiteralGivenDate = (date) => {
 
 export function getBaseURL() {
   return import.meta.env.VITE_SERVICE_BASE_URL
+}
+
+export function addIdToProcessing(elementId) {
+  useGeneralStore().processing.push(elementId)
+}
+
+export function removeIdFromProcessing(elementId) {
+  useGeneralStore().processing.splice(useGeneralStore().processing.indexOf(elementId), 1)
+}
+
+export function chedkIfIdExistsInProcessing(elementId) {
+  return useGeneralStore().processing.indexOf(elementId) !== -1
 }

@@ -1,6 +1,6 @@
 <template>
   <block-section>
-      <block-section class="flex flex-row items-center bg-input-background-400"
+      <block-section class="flex flex-row items-center bg-input-background"
                      v-for="(buying, index) in gymBuyingHistory" v-bind:key="buying.id">
         <section class="flex-grow">
           <p>{{ buying.articulo.nombre }}</p>

@@ -41,9 +41,8 @@
 
 <script>
 import IconCheck from '@/components/icons/IconCheck.vue'
-import ContainerVAlignNoBackground from '@/components/containers/ContainerVAlignNoBackground.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
-import EmailInput from '@/components/forms/inputs/EmailInput.vue'
+import EmailInput from '@/components/forms/inputs/VariableInput.vue'
 import FormGroup from '@/components/forms/FormGroup.vue'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
 import SmallError from '@/components/forms/SmallError.vue'
@@ -55,7 +54,7 @@ import ContainerWithBrandHead from '@/components/containers/ContainerWithBrandHe
 
 export default {
   name: "AccountRecovery",
-  components: { ContainerWithBrandHead, DivVAlign, SmallError, SpanLabel, FormGroup, EmailInput, ButtonSubmit, ContainerVAlignNoBackground, IconCheck },
+  components: { ContainerWithBrandHead, DivVAlign, SmallError, SpanLabel, FormGroup, EmailInput, ButtonSubmit, IconCheck },
   data() {
     return {
       accountRecover: {
