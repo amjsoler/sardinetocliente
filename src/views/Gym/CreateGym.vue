@@ -1,65 +1,56 @@
 <template>
-    <block-section>
-      <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-        {{$t("createGym.title")}}
-      </h1>
-      <form class="space-y-5 md:space-y-6">
-        <form-group>
-          <span-label>{{$t("createGym.form.name")}}</span-label>
-          <text-input v-model="newGym.nombre" />
-          <small-error v-if="errors.nombre">
-            {{ errors.nombre[0] }}
-          </small-error>
-        </form-group>
+    <container-with-brand-head include-brand="false">
+        <h1 class="text-lg text-center font-bold dark:text-white">
+          {{$t("createGym.title")}}
+        </h1>
+        <form class="space-y-6">
+          <form-group>
+            <span-label>{{$t("createGym.form.name")}}</span-label>
+            <variable-input input-type="text" v-model="newGym.nombre" />
+            <small-error field-name="nombre" />
+          </form-group>
 
-        <form-group>
-          <span-label>{{$t("createGym.form.direccion")}}</span-label>
-          <text-input v-model="newGym.direccion" />
-          <small-error v-if="errors.direccion">
-            {{ errors.direccion[0] }}
-          </small-error>
-        </form-group>
+          <form-group>
+            <span-label>{{$t("createGym.form.direccion")}}</span-label>
+            <variable-input input-type="text" v-model="newGym.direccion" />
+            <small-error field-name="direccion" />
+          </form-group>
 
-        <form-group>
-          <span-label>{{$t("createGym.form.descripcion")}}</span-label>
-          <text-input v-model="newGym.descripcion" />
-          <small-error v-if="errors.descripcion">
-            {{ errors.descripcion[0] }}
-          </small-error>
-        </form-group>
+          <form-group>
+            <span-label>{{$t("createGym.form.descripcion")}}</span-label>
+            <variable-input input-type="descripcion" v-model="newGym.descripcion" />
+            <small-error field-name="descripcion" />
+          </form-group>
 
-        <form-group>
-          <span-label>{{$t("createGym.form.logo")}}</span-label>
-          <text-input v-model="newGym.logo" />
-          <small-error v-if="errors.logo">
-            {{ errors.logo[0] }}
-          </small-error>
-        </form-group>
+          <!-- TODO: meter un select file aquí para subir la imagen directamente -->
+          <form-group>
+            <span-label>{{$t("createGym.form.logo")}}</span-label>
+            <variable-input input-type="logo" v-model="newGym.logo" />
+            <small-error field-name="logo" />
+          </form-group>
 
 
-        <button-submit @button-submit="crearGimnasio">
-          {{$t("createGym.form.submit")}}
-        </button-submit>
-      </form>
-    </block-section>
+          <button-submit processing-id="create-gym-submit" @button-submit="crearGimnasio">
+            {{$t("createGym.form.submit")}}
+          </button-submit>
+        </form>
+    </container-with-brand-head>
 </template>
 
 <script>
 import FormGroup from '@/components/forms/FormGroup.vue'
 import SpanLabel from '@/components/forms/SpanLabel.vue'
-import TextInput from '@/components/forms/inputs/TextInput.vue'
 import SmallError from '@/components/forms/SmallError.vue'
-import { mapState } from 'pinia'
-import { useValidationStore } from '@/stores/validation.js'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
-import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
 import router from '@/router/index.js'
-import BlockSection from '@/components/containers/BlockSection.vue'
+import VariableInput from '@/components/forms/inputs/VariableInput.vue'
+import { removeIdFromProcessing } from '@/helpers/Helpers.js'
+import ContainerWithBrandHead from '@/components/containers/ContainerWithBrandHead.vue'
 
 export default {
   name: "CreateGym",
-  components: { BlockSection, ButtonSubmit, SmallError, TextInput, SpanLabel, FormGroup },
+  components: { ContainerWithBrandHead, VariableInput, ButtonSubmit, SmallError, SpanLabel, FormGroup },
   data() {
     return {
       newGym: {
@@ -71,23 +62,15 @@ export default {
     }
   },
 
-  computed: {
-    ...mapState(useValidationStore, {
-      message: "message",
-      errors: 'errors'
-    })
-  },
-
   methods: {
-    crearGimnasio() {
-      axios.post(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios", this.newGym)
-        .then(response => {
-          useGymStore().$patch({gymSelected: response.data})
-          router.push({name: "GymClasses"})
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    async crearGimnasio() {
+      const result = await useGymStore().actionCreateGym(this.newGym)
+
+      removeIdFromProcessing("create-gym-submit")
+
+      if(result) {
+        router.push({ name: "GymClasses" })
+      }
     }
   }
 }

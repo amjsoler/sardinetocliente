@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full rounded-lg py-2 px-4"
+  <div class="rounded-lg py-2 px-4"
        :class="{'dark:bg-container-background': !blur,
                  'backdrop-blur': blur}">
     <slot />
@@ -12,7 +12,7 @@ export default {
   props: {
     blur: {
       default: false
-    }
+    },
   }
 }
 </script>

@@ -78,7 +78,7 @@
   "createGym": {
     "title": "Crear gimnasio",
     "form": {
-      "name": "Nombre del gimnasio",
+      "name": "Nombre",
       "direccion": "Dirección",
       "descripcion": "Descripción",
       "logo": "logo",
@@ -95,7 +95,9 @@
   "invitedUsers": {
     "filterinputplaceholder": "Filtrar por nombre o correo",
     "pendingInvite": "Invitación pendiente",
-    "resendok": "Invitación reenviada"
+    "resendok": "Invitación reenviada",
+    "stillNoUsers": "Todavía no hay usuarios en este gimnasio",
+    "startInvitingUsers": "Comienza a invitar con el formulario de arriba"
   },
 
   "createMetric": {

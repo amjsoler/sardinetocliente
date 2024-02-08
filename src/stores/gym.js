@@ -32,10 +32,41 @@ export const useGymStore = defineStore("gyms", {
       }
     },
 
+    async actionCreateGym(newGym) {
+      try {
+        const response = await API.gimnasios.createGym(newGym)
+
+        useGymStore().$patch((state) => {
+          //Selecciono el gym recién creado
+          state.gymSelected = response.data
+
+          //Añado el gym a la lista de gimnasios y la ordeno. Después la almaceno
+          state.myGyms.push(response.data)
+
+          state.myGyms.sort((a, b) =>{
+            if(a.nombre < b.nombre){
+              return -1;
+            }
+            if(a.nombre > b.nombre) {
+              return 1;
+            }
+
+            return 0;
+          })
+        })
+
+        return true
+      }catch(error){
+        console.log(error)
+        return false
+      }
+    },
+
     actionCheckIfUserHasAdminPower()
     {
-      return useGymStore().gymSelected.permisosAdmin ||
-        useUserStore().user.id === useGymStore().gymSelected.propietario
+      return useGymStore().gymSelected &&
+        (useGymStore().gymSelected.permisosAdmin ||
+        useUserStore().user.id === useGymStore().gymSelected.propietario)
 
     }
   }

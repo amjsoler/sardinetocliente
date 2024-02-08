@@ -1,6 +1,6 @@
 <template>
   <div class="flex-grow flex flex-col items-center space-y-6 px-4">
-    <logo-and-app-name-horizontal />
+    <logo-and-app-name-horizontal v-if="includeBrand === true" />
     <block-section blur="true">
       <slot />
     </block-section>
@@ -15,7 +15,11 @@ export default {
   props: {
     blur: {
       default: false
+    },
+    includeBrand: {
+      default: true
     }
-  }
+  },
+
 }
 </script>

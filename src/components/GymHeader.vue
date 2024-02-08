@@ -42,7 +42,7 @@
           </ul>
         </div>
         <div class="bg-input-background px-4 py-2">
-          <router-link :to="{name: 'CreateGym'}" class="flex flex-row justify-center space-x-2">
+          <router-link @click="clickOnDropdownMenu" :to="{name: 'CreateGym'}" class="flex flex-row justify-center space-x-2">
             <square-plus />
             <span>{{ $t("myGyms.newGym") }}</span>
           </router-link>
@@ -85,10 +85,14 @@ export default {
   methods: {
     useUserStore,
     selectGym(gymIndex) {
-      document.getElementById("dropdowngymbutton").click()
+      this.clickOnDropdownMenu()
       useGymStore().$patch({
         gymSelected: this.myGyms[gymIndex]
       })
+    },
+
+    clickOnDropdownMenu() {
+      document.getElementById("dropdowngymbutton").click()
     }
   }
 }

@@ -84,7 +84,9 @@ const router = createRouter({
       name: 'CreateGym',
       component: CreateGym,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        gymHeader: true,
+        footerMenu: true
       }
     },
     {
@@ -93,7 +95,8 @@ const router = createRouter({
       component: InvitedUsers,
       meta: {
         requiresAuth: true,
-        gymHeader: true
+        gymHeader: true,
+        footerMenu: true
       }
     },
 
