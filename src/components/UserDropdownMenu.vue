@@ -40,6 +40,7 @@
               @click="router().push({name: 'MySubscriptions'})"
               class="flex items-center space-x-2"
           >
+            <!-- TODO: Cambiar este icono por algo que haga referencia a suscripciones -->
             <scale-icon />
             <p>{{ $t("userDropDownMenu.mySubscriptions") }}</p>
           </li>

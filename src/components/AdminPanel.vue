@@ -117,7 +117,6 @@
 <script>
 import router from '@/router/index.js'
 import SquareRoundedXFilled from '@/components/icons/SquareRoundedXFilled.vue'
-import ScaleIcon from '@/components/icons/ScaleIcon.vue'
 import ToolIcon from '@/components/icons/ToolIcon.vue'
 import UsersIcon from '@/components/icons/UsersIcon.vue'
 import CaretDownFilled from '@/components/icons/CaretDownFilled.vue'
@@ -126,7 +125,7 @@ import ShopStoreIcon from '@/components/icons/ShopStoreIcon.vue'
 
 export default {
   name: "AdminPanel",
-  components: { ShopStoreIcon, ShoppingBagIcon, CaretDownFilled, UsersIcon, ToolIcon, ScaleIcon, SquareRoundedXFilled },
+  components: { ShopStoreIcon, ShoppingBagIcon, CaretDownFilled, UsersIcon, ToolIcon, SquareRoundedXFilled },
   methods: {
     router() {
       return router
