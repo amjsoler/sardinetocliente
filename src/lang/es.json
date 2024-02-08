@@ -23,6 +23,12 @@
     "gymSubscriptions": "Subscripciones"
   },
 
+  "footerMenu": {
+    "shopBtn": "Tienda",
+    "classesBtn": "Clases",
+    "userExercises": "Tus RMs"
+  },
+
   "LoginUser": {
     "title": "Inicia sesión",
     "form": {
