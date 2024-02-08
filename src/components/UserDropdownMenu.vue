@@ -1,8 +1,8 @@
 <template>
   <p @click="userDropDownVisibility = !userDropDownVisibility"
-     class="absolute right-3 flex flex-row items-center cursor-pointer space-x-2">
-    <span class="small inline-block text-sm">{{ user.name }}</span>
-    <img class="rounded-full size-6" src="@/assets/img.png" />
+     class="h-full"
+  >
+    <img class="rounded-full size-full" src="@/assets/img.png" />
   </p>
 
   <div v-if="userDropDownVisibility"

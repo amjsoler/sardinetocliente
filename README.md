@@ -55,3 +55,12 @@ npm run test:e2e
 ```sh
 npm run lint
 ```
+
+### Diseños a tener en cuenta
+
+#### zindex
+    * backdrop click outside: z-10
+    * Dropdowns z-20
+    * Tabs laterales z-30
+    * backgrop click outside modal z-40
+    * Modales z-50
