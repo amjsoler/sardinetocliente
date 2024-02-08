@@ -1,9 +1,8 @@
 <template>
   <nav class="relative w-full h-12 flex flex-row z-20 justify-center items-center">
     <p class="absolute left-3">
-        <!-- TODO: Devolver en el array de gimnasios un campo que diga si el user tiene permisos o no -->
-      <admin-panel
-      v-if="selectedGym && selectedGym.propietario === useUserStore().user.id" /></p>
+      <admin-panel v-if="actionCheckIfUserHasAdminPower" />
+    </p>
     <div class="flex flex-col items-center">
       <!-- TODO Componetizar el selector de gimnasio por si se utiliza en otro sitio -->
       <p class="relative flex flex-row items-center"
@@ -57,7 +56,7 @@
 </template>
 <script>
 import CaretDownFilled from '@/components/icons/CaretDownFilled.vue'
-import { mapState } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import { useGymStore } from '@/stores/gym.js'
 import SquarePlus from '@/components/icons/SquarePlus.vue'
 import AdminPanel from '@/components/AdminPanel.vue'
@@ -73,6 +72,9 @@ export default {
     ...mapState(useGymStore, {
       selectedGym: 'gymSelected',
       myGyms: 'myGyms'
+    }),
+    ...mapActions(useGymStore, {
+      actionCheckIfUserHasAdminPower:  'actionCheckIfUserHasAdminPower'
     })
   },
 

@@ -1,44 +1,61 @@
 <template>
-  <p @click="userDropDownVisibility = !userDropDownVisibility"
+  <p
      class="h-full"
+     data-drawer-target="user-drawer-right"
+     data-drawer-show="user-drawer-right"
+     data-drawer-placement="right"
+     data-drawer-body-scrolling="false"
+     aria-controls="user-drawer-right"
   >
     <img class="rounded-full size-full" src="@/assets/img.png" />
   </p>
 
-  <div v-if="userDropDownVisibility"
-       class="w-full h-dvh fixed top-0 backdrop-blur">
-    <square-rounded-x-filled @click="userDropDownVisibility = !userDropDownVisibility"
-                             class="absolute right-3 top-3 w-12 h-12"></square-rounded-x-filled>
-    <block-section @click="router().push({name: 'MyMetrics'})" class="mt-20 text-center text-2xl cursor-pointer">
-      {{ $t("userDropDownMenu.mymetrics")}}
-    </block-section>
+  <teleport to="body">
+    <!-- drawer component -->
+    <div id="user-drawer-right"
+         class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full dark:bg-input-background w-56"
+         tabindex="-1"
+         aria-labelledby="drawer-right-label">
+      <button type="button" data-drawer-hide="user-drawer-right"
+              aria-controls="user-drawer-right"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8
+               absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
+        <square-rounded-x-filled class="size-14"/>
+      </button>
 
-    <block-section @click="router().push({name: 'MySubscriptions'})"
-                   class="mt-20 text-center text-2xl cursor-pointer"
-    >
-      Mis suscripciones
-    </block-section>
-  </div>
+      <div class="mt-6 flex flex-col items-center space-y-6">
+        <p class="w-1/2 flex flex-col items-center">
+          <img class="rounded-full size-full" src="@/assets/img.png" />
+          <spam>Jorge</spam>
+        </p>
+        <ul>
+          <li data-drawer-hide="user-drawer-right" @click="router().push({name: 'MyMetrics'})" class="flex items-center space-x-2 text-xl">
+            <scale-icon></scale-icon>
+            <p>Mis métricas</p>
+          </li>
+          <li data-drawer-hide="user-drawer-right" @click="router().push({name: 'MySubscriptions'})" class="flex items-center space-x-2 text-xl">
+            <scale-icon></scale-icon>
+            <p>Mis Suscripciones</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </teleport>
 </template>
 <script>
-import SquareRoundedXFilled from '@/components/icons/SquareRoundedXFilled.vue'
 import { mapState } from 'pinia'
 import { useUserStore } from '@/stores/user.js'
-import BlockSection from '@/components/containers/BlockSection.vue'
 import router from '@/router/index.js'
+import SquareRoundedXFilled from '@/components/icons/SquareRoundedXFilled.vue'
+import ScaleIcon from '@/components/icons/ScaleIcon.vue'
 
 export default {
   name: "UserDropDownMenu",
+  components: { ScaleIcon, SquareRoundedXFilled },
   methods: {
     router() {
       return router
-    }
-  },
-  components: { BlockSection, SquareRoundedXFilled },
-
-  data() {
-    return {
-      userDropDownVisibility: false
     }
   },
 
@@ -46,14 +63,6 @@ export default {
     ...mapState(useUserStore, {
       user: 'user'
     }),
-
-    getUserLogo() {
-      if(this.user.logo){
-        return this.user.logo
-      }else{
-        return '@/assets/img.png'
-      }
-    }
   }
 }
 </script>

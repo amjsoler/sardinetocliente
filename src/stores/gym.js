@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { API } from '@/services/index.js'
+import { useUserStore } from '@/stores/user.js'
 
 export const useGymStore = defineStore("gyms", {
   state: () => {
@@ -14,21 +15,28 @@ export const useGymStore = defineStore("gyms", {
       try {
         const response = await API.gimnasios.getMyGyms()
 
-        const gymToPatch = {
-          myGyms: response.data,
-        }
+        useGymStore().$patch({ myGyms: response.data })
 
         //Autoselect gym if only have one
-        if(response.data.length === 1) {
-          gymToPatch.gymSelected = response.data[0]
+        if(useGymStore().myGyms.length === 1) {
+          useGymStore().$patch({gymSelected: useGymStore().myGyms[0]})
         }
-
-        useGymStore().$patch(gymToPatch)
+        //Si ya había un gimnasio seleccionado, tengo que actualizar con los datos que hayan venido
+        else if(useGymStore().gymSelected){
+          useGymStore().$patch({gymSelected: useGymStore().myGyms.filter(item => item.id === useGymStore().gymSelected.id)[0]})
+        }
 
         return true
       }catch(error){
         return false
       }
+    },
+
+    actionCheckIfUserHasAdminPower()
+    {
+      return useGymStore().gymSelected.permisosAdmin ||
+        useUserStore().user.id === useGymStore().gymSelected.propietario
+
     }
   }
 })
