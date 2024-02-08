@@ -26,16 +26,22 @@
       <div class="mt-6 flex flex-col items-center space-y-6">
         <p class="w-1/2 flex flex-col items-center">
           <img class="rounded-full size-full" src="@/assets/img.png" />
-          <spam>Jorge</spam>
+          <span>{{ user.name }}</span>
         </p>
-        <ul>
-          <li data-drawer-hide="user-drawer-right" @click="router().push({name: 'MyMetrics'})" class="flex items-center space-x-2 text-xl">
-            <scale-icon></scale-icon>
-            <p>Mis métricas</p>
+        <ul class="space-y-2">
+          <li data-drawer-hide="user-drawer-right"
+              @click="router().push({name: 'MyMetrics'})"
+              class="flex items-center space-x-2"
+          >
+            <scale-icon />
+            <p>{{ $t("userDropDownMenu.mymetrics") }}</p>
           </li>
-          <li data-drawer-hide="user-drawer-right" @click="router().push({name: 'MySubscriptions'})" class="flex items-center space-x-2 text-xl">
-            <scale-icon></scale-icon>
-            <p>Mis Suscripciones</p>
+          <li data-drawer-hide="user-drawer-right"
+              @click="router().push({name: 'MySubscriptions'})"
+              class="flex items-center space-x-2"
+          >
+            <scale-icon />
+            <p>{{ $t("userDropDownMenu.mySubscriptions") }}</p>
           </li>
         </ul>
       </div>

@@ -1,56 +1,136 @@
 <template>
-  <p @click="adminPanelVisibility = !adminPanelVisibility">
-    <span class="small inline-block text-sm">Admin</span>
-    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block icon icon-tabler icon-tabler-lock-star" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 21h-4a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h9" /><path d="M8 11v-4a4 4 0 1 1 8 0v4" /><path d="M17.8 20.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z" /></svg>
+  <p
+    class="h-full"
+    data-drawer-target="admin-panel-left"
+    data-drawer-show="admin-panel-left"
+    data-drawer-body-scrolling="false"
+    aria-controls="admin-panel-left"
+  >
+<tool-icon />
   </p>
 
-  <div v-if="adminPanelVisibility"
-       class="w-full h-dvh fixed top-0 backdrop-blur pt-20">
-    <square-rounded-x-filled @click="adminPanelVisibility = !adminPanelVisibility"
-                             class="absolute right-3 top-3 w-12 h-12"
-    />
-    <block-section>
-      <p @click="router().push({name: 'InvitedUsers'})">Invitar usuario</p>
-    </block-section>
+  <teleport to="body">
+    <div id="admin-panel-left"
+         class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform
+         -translate-x-full dark:bg-input-background w-56"
+         tabindex="-1"
+         aria-labelledby="admin-panel-left"
+    >
+      <h5>{{ $t("adminPanel.title") }}</h5>
+      <square-rounded-x-filled
+        data-drawer-hide="admin-panel-left"
+         aria-controls="drawer-navigation"
+         class="absolute top-2.5 end-2.5 size-8"
+      />
+      <div class="py-4 overflow-y-auto">
+        <ul class="space-y-2 font-medium">
+          <li>
+            <button type="button"
+                    class="flex items-center w-full p-2 transition duration-75 rounded-lg group"
+                    data-collapse-toggle="admin-gym-dropdown"
+            >
+              <shop-store-icon />
+              <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                {{ $t("adminPanel.gymSectionTitle") }}
+              </span>
+              <caret-down-filled class="size-4"/>
+            </button>
+            <ul id="admin-gym-dropdown" class="py-2 space-y-2">
+              <li>
+                <a class="w-full pl-10"
+                   data-drawer-hide="admin-panel-left"
+                   @click.prevent="router().push({name: 'GymRates'})">
+                  {{ $t("adminPanel.gymRates")}}
+                </a>
+              </li>
+              <li>
+                <a class="w-full pl-10"
+                   data-drawer-hide="admin-panel-left"
+                   @click.prevent="router().push({name: 'GymSubscriptions'})">
+                  {{ $t("adminPanel.gymSubscriptions")}}
+                </a>
+              </li>
+              <li>
+                <a class="w-full pl-10"
+                   data-drawer-hide="admin-panel-left"
+                   @click.prevent="router().push({name: 'GymExercises'})">
+                  {{ $t("adminPanel.gymExercises")}}
+                </a>
+              </li>
+            </ul>
+          </li>
 
-    <block-section>
-      <p @click="router().push({name: 'GymExercises'})">
-        {{ $t("adminPanel.gymExercises")}}
-      </p>
-    </block-section>
 
-    <block-section>
-      <p @click="router().push({name: 'AdminGymArticles'})">Admin Gym Articles</p>
-      <p @click="router().push({name: 'AdminBuyingArticles'})">Compras Realizadas</p>
-    </block-section>
+          <li>
+            <button type="button"
+                    class="flex items-center w-full p-2 transition duration-75 rounded-lg group"
+                    data-collapse-toggle="admin-users-dropdown"
+            >
+              <users-icon />
+              <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">{{ $t("adminPanel.usersSectionTitle") }}</span>
+              <caret-down-filled class="size-4"/>
+            </button>
+            <ul id="admin-users-dropdown" class="py-2 space-y-2">
+              <li>
+                <a class="w-full pl-10"
+                   data-drawer-hide="admin-panel-left"
+                   @click.prevent="router().push({name: 'InvitedUsers'})">
+                  {{ $t("adminPanel.inviteUser")}}
+                </a>
+              </li>
+            </ul>
+          </li>
 
-    <block-section>
-      <p @click="router().push({name: 'GymRates'})">Tarifas</p>
-    </block-section>
-
-    <block-section>
-      <p @click="router().push({name: 'GymSubscriptions'})">Suscripciones del gimnsio</p>
-    </block-section>
-  </div>
+          <li>
+            <button type="button"
+                    class="flex items-center w-full p-2 transition duration-75 rounded-lg group"
+                    data-collapse-toggle="admin-shop-dropdown"
+            >
+              <shopping-bag-icon />
+              <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                {{ $t("adminPanel.shopSectionTitle") }}
+              </span>
+              <caret-down-filled class="size-4"/>
+            </button>
+            <ul id="admin-shop-dropdown" class="py-2 space-y-2">
+              <li>
+                <a class="w-full pl-10"
+                   data-drawer-hide="admin-panel-left"
+                   @click.prevent="router().push({name: 'AdminGymArticles'})">
+                  {{ $t("adminPanel.gymArticles")}}
+                </a>
+              </li>
+              <li>
+                <a class="w-full pl-10"
+                   data-drawer-hide="admin-panel-left"
+                   @click.prevent="router().push({name: 'AdminBuyingArticles'})">
+                  {{ $t("adminPanel.articleBuyings")}}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </teleport>
 </template>
 <script>
-import SquareRoundedXFilled from '@/components/icons/SquareRoundedXFilled.vue'
 import router from '@/router/index.js'
-import BlockSection from '@/components/containers/BlockSection.vue'
+import SquareRoundedXFilled from '@/components/icons/SquareRoundedXFilled.vue'
+import ScaleIcon from '@/components/icons/ScaleIcon.vue'
+import ToolIcon from '@/components/icons/ToolIcon.vue'
+import UsersIcon from '@/components/icons/UsersIcon.vue'
+import CaretDownFilled from '@/components/icons/CaretDownFilled.vue'
+import ShoppingBagIcon from '@/components/icons/ShoppingBagIcon.vue'
+import ShopStoreIcon from '@/components/icons/ShopStoreIcon.vue'
 
 export default {
   name: "AdminPanel",
+  components: { ShopStoreIcon, ShoppingBagIcon, CaretDownFilled, UsersIcon, ToolIcon, ScaleIcon, SquareRoundedXFilled },
   methods: {
     router() {
       return router
     }
   },
-  components: { BlockSection, SquareRoundedXFilled },
-
-  data() {
-    return {
-      adminPanelVisibility: false
-    }
-  }
 }
 </script>

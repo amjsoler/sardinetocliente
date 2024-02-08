@@ -5,11 +5,22 @@
     "registerok": "Tu cuenta se ha creado correctamente. Por favor, omprueba tu correo y verifica la cuenta"
   },
   "userDropDownMenu": {
-    "mymetrics": "Mis métricas"
+    "mymetrics": "Mis métricas",
+    "mySubscriptions": "Mis suscripciones"
+
   },
 
   "adminPanel": {
-    "gymExercises": "Ejercicios del gimnasio"
+    "title": "Panel Admin",
+    "usersSectionTitle": "Usuarios",
+    "gymSectionTitle": "Gimnasio",
+    "shopSectionTitle": "Tienda",
+    "inviteUser": "Invitar usuario",
+    "gymExercises": "Ejercicios ",
+    "gymArticles": "Articulos a la venta",
+    "articleBuyings": "Compras realizadas",
+    "gymRates": "Tarifas",
+    "gymSubscriptions": "Subscripciones"
   },
 
   "LoginUser": {
