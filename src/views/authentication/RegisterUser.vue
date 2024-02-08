@@ -7,25 +7,25 @@
       <form class="space-y-6">
         <form-group>
           <span-label>{{$t("RegisterUser.form.name")}}</span-label>
-          <variable-input type="text" autofocus v-model="newUser.name" />
+          <variable-input input-type="text" autofocus v-model="newUser.name" />
           <small-error field-name="name" />
         </form-group>
 
         <form-group>
           <span-label>{{$t("RegisterUser.form.email")}}</span-label>
-          <variable-input type="email" v-model="newUser.email" />
+          <variable-input input-type="email" v-model="newUser.email" />
           <small-error field-name="email" />
         </form-group>
 
         <form-group>
           <span-label>{{$t("RegisterUser.form.password")}}</span-label>
-          <variable-input type="password" v-model="newUser.password" />
+          <variable-input input-type="password" v-model="newUser.password" />
           <small-error field-name="password" />
         </form-group>
 
         <form-group>
           <span-label>{{$t("RegisterUser.form.password_confirmation")}}</span-label>
-          <variable-input type="password" v-model="newUser.password_confirmation" />
+          <variable-input input-type="password" v-model="newUser.password_confirmation" />
           <small-error field-name="password_confirmation" />
         </form-group>
 

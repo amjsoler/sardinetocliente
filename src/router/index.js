@@ -151,7 +151,8 @@ const router = createRouter({
       component: GymClasses,
       meta: {
         requiresAuth: true,
-        gymHeader: true
+        gymHeader: true,
+        footerMenu: true
       }
     },
 

@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
 import { mapState } from 'pinia'
 import HeartIcon from '@/components/icons/HeartIcon.vue'
@@ -63,11 +62,7 @@ export default {
   },
 
   mounted() {
-    const gymStore = useGymStore()
-    axios.get(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios")
-      .then(response => {
-        useGymStore().saveMyGyms(response.data)
-      })
+
   }
 }
 </script>

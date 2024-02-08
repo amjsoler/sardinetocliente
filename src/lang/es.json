@@ -53,8 +53,10 @@
   },
   "myGyms": {
     "title": "Mis gimnasios",
+    "selectGym": "Elige un gimnasio",
     "newGym": "Crear un gimnasio",
-    "altLogoGym": "Logo de un gimnasio"
+    "altLogoGym": "Logo de un gimnasio",
+    "noBelongsToGym": "Todavía no formas parte de ningún gimnasio"
   },
   "createGym": {
     "title": "Crear gimnasio",

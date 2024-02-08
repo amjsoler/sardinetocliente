@@ -15,7 +15,7 @@ export default {
     'modelValue': {},
     "placeholder": {},
     "inputType": {
-      default: "text"
+      required: true
     }
   },
 

@@ -7,13 +7,13 @@
       <form class="space-y-6">
         <form-group>
           <span-label>{{$t("LoginUser.form.email")}}</span-label>
-          <variable-input v-model="loginUser.email" />
+          <variable-input input-type="email" v-model="loginUser.email" />
           <small-error field-name="email"></small-error>
         </form-group>
 
         <form-group>
           <span-label>{{$t("LoginUser.form.password")}}</span-label>
-          <variable-input v-model="loginUser.password" />
+          <variable-input input-type="password" v-model="loginUser.password" />
           <small-error field-name="password" />
         </form-group>
 

@@ -26,7 +26,7 @@
              class="absolute top-0 left-0 object-fill w-full h-auto
                     after:bg-gradient-to-t after:from-red-800 after:to-transparent">
         <div class="absolute inset-0 bg-gradient-to-t from-input-background from-20% to-transparent to-40%" />
-        <p class="z-10">
+        <p class="">
           {{ article.nombre }} ({{article.stock}})
         </p>
       </article>

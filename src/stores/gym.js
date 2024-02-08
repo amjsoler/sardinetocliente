@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { API } from '@/services/index.js'
 
 export const useGymStore = defineStore("gyms", {
   state: () => {
@@ -9,26 +10,24 @@ export const useGymStore = defineStore("gyms", {
 },
 
   actions: {
-    saveMyGyms(myGyms) {
-      this.$patch((state) => {
-        state.myGyms = myGyms
-        //ToDO hacer que al guardar los gimnasios no chafe las clases que hayan creadas en dicho gimnasio
-      })
-    },
+    async actionGetMyGyms() {
+      try {
+        const response = await API.gimnasios.getMyGyms()
 
-    saveGymClassesGivenGymId(gymId, classes) {
-      const gymIndex = this.myGyms.findIndex(gym => gym.id === gymId)
+        const gymToPatch = {
+          myGyms: response.data,
+        }
 
-      if(gymIndex !== -1){
-        this.$patch((state) => {
-          state.myGyms[gymIndex].classes = classes
-        })
-      }
+        //Autoselect gym if only have one
+        if(response.data.length === 1) {
+          gymToPatch.gymSelected = response.data[0]
+        }
 
-      if(this.gymSelected.id === gymId){
-        this.$patch((state) => {
-          state.gymSelected.classes = classes
-        })
+        useGymStore().$patch(gymToPatch)
+
+        return true
+      }catch(error){
+        return false
       }
     }
   }
