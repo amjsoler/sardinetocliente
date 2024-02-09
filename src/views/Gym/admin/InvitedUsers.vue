@@ -5,7 +5,8 @@
     </block-section>
 
     <block-section class="space-y-3" v-if="getSelectedGym().invitedUsers && getSelectedGym().invitedUsers.length !== 0">
-      <search-filter  v-model="filteredData"
+      <search-filter :array-data="getSelectedGym().invitedUsers"
+                     @search-performed="(filteredArray) => filteredData=filteredArray"
                       :search-fields="['name', 'email']"/>
       <article class="flex flex-col items-center justify-center flex-grow py-2 px-4 rounded-lg bg-input-background"
                v-for="user in filteredData" v-bind:key="user.id">
@@ -47,7 +48,7 @@ export default {
 
   data() {
     return {
-      filteredData: getSelectedGym().invitedUsers
+      filteredData: []
     }
   },
 

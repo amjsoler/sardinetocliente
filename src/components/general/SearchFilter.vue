@@ -1,5 +1,5 @@
 <template>
-  <variable-input @change="performSearch" input-type="email" v-model="filterToApply" :placeholder="placeholder"></variable-input>
+  <variable-input @input="performSearch" input-type="email" v-model="filterToApply" :placeholder="placeholder"></variable-input>
 </template>
 
 <script>
@@ -10,16 +10,16 @@ export default {
 
   components: { VariableInput },
 
-  emits: ["update:modelValue"],
-
   props: {
-    modelValue: Array,
+    arrayData: Array,
     searchFields: {
       required: true,
       type: Array
     },
     placeholder: null
   },
+
+  emits: ["searchPerformed"],
 
   data() {
     return {
@@ -28,16 +28,27 @@ export default {
   },
 
   mounted() {
-    this.$emit("performSearch", this.arrayData)
+    this.$emit("searchPerformed", this.arrayData)
   },
 
   methods: {
     performSearch() {
+      if(this.filterToApply){
+        this.$emit("searchPerformed",
+          this.arrayData.filter(item => this.filterCallback(item))
+        )
+      }else{
+        this.$emit("searchPerformed", this.arrayData)
+      }
+    },
 
-      console.log("asdf")
-      this.emit("update:modelValue",
-        this.modelValue.filter(item => item.name === this.filterToApply)
+    filterCallback(item){
+      var found = false
+      this.searchFields.forEach(field =>
+        item[field].toLowerCase().includes(this.filterToApply.toLowerCase()) ? found = true : null
       )
+
+      return found
     }
   }
 }
