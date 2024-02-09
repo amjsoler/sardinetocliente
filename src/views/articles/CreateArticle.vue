@@ -72,7 +72,7 @@ export default {
 
   methods: {
     createArticle() {
-      axios.post(import.meta.env.VITE_SERVICE_BASE_URL + "gimnasios/"+useGymStore().gymSelected.id+"/articulos",
+      axios.post(import.meta.env.VITE_SERVICE_BASE_URL + "gimnasios/"+getSelectedGymId()+"/articulos",
         this.newArticle)
         .then(response => {
           this.createFormVisibility = false

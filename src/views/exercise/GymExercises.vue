@@ -58,7 +58,7 @@ export default {
   },
 
   mounted() {
-    axios.get(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios/"+useGymStore().gymSelected.id+"/ejercicios")
+    axios.get(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios/"+getSelectedGymId()+"/ejercicios")
       .then(response => {
         this.gymExercises = response.data
       })
@@ -83,7 +83,7 @@ export default {
     },
 
     deleteExercise(exerciseId, exerciseIndex) {
-      axios.delete(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios/"+useGymStore().gymSelected.id+"/ejercicios/"+exerciseId)
+      axios.delete(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios/"+getSelectedGymId()+"/ejercicios/"+exerciseId)
         .then(() => {
           this.gymExercises.splice(exerciseIndex, 1)
         })

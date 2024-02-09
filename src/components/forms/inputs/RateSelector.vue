@@ -16,7 +16,7 @@
 
 <script>
 import axios from 'axios'
-import { useGymStore } from '@/stores/gym.js'
+import { getSelectedGymId } from '@/helpers/Helpers.js'
 
 export default {
   name: "RateSelector",
@@ -32,7 +32,7 @@ export default {
 
   mounted() {
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-      "gimnasios/" + useGymStore().gymSelected.id + "/tarifas")
+      "gimnasios/" + getSelectedGymId() + "/tarifas")
       .then(response => {
         this.gymRates = response.data
       })

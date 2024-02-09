@@ -96,7 +96,7 @@
 
     mounted() {
       axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-      "gimnasios/" + useGymStore().gymSelected.id + "/tarifas")
+      "gimnasios/" + getSelectedGymId() + "/tarifas")
         .then(response => {
           this.gymRates = response.data
         })
@@ -106,7 +106,7 @@
     methods: {
       createUserSubscription() {
         axios.post(import.meta.env.VITE_SERVICE_BASE_URL +
-          "gimnasios/" + useGymStore().gymSelected.id + "/suscripciones",
+          "gimnasios/" + getSelectedGymId() + "/suscripciones",
         this.newSubscription)
           .then(response => {
             console.log("ResponseDelCallback:")

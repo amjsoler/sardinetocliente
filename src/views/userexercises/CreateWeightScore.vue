@@ -17,10 +17,10 @@ import SpanLabel from '@/components/forms/SpanLabel.vue'
 import SmallError from '@/components/forms/SmallError.vue'
 import { mapState } from 'pinia'
 import { useValidationStore } from '@/stores/validation.js'
-import { useGymStore } from '@/stores/gym.js'
 import axios from 'axios'
 import NumberInput from '@/components/forms/inputs/NumberInput.vue'
 import SaveIcon from '@/components/icons/SaveIcon.vue'
+import { getSelectedGymId } from '@/helpers/Helpers.js'
 
 export default {
   name: "CreateWeightScore",
@@ -52,7 +52,7 @@ export default {
   methods: {
     createWeightScore() {
       axios.post(import.meta.env.VITE_SERVICE_BASE_URL +
-        "gimnasios/"+useGymStore().gymSelected.id+"/ejercicios/"+ this.exerciseId + "/registros-de-peso",
+        "gimnasios/"+ getSelectedGymId() +"/ejercicios/"+ this.exerciseId + "/registros-de-peso",
         this.newWeightScore)
         .then(response => {
           this.newWeightScore = {

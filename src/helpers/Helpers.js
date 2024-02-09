@@ -1,4 +1,5 @@
 import { useGeneralStore } from '@/stores/general.js'
+import { useGymStore } from '@/stores/gym.js'
 
 export const getDateFromString = (datetime) => {
   const date = new Date(datetime)
@@ -84,4 +85,21 @@ export function removeIdFromProcessing(elementId) {
 
 export function chedkIfIdExistsInProcessing(elementId) {
   return useGeneralStore().processing.indexOf(elementId) !== -1
+}
+
+export function getSelectedGymId() {
+  return useGymStore().gymSelected
+}
+
+export function getSelectedGym(){
+  if(useGymStore().myGyms) {
+    return  useGymStore().myGyms.filter(item => item.id === getSelectedGymId()).at(0)
+  }else{
+    return null
+  }
+
+}
+
+export function getSelectedGymIndex() {
+  return useGymStore().myGyms.indexOf(getSelectedGym())
 }

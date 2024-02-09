@@ -32,7 +32,8 @@ const router = createRouter({
         return {name: "GymClasses"}
       }
     },
-
+//TODO: Mirar qué rutas precisan el guard de permisos de admin
+//TODO: Mirar qué rutas precisan el guard de gym selected
 
     ///
     // Auth routes

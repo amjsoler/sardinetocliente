@@ -58,7 +58,7 @@ export default {
 
   mounted() {
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL+
-      "gimnasios/"+useGymStore().gymSelected.id+"/tarifas")
+      "gimnasios/"+getSelectedGymId()+"/tarifas")
       .then(response => {
         this.gymRates = response.data
       })
@@ -84,7 +84,7 @@ export default {
 
     deleteRate(rateId, rateIndex) {
       axios.delete(import.meta.env.VITE_SERVICE_BASE_URL+
-        "gimnasios/"+useGymStore().gymSelected.id+"/tarifas/"+rateId)
+        "gimnasios/"+getSelectedGymId()+"/tarifas/"+rateId)
         .then(() => {
           this.gymRates.splice(rateIndex, 1)
         })

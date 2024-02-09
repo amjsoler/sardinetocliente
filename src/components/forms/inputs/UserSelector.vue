@@ -20,6 +20,7 @@ import { useGymStore } from '@/stores/gym.js'
 import FullScreenBlurWithCloseBtnContainer from '@/components/containers/FullScreenBlurWithCloseBtnContainer.vue'
 import BlockSection from '@/components/containers/BlockSection.vue'
 import TextInput from '@/components/forms/inputs/TextInput.vue'
+import { getSelectedGymId } from '@/helpers/Helpers.js'
 
 export default {
   name: "UserSelector",
@@ -48,7 +49,7 @@ export default {
   mounted() {
     console.log("Montando user selector")
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-    "gimnasios/" + useGymStore().gymSelected.id + "/usuarios-invitados")
+    "gimnasios/" + getSelectedGymId() + "/usuarios-invitados")
       .then(response => this.gymUsers = response.data)
       .catch(() => {})
   }

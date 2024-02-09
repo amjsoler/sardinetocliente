@@ -82,7 +82,7 @@ export default {
 
   mounted() {
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-    "gimnasios/" + useGymStore().gymSelected.id + "/mis-suscripciones")
+    "gimnasios/" + getSelectedGymId() + "/mis-suscripciones")
       .then(response => {
         this.mySubscriptions = response.data
       })

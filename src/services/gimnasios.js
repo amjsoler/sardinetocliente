@@ -1,5 +1,6 @@
 import http from './api.js'
 import { useGymStore } from '@/stores/gym.js'
+import { getSelectedGymId } from '@/helpers/Helpers.js'
 
 async function getMyGyms() {
   return await http.get("gimnasios")
@@ -10,16 +11,11 @@ async function createGym(newGym) {
 }
 
 async function getInvitedUsers() {
-  return await http.get("gimnasios/"+useGymStore().gymSelected.id+"/usuarios-invitados")
+  return await http.get("gimnasios/"+ getSelectedGymId() +"/usuarios-invitados")
 }
 
-async function inviteUserToGym(userToInvite) {
-  return await http.post("gimnasios/"+useGymStore().gymSelected.id+"/invitar-usuario",
-    userToInvite)
-}
 export default {
   getMyGyms,
   createGym,
   getInvitedUsers,
-  inviteUserToGym
 }

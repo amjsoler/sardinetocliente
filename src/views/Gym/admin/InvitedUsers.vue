@@ -1,26 +1,25 @@
 <template>
-  <div class="space-y-4 px-4">
+  <div class="space-y-4 px-4 py-2">
     <block-section>
-      <invite-user @user-invited="userInvitedCallback" />
+      <invite-user />
     </block-section>
 
-    <block-section class="space-y-3" v-if="invitedUsers && invitedUsers.length !== 0">
-      <email-input v-model="filterToApply" :placeholder="$t('invitedUsers.filterinputplaceholder')"></email-input>
-      <div class="flex flex-row flex-wrap gap-3">
-        <article class="flex flex-col items-center justify-center flex-grow p-2 rounded-lg bg-input-background"
-                 v-for="user in filteredInvitedUsers" v-bind:key="user.id">
-          <p>{{ user.name }}</p>
-          <p>{{ user.email }}</p>
+    <block-section class="space-y-3" v-if="getSelectedGym().invitedUsers && getSelectedGym().invitedUsers.length !== 0">
+      <search-filter  v-model="filteredData"
+                      :search-fields="['name', 'email']"/>
+      <article class="flex flex-col items-center justify-center flex-grow py-2 px-4 rounded-lg bg-input-background"
+               v-for="user in filteredData" v-bind:key="user.id">
+        <p>{{ user.name }}</p>
+        <small>{{ user.email }}</small>
 
-          <section v-if="!user.pivot.invitacion_aceptada" class="flex flex-row items-center mt-2 text-orange-100">
-            <hourglass-icon class="w-4 h-4"></hourglass-icon>
-            <span class="text-sm">{{ $t("invitedUsers.pendingInvite")}}</span>
-            <mail-forward @click="resendInvitation(user.id)" class="text-primary-400 ml-3" />
-          </section>
-        </article>
-      </div>
+        <section v-if="!user.pivot.invitacion_aceptada" class="flex flex-row items-center mt-2 text-orange-100">
+          <hourglass-icon class="w-4 h-4"></hourglass-icon>
+          <span class="text-sm">{{ $t("invitedUsers.pendingInvite")}}</span>
+          <mail-forward @click="resendInvitation(user.id)" class="text-primary-400 ml-3" />
+        </section>
+      </article>
     </block-section>
-    <block-section>
+    <block-section v-else>
       <p class="flex flex-col items-center">
         <chevron-up-top-icon class="animate-bounce animate-duration-1000"/>
         {{ $t("invitedUsers.stillNoUsers")}}
@@ -32,50 +31,34 @@
 
 <script>
 import axios from 'axios'
-import { useGymStore } from '@/stores/gym.js'
 import InviteUser from '@/views/Gym/admin/InviteUser.vue'
 import BlockSection from '@/components/containers/BlockSection.vue'
 import HourglassIcon from '@/components/icons/HourglassIcon.vue'
-import EmailInput from '@/components/forms/inputs/VariableInput.vue'
 import MailForward from '@/components/icons/MailForward.vue'
 import { useGeneralStore } from '@/stores/general.js'
 import ChevronUpTopIcon from '@/components/icons/ChevronUpTopIcon.vue'
-import { API } from '@/services/index.js'
+import { useUserStore } from '@/stores/user.js'
+import { getSelectedGym, getSelectedGymId } from '@/helpers/Helpers.js'
+import SearchFilter from '@/components/general/SearchFilter.vue'
 
 export default {
   name: "InvitedUsers",
-  components: { ChevronUpTopIcon, MailForward, EmailInput, HourglassIcon, BlockSection, InviteUser },
+  components: { SearchFilter, ChevronUpTopIcon, MailForward, HourglassIcon, BlockSection, InviteUser },
 
   data() {
     return {
-      filterToApply: "",
-      invitedUsers: []
-    }
-  },
-
-  computed: {
-    filteredInvitedUsers() {
-      if(this.filterToApply){
-        return this.invitedUsers.filter(item => item.name.toLowerCase().includes(this.filterToApply.toLowerCase()) || item.email.toLowerCase().includes(this.filterToApply.toLowerCase()))
-      }else{
-        return this.invitedUsers
-      }
+      filteredData: getSelectedGym().invitedUsers
     }
   },
 
   async mounted() {
-    const response = await API.gimnasios.getInvitedUsers();
-
-    this.invitedUsers = response.data
+    await useUserStore().actionGetInvitedUsers()
   },
 
   methods: {
-    userInvitedCallback(newUser){
-      this.invitedUsers.unshift(newUser)
-    },
-
+    getSelectedGym,
     resendInvitation(userId){
-      axios.get(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios/"+useGymStore().gymSelected.id+"/reenviar-invitacion/"+userId)
+      axios.get(import.meta.env.VITE_SERVICE_BASE_URL+"gimnasios/"+ getSelectedGymId() +"/reenviar-invitacion/"+userId)
         .then(() => {
           useGeneralStore().alert.message = this.$t("invitedUsers.resendok")
         })

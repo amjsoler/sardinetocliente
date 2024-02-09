@@ -31,6 +31,7 @@ import FullScreenBlurWithCloseBtnContainer from '@/components/containers/FullScr
 import BlockSection from '@/components/containers/BlockSection.vue'
 import CreditCard from '@/components/icons/CreditCard.vue'
 import DeliverTruck from '@/components/icons/Delivertruck.vue'
+import { getSelectedGymId } from '@/helpers/Helpers.js'
 
 export default {
   name: "UserBuyingHistory",
@@ -45,7 +46,7 @@ export default {
 
   mounted() {
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL+
-    "gimnasios/" + useGymStore().gymSelected.id + "/articulos/historial-compras")
+    "gimnasios/" + getSelectedGymId() + "/articulos/historial-compras")
       .then(response => {
         this.myBuyings = response.data
       })

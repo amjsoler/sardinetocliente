@@ -10,7 +10,7 @@
          data-dropdown-toggle="dropdowngyms"
       >
         <span v-if="selectedGym">
-          {{ selectedGym.nombre }}
+          {{ getSelectedGym() ? getSelectedGym().nombre : "" }}
         </span>
           <span v-else>
          {{ $t("myGyms.selectGym") }}
@@ -62,6 +62,7 @@ import SquarePlus from '@/components/icons/SquarePlus.vue'
 import AdminPanel from '@/components/AdminPanel.vue'
 import UserDropDownMenu from '@/components/UserDropdownMenu.vue'
 import { useUserStore } from '@/stores/user.js'
+import { getSelectedGym } from '../helpers/Helpers.js'
 
 export default {
   name: "GymHeader",
@@ -83,11 +84,12 @@ export default {
   } ,
 
   methods: {
+    getSelectedGym,
     useUserStore,
     selectGym(gymIndex) {
       this.clickOnDropdownMenu()
       useGymStore().$patch({
-        gymSelected: this.myGyms[gymIndex]
+        gymSelected: this.myGyms[gymIndex].id
       })
     },
 

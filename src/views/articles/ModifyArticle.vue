@@ -60,7 +60,7 @@ export default {
   methods: {
     modifyArticle() {
       axios.put(import.meta.env.VITE_SERVICE_BASE_URL+
-        "gimnasios/"+useGymStore().gymSelected.id+"/articulos/"+this.localModelValue.id,
+        "gimnasios/"+getSelectedGymId()+"/articulos/"+this.localModelValue.id,
         this.localModelValue)
         .then(() => {
           this.$emit("articleModified", this.localModelValue);

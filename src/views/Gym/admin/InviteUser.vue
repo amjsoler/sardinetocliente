@@ -1,12 +1,12 @@
 <template>
-  <form class="space-y-4">
+  <form class="space-y-6">
     <form-group>
       <span-label>{{ $t("inviteUser.form.email") }}</span-label>
-      <variable-input input-type="email" v-model="UserToInvite.email" />
+      <variable-input input-type="email" v-model="userToInvite.email" />
       <small-error field-name="email" />
     </form-group>
     <form-group>
-      <button-submit @button-submit="sendUserInvitation">
+      <button-submit processing-id="invite-user-submit" @button-submit="sendUserInvitation">
         {{ $t("inviteUser.form.submit") }}
       </button-submit>
     </form-group>
@@ -18,17 +18,17 @@ import SpanLabel from '@/components/forms/SpanLabel.vue'
 import ButtonSubmit from '@/components/forms/ButtonSubmit.vue'
 import SmallError from '@/components/forms/SmallError.vue'
 import VariableInput from '@/components/forms/inputs/VariableInput.vue'
-import { API } from '@/services/index.js'
+import { removeIdFromProcessing } from '@/helpers/Helpers.js'
+import { useUserStore } from '@/stores/user.js'
 
 export default {
   name: "InviteUser",
-  components: { VariableInput, SmallError, ButtonSubmit, SpanLabel, FormGroup },
 
-  emits: ["userInvited"],
+  components: { VariableInput, SmallError, ButtonSubmit, SpanLabel, FormGroup },
 
   data() {
     return {
-      UserToInvite: {
+      userToInvite: {
         email: ""
       }
     }
@@ -36,15 +36,13 @@ export default {
 
   methods: {
     sendUserInvitation() {
-        const response = API.gimnasios.inviteUserToGym(this.UserToInvite)
-        const userAux = response.data;
-        console.log(userAux)
-        userAux.pivot = {invitacion_aceptada: 0}
+      useUserStore().actionInviteUserToGym(this.userToInvite)
 
-        this.$emit("userInvited", userAux)
-        this.UserToInvite = {
-          email: ""
-        }
+      //Quito el loading  del botón y reseteo el formulario
+      removeIdFromProcessing("invite-user-submit")
+      this.userToInvite = {
+        email: ""
+      }
     }
   }
 }

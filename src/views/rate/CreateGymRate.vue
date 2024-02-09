@@ -79,7 +79,7 @@ export default {
 
   methods: {
     createRate() {
-      axios.post(import.meta.env.VITE_SERVICE_BASE_URL + "gimnasios/"+useGymStore().gymSelected.id+"/tarifas",
+      axios.post(import.meta.env.VITE_SERVICE_BASE_URL + "gimnasios/"+getSelectedGymId()+"/tarifas",
         this.newRate)
         .then(response => {
           this.createFormVisibility = false

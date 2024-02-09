@@ -65,7 +65,7 @@ export default {
   methods: {
     subscribeUserAsAdmin(){
       axios.post(import.meta.env.VITE_SERVICE_BASE_URL +
-        "gimnasios/" + useGymStore().gymSelected.id + "/suscribir-usuario",
+        "gimnasios/" + getSelectedGymId() + "/suscribir-usuario",
       this.newSubscription)
         .then(response => {
           this.$emit("newSubscriptionAsAdminCreated", response.data)

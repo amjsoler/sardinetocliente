@@ -29,7 +29,7 @@
 import axios from 'axios'
 import { useGymStore } from '@/stores/gym.js'
 import BlockSection from '@/components/containers/BlockSection.vue'
-import { getDateAndHourFromString } from '@/helpers/Helpers.js'
+import { getDateAndHourFromString, getSelectedGymId } from '@/helpers/Helpers.js'
 import CreditCard from '@/components/icons/CreditCard.vue'
 import DeliverTruck from '@/components/icons/Delivertruck.vue'
 
@@ -45,7 +45,7 @@ export default {
 
   mounted() {
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-    "gimnasios/" + useGymStore().gymSelected.id + "/articulos/compras-del-gimnasio")
+    "gimnasios/" + getSelectedGymId() + "/articulos/compras-del-gimnasio")
       .then(response => {
         this.gymBuyingHistory = response.data
       })
@@ -59,7 +59,7 @@ export default {
 
     markBuyingAsPaid(buyingId, buyingIndex){
       axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-        "gimnasios/" + useGymStore().gymSelected.id + "/articulos/pagar-compra/" + buyingId)
+        "gimnasios/" + getSelectedGymId() + "/articulos/pagar-compra/" + buyingId)
         .then(() => {
           this.gymBuyingHistory.at(buyingIndex).pagada = new Date()
         })
@@ -70,7 +70,7 @@ export default {
 
     markBuyingAsDelivered(buyingId, buyingIndex){
       axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-        "gimnasios/" + useGymStore().gymSelected.id + "/articulos/entregar-articulo/" + buyingId)
+        "gimnasios/" + getSelectedGymId() + "/articulos/entregar-articulo/" + buyingId)
         .then(() => {
           this.gymBuyingHistory.at(buyingIndex).entregada = new Date()
         })

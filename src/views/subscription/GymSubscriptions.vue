@@ -71,7 +71,7 @@ export default {
   },
   mounted() {
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-    "gimnasios/" + useGymStore().gymSelected.id + "/suscripciones")
+    "gimnasios/" + getSelectedGymId() + "/suscripciones")
       .then(response => {
         this.gymSubscriptions = response.data
       })
@@ -81,7 +81,7 @@ export default {
   methods: { getHourFromString, getDateFromString, getDateAndHourFromString,
     markSubscriptionAsPaid(subscriptionId, subscriptionIndex) {
       axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-      "gimnasios/" + useGymStore().gymSelected.id + "/suscripciones/" + subscriptionId + "/marcar-pagada")
+      "gimnasios/" + getSelectedGymId() + "/suscripciones/" + subscriptionId + "/marcar-pagada")
         .then(() => {
           this.gymSubscriptions[subscriptionIndex].pagada = new Date()
         })
@@ -90,7 +90,7 @@ export default {
 
     deleteSubscription(subscriptionId, subscriptionIndex) {
       axios.delete(import.meta.env.VITE_SERVICE_BASE_URL +
-        "gimnasios/" + useGymStore().gymSelected.id + "/suscripciones/" + subscriptionId)
+        "gimnasios/" + getSelectedGymId() + "/suscripciones/" + subscriptionId)
         .then(() => {
           this.gymSubscriptions.splice(subscriptionIndex,1)
         })

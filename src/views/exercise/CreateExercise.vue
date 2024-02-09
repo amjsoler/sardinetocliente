@@ -71,7 +71,7 @@ export default {
 
   methods: {
     createExercise() {
-      axios.post(import.meta.env.VITE_SERVICE_BASE_URL + "gimnasios/"+useGymStore().gymSelected.id+"/ejercicios",
+      axios.post(import.meta.env.VITE_SERVICE_BASE_URL + "gimnasios/"+getSelectedGymId()+"/ejercicios",
       this.newExercise)
         .then(response => {
           this.createFormVisibility = false

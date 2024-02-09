@@ -68,7 +68,7 @@ export default {
 
   mounted() {
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-    "gimnasios/" + useGymStore().gymSelected.id+"/articulos")
+    "gimnasios/" + getSelectedGymId()+"/articulos")
       .then(response => {
         this.gymArticles = response.data
       })
@@ -80,7 +80,7 @@ export default {
   methods: {
     buyArticle(articleId){
       axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-      "gimnasios/"+useGymStore().gymSelected.id+"/articulos/"+articleId+"/comprar")
+      "gimnasios/"+getSelectedGymId()+"/articulos/"+articleId+"/comprar")
         .then(() => {
 
         })

@@ -137,7 +137,7 @@ export default {
 
   mounted(){
     axios.get(import.meta.env.VITE_SERVICE_BASE_URL +
-    "gimnasios/"+useGymStore().gymSelected.id+"/registros-de-peso")
+    "gimnasios/"+getSelectedGymId()+"/registros-de-peso")
       .then(response => {
         this.weightScores = response.data
       })
@@ -145,7 +145,7 @@ export default {
   methods: {
     deleteScore(scoreId, scoreIndex){
       axios.delete(import.meta.env.VITE_SERVICE_BASE_URL +
-      'gimnasios/'+useGymStore().gymSelected.id+'/ejercicios/'+this.viewingScore.id+'/registros-de-peso/'+scoreId)
+      'gimnasios/'+getSelectedGymId()+'/ejercicios/'+this.viewingScore.id+'/registros-de-peso/'+scoreId)
         .then(() => {
           this.viewingScore.ejercicios_usuarios.splice(scoreIndex, 1)
         })

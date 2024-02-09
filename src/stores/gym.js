@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { API } from '@/services/index.js'
 import { useUserStore } from '@/stores/user.js'
+import { getSelectedGym, getSelectedGymId } from '@/helpers/Helpers.js'
 
 export const useGymStore = defineStore("gyms", {
   state: () => {
@@ -19,11 +20,7 @@ export const useGymStore = defineStore("gyms", {
 
         //Autoselect gym if only have one
         if(useGymStore().myGyms.length === 1) {
-          useGymStore().$patch({gymSelected: useGymStore().myGyms[0]})
-        }
-        //Si ya había un gimnasio seleccionado, tengo que actualizar con los datos que hayan venido
-        else if(useGymStore().gymSelected){
-          useGymStore().$patch({gymSelected: useGymStore().myGyms.filter(item => item.id === useGymStore().gymSelected.id)[0]})
+          useGymStore().$patch({gymSelected: useGymStore().myGyms[0].id})
         }
 
         return true
@@ -37,11 +34,11 @@ export const useGymStore = defineStore("gyms", {
         const response = await API.gimnasios.createGym(newGym)
 
         useGymStore().$patch((state) => {
-          //Selecciono el gym recién creado
-          state.gymSelected = response.data
-
           //Añado el gym a la lista de gimnasios y la ordeno. Después la almaceno
           state.myGyms.push(response.data)
+
+          //Selecciono el gym recién creado
+          state.gymSelected = response.data.id
 
           state.myGyms.sort((a, b) =>{
             if(a.nombre < b.nombre){
@@ -64,9 +61,9 @@ export const useGymStore = defineStore("gyms", {
 
     actionCheckIfUserHasAdminPower()
     {
-      return useGymStore().gymSelected &&
-        (useGymStore().gymSelected.permisosAdmin ||
-        useUserStore().user.id === useGymStore().gymSelected.propietario)
+      return getSelectedGymId() && getSelectedGym() &&
+        (getSelectedGym().permisosAdmin ||
+        useUserStore().user.id === getSelectedGym().propietario)
 
     }
   }

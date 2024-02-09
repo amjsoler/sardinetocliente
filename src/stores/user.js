@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { API } from '@/services/index.js'
+import { getSelectedGym } from '@/helpers/Helpers.js'
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -51,6 +52,34 @@ export const useUserStore = defineStore('user', {
         return true
       }catch(error){
         return false
+      }
+    },
+
+    async actionGetInvitedUsers() {
+      try {
+        const response = await API.gimnasios.getInvitedUsers();
+
+        getSelectedGym().invitedUsers = response.data
+
+        return true;
+      }  catch(error) {
+        return false;
+      }
+    },
+
+    async actionInviteUserToGym(userToInvite) {
+      try {
+        const response = await API.users.inviteUserToGym(userToInvite)
+
+        //Guardo la invitación en el array del gimnasio
+        const auxInvitedUser = response.data
+        auxInvitedUser.pivot = {invitacion_aceptada: false}
+        getSelectedGym().invitedUsers.unshift(auxInvitedUser)
+
+        return true;
+      }catch(error) {
+        console.log("store, user.js: error actionInviteUserToGym")
+        return false;
       }
     }
   }

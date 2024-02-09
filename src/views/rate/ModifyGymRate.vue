@@ -63,7 +63,7 @@ export default {
   methods: {
     modifyRate() {
       axios.put(import.meta.env.VITE_SERVICE_BASE_URL+
-        "gimnasios/"+useGymStore().gymSelected.id+"/tarifas/"+this.localModelValue.id,
+        "gimnasios/"+getSelectedGymId()+"/tarifas/"+this.localModelValue.id,
         this.localModelValue)
         .then(() => {
           this.$emit("rateModified", this.localModelValue);

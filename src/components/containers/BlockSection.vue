@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-lg py-2 px-4"
+  <div class="rounded-lg py-2 px-4 w-full"
        :class="{'dark:bg-container-background': !blur,
                  'backdrop-blur': blur}">
     <slot />
