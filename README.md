@@ -1,65 +1,7 @@
-# sardinetocliente
+# Sardineto
+Es un proyecto centrado en la gestión interna de gimnasios (especialmente de crossfit).
+Gestión de clases, ejercicios, pagos, clientes, etc. Los usuarios/suscritos, podrán apuntarse a las clases, gestionar su suscripción, créditos restantes, etc.
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-
-### Diseños a tener en cuenta
-
-#### z-index
-    * Dropdowns, menu superior y menu inferior  z-20
-    * Tabs laterales z-30
-    * backgrop click outside modal z-40
-    * Modales z-50
+## Tecnologías
+- Se ha desarrollado una app cliente en Vue.js [https://github.com/amjsoler/sardinetocliente](https://github.com/amjsoler/sardinetocliente)
+- Para el backend se ha expuesto un API REST desarrollada en Laravel [https://github.com/amjsoler/sardineto](https://github.com/amjsoler/sardineto)
